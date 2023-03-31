@@ -2,24 +2,10 @@
 	import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
 	import '@skeletonlabs/skeleton/styles/all.css';
 	import '../app.postcss';
-	import {
-		AppShell,
-		AppBar,
-		Drawer,
-		drawerStore,
-		storePopup,
-		popup,
-		Toast,
-		toastStore,
-		type PopupSettings,
-		type ToastSettings
-	} from '@skeletonlabs/skeleton';
-
+	import { AppShell, AppBar, Drawer, drawerStore, storePopup, Toast } from '@skeletonlabs/skeleton';
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
-	import { library, selected } from '$lib/imagesStore';
 
-	$: currentPhoto = library.getById($selected, $library);
 	import ListPhotos from '$lib/components/ListPhotos.svelte';
 	import ConfigPopup from '$lib/components/ConfigPopup.svelte';
 
@@ -61,6 +47,4 @@
 	<svelte:fragment slot="sidebarLeft"><ListPhotos /></svelte:fragment>
 
 	<slot />
-
-	<!-- <svelte:fragment slot="footer">Footer</svelte:fragment> -->
 </AppShell>

@@ -1,19 +1,26 @@
 <script lang="ts">
 	import { ListBox, ListBoxItem, FileDropzone, drawerStore } from '@skeletonlabs/skeleton';
 	import { library, selected } from '$lib/imagesStore';
+	import Icon from '@iconify/svelte';
 
 	let files: FileList;
 	let selectedValue: string = '';
+
+	$: selected.set(selectedValue);
 
 	const gotPhotos = () => {
 		library.loadPhotos(files);
 	};
 
-	$: selected.set(selectedValue);
-
 	function drawerClose(): void {
 		drawerStore.close();
 	}
+
+	const statusLogo = (status: string) => {
+		if (status === 'edited') return 'mdi:check';
+		if (status === 'exported') return 'mdi:check-all';
+		if (status === 'original') return 'mdi:camera-image';
+	};
 </script>
 
 <!-- <pre>{JSON.stringify(selectedValue, undefined, 2)}</pre> -->
@@ -44,14 +51,15 @@
 					<div class="flex gap-2 items-center">
 						<img src={item.data} alt={item.name} class="h-4 w-4 object-cover" />
 						<!-- <pre>{JSON.stringify(item, undefined, 2)}</pre> -->
-						<span class="line-clamp-1">{item.name}</span>
-						<span>{item.status}</span>
+						<span class="line-clamp-1 mr-auto">{item.name}</span>
+						<Icon icon={statusLogo(item.status)} />
 					</div>
 				</ListBoxItem>
 			{/each}
 		</ListBox>
-		<div class="footer mt-auto">
+		<div class="footer mt-auto flex gap-2 flex-wrap">
 			<button class="btn variant-ringed btn-sm" on:click={library.reset}>Clear all photos</button>
+			<button class="btn variant-filled-primary" on:click={library.reset}>Export all edited</button>
 		</div>
 	{:else}
 		<p>Aucune photo n'a été chargée.</p>

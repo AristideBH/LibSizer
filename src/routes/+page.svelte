@@ -1,12 +1,19 @@
 <script lang="ts">
 	import { library, selected } from '$lib/imagesStore';
 	import { sizes, getUniqueRatios } from '$lib/settingsStore';
+	import { toastStore } from '@skeletonlabs/skeleton';
+	import type { ToastSettings } from '@skeletonlabs/skeleton';
 
 	$: currentPhoto = library.getById($selected, $library);
 	const ratioList = getUniqueRatios(sizes);
 
+	const tEdit: ToastSettings = {
+		message: 'Photos mis à jour avec succès',
+		background: 'variant-filled-surface'
+	};
 	const save = () => {
 		library.updatePhotoById($selected, { test: '1', position: 'yo' });
+		toastStore.trigger(tEdit);
 	};
 </script>
 
@@ -26,7 +33,7 @@
 </div>
 
 {#if currentPhoto !== undefined && ratioList}
-	<pre>{JSON.stringify($library, undefined, 2)}</pre>
+	<!-- <pre>{JSON.stringify($library, undefined, 2)}</pre> -->
 	<div class="flex flex-wrap gap-4 p-4">
 		{#each ratioList as ratio}
 			<div class="card w-full p-4 flex flex-nowrap gap-8">
@@ -37,7 +44,7 @@
 							<span>{size.name} - {size.width} × {size.height}</span>
 						{/each}
 					</code>
-					<button class="btn variant-filled-primary w-fit mt-auto">Export </button>
+					<!-- <button class="btn variant-filled-primary w-fit mt-auto">Export </button> -->
 				</div>
 
 				<div class="grid customGrid grid-flow-row-dense p-4 w-full">
@@ -67,7 +74,7 @@
 						style:--src={currentPhoto.data}
 						style:--aspect-r={ratio.ratio}
 					>
-						yo
+						[...photo...]
 					</div>
 				</div>
 			</div>
