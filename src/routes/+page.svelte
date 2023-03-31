@@ -70,7 +70,7 @@
 					</label>
 
 					<div
-						class="imgWrapper object-cover w-full border border-surface-400 col-start-1 col-end-2 row-start-2 row-end-3"
+						class="imgWrapper object-cover w-full border border-surface-400 col-start-1 col-end-2 row-start-2 row-end-3 text-center"
 						style:--src={currentPhoto.data}
 						style:--aspect-r={ratio.ratio}
 					>

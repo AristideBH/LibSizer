@@ -9,11 +9,10 @@
 	};
 </script>
 
-<button class="btn variant-filled" use:popup={popupSettings}>
+<button class="btn variant-filled btn-icon" use:popup={popupSettings}>
 	<span>
 		<Icon icon="mdi:cog" />
 	</span>
-	<span>Paramètres</span>
 </button>
 <div class="card p-4 min-w-[26em] z-20 shadow" data-popup="settingPopup">
 	<div class="card-header"><strong>Tailles :</strong></div>

@@ -2,6 +2,7 @@
 	import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
 	import '@skeletonlabs/skeleton/styles/all.css';
 	import '../app.postcss';
+	import Icon from '@iconify/svelte';
 	import { AppShell, AppBar, Drawer, drawerStore, storePopup, Toast } from '@skeletonlabs/skeleton';
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
@@ -33,10 +34,12 @@
 		<AppBar>
 			<svelte:fragment slot="lead">
 				<div class="flex items-center">
-					<button class="lg:hidden btn bg-primary-500 mr-4" on:click={drawerOpen}> Library </button>
+					<button class="lg:hidden btn bg-primary-500 mr-4" on:click={drawerOpen}>
+						<span><Icon icon="ic:baseline-photo-library" /></span> <span>Library</span>
+					</button>
 					<a href="/"><strong class="text-xl uppercase">Lib Resizer</strong></a>
+					<!-- <a href="/editor">Editor</a> -->
 				</div>
-				<a href="/editor">Editor</a>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				<ConfigPopup />
