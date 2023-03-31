@@ -1,36 +1,58 @@
 <script lang="ts">
-	import { ListBox, ListBoxItem } from '@skeletonlabs/skeleton';
+	import { ListBox, ListBoxItem, FileDropzone, drawerStore } from '@skeletonlabs/skeleton';
+	import { library, selected } from '$lib/imagesStore';
 
-	import { drawerStore } from '@skeletonlabs/skeleton';
+	let files: FileList;
+	let selectedValue: string = '';
+
+	const gotPhotos = () => {
+		library.loadPhotos(files);
+	};
+
+	$: selected.set(selectedValue);
+
 	function drawerClose(): void {
 		drawerStore.close();
 	}
-	let images = [];
-	let valueSingle: string = '';
-
-	if (typeof localStorage !== 'undefined') {
-		images = JSON.parse(localStorage.getItem('images') || '[]');
-	}
 </script>
 
-<header class="flex p-4 gap-4 items-center justify-between sticky top-0 bg-surface-100">
-	<h2>Photos</h2>
-	<button class="btn bg-primary-500" on:click={drawerClose}>Close</button>
-</header>
-<hr />
-<div class="p-4">
-	{#if images.length}
+<!-- <pre>{JSON.stringify(selectedValue, undefined, 2)}</pre> -->
+
+<div class="p-4 flex flex-col gap-4 h-full">
+	<FileDropzone
+		on:change={gotPhotos}
+		bind:files
+		name="files"
+		multiple
+		accept="image/png, image/gif, image/jpeg"
+	>
+		<svelte:fragment slot="message"
+			><strong>Upload a photo</strong> <span> or drag and drop</span></svelte:fragment
+		>
+		<svelte:fragment slot="meta">(PNG and JPG allowed)</svelte:fragment>
+	</FileDropzone>
+
+	{#if $library.length}
 		<ListBox>
-			{#each images as item, i}
-				<ListBoxItem bind:group={valueSingle} name="medium" value={item.title}>
+			{#each $library as item, i}
+				<ListBoxItem
+					bind:group={selectedValue}
+					name="medium"
+					value={item.id}
+					on:click={drawerClose}
+				>
 					<div class="flex gap-2 items-center">
-						<img src={item.image} alt={item.title} class="h-4 w-4 object-cover" />
+						<img src={item.data} alt={item.name} class="h-4 w-4 object-cover" />
 						<!-- <pre>{JSON.stringify(item, undefined, 2)}</pre> -->
-						<p>{item.title}</p>
+						<span class="line-clamp-1">{item.name}</span>
+						<span>{item.status}</span>
 					</div>
 				</ListBoxItem>
 			{/each}
 		</ListBox>
+		<div class="footer mt-auto">
+			<button class="btn variant-ringed btn-sm" on:click={library.reset}>Clear all photos</button>
+		</div>
 	{:else}
 		<p>Aucune photo n'a été chargée.</p>
 	{/if}

@@ -1,45 +1,87 @@
-<!-- src/routes/index.svelte -->
-
 <script lang="ts">
-	import { Toast, toastStore } from '@skeletonlabs/skeleton';
-	import type { ToastSettings } from '@skeletonlabs/skeleton';
-	import { redirect } from '@sveltejs/kit';
+	import { library, selected } from '$lib/imagesStore';
+	import { sizes, getUniqueRatios } from '$lib/settingsStore';
 
-	const t: ToastSettings = {
-		message: 'Image chargée avec succès',
-		autohide: true
+	$: currentPhoto = library.getById($selected, $library);
+	const ratioList = getUniqueRatios(sizes);
+
+	const save = () => {
+		library.updatePhotoById($selected, { test: '1', position: 'yo' });
 	};
-
-	async function handleSubmit(event) {
-		const files = event.target.elements.file.files;
-		let images = [];
-
-		if (typeof localStorage !== 'undefined') {
-			images = JSON.parse(localStorage.getItem('images') || '[]');
-		}
-
-		for (let i = 0; i < files.length; i++) {
-			const reader = new FileReader();
-			reader.addEventListener('load', () => {
-				images.push({ title: files[i].name, image: reader.result });
-				if (typeof localStorage !== 'undefined') {
-					localStorage.setItem('images', JSON.stringify(images));
-				}
-				toastStore.trigger(t);
-				// console.log(`Image ${i + 1} added to LocalStorage`);
-			});
-			reader.readAsDataURL(files[i]);
-		}
-		// throw redirect(302, '/editor');
-	}
 </script>
 
-<form on:submit|preventDefault={handleSubmit} class="card flex p-4 items-end justify-between">
-	<label for="file" class="flex flex-col">
-		Chargez un ou plusieurs fichier(s):
-		<input type="file" name="file" accept="image/*" multiple class="pt-2" /></label
-	>
-	<button type="submit" class="btn variant-filled-primary">Submit</button>
-</form>
+<!-- 
+<pre>{JSON.stringify(currentPhoto, undefined, 2)}</pre> -->
 
-<Toast />
+<div
+	class="p-4 bg-surface-50 border-b border-surface-300 gap-2 flex items-center justify-between sticky top-0"
+>
+	{#if currentPhoto !== undefined}
+		<span class="mr-auto">Editing [{currentPhoto.name}]</span>
+		<button class="btn variant-outline-primary" on:click={save}>Save</button>
+		<button class="btn variant-filled-primary">Export all</button>
+	{:else}
+		Please upload and select a photo
+	{/if}
+</div>
+
+{#if currentPhoto !== undefined && ratioList}
+	<pre>{JSON.stringify($library, undefined, 2)}</pre>
+	<div class="flex flex-wrap gap-4 p-4">
+		{#each ratioList as ratio}
+			<div class="card w-full p-4 flex flex-nowrap gap-8">
+				<div class="flex flex-col w-full gap-4 h-full">
+					<h3><strong>Ratio</strong> - {ratio.ratio}</h3>
+					<code class="flex flex-col gap-1 w-fit">
+						{#each ratio.sizes as size}
+							<span>{size.name} - {size.width} × {size.height}</span>
+						{/each}
+					</code>
+					<button class="btn variant-filled-primary w-fit mt-auto">Export </button>
+				</div>
+
+				<div class="grid customGrid grid-flow-row-dense p-4 w-full">
+					<label
+						for="ratio-{ratio.ratio}-x"
+						class="flex flex-col items-center col-start-1 col-end-2 pb-2"
+					>
+						<span>X</span>
+						<input type="range" name="ratio-{ratio.ratio}-x" id="ratio-{ratio.ratio}-x" />
+					</label>
+					<label
+						for="ratio-{ratio.ratio}-y"
+						class="flex flex-col items-center col-start-2 col-end-3 row-start-2 row-end-3 justify-center w-[1.5rem] pl-4"
+					>
+						<span class="">Y</span>
+						<input
+							type="range"
+							name="ratio-{ratio.ratio}-y"
+							id="ratio-{ratio.ratio}-y"
+							class="h-full w-fit"
+							style="-webkit-appearance: slider-vertical"
+						/>
+					</label>
+
+					<div
+						class="imgWrapper object-cover w-full border border-surface-400 col-start-1 col-end-2 row-start-2 row-end-3"
+						style:--src={currentPhoto.data}
+						style:--aspect-r={ratio.ratio}
+					>
+						yo
+					</div>
+				</div>
+			</div>
+		{/each}
+	</div>
+{/if}
+
+<style>
+	.imgWrapper {
+		aspect-ratio: var(--aspect-r);
+	}
+
+	.customGrid {
+		grid-template-rows: 1fr auto;
+		grid-template-columns: 1fr auto;
+	}
+</style>

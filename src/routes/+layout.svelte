@@ -2,46 +2,65 @@
 	import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
 	import '@skeletonlabs/skeleton/styles/all.css';
 	import '../app.postcss';
-	import { AppShell, AppBar, Drawer, drawerStore } from '@skeletonlabs/skeleton';
+	import {
+		AppShell,
+		AppBar,
+		Drawer,
+		drawerStore,
+		storePopup,
+		popup,
+		Toast,
+		toastStore,
+		type PopupSettings,
+		type ToastSettings
+	} from '@skeletonlabs/skeleton';
+
+	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
+	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
+	import { library, selected } from '$lib/imagesStore';
+
+	$: currentPhoto = library.getById($selected, $library);
 	import ListPhotos from '$lib/components/ListPhotos.svelte';
-	import { clearLocalStorage } from '$lib/images';
+	import ConfigPopup from '$lib/components/ConfigPopup.svelte';
+
 	function drawerOpen(): void {
 		drawerStore.open({});
 	}
-	function drawerClose(): void {
-		drawerStore.close();
-	}
 </script>
 
+<svelte:head>
+	<title>Lib Resizer</title>
+</svelte:head>
+
+<Toast />
 <Drawer>
 	<ListPhotos />
 </Drawer>
 
 <AppShell
-	slotFooter="p-4"
-	slotHeader="border-b border-surface-200"
-	slotPageHeader="sticky top-0 z-10 p-4 bg-surface-100 "
-	slotSidebarLeft="bg-surface-500/5 w-0 lg:w-64"
+	regionPage="relative"
+	slotHeader="border-b border-surface-300 bg-surface-50 "
+	slotPageHeader="p-4 bg-surface-50 border-b border-surface-300  gap-2 flex items-center justify-between sticky top-0 "
+	slotSidebarLeft="bg-surface-500/5 w-0 lg:w-64 border-r border-surface-300 resize-x lg:max-w-xl lg:min-w-[16rem] "
 >
 	<svelte:fragment slot="header">
 		<AppBar>
 			<svelte:fragment slot="lead">
 				<div class="flex items-center">
-					<button class="lg:hidden btn bg-primary-500 mr-4" on:click={drawerOpen}> Photos </button>
-					<strong class="text-xl uppercase">Image Resizer</strong>
+					<button class="lg:hidden btn bg-primary-500 mr-4" on:click={drawerOpen}> Library </button>
+					<a href="/"><strong class="text-xl uppercase">Lib Resizer</strong></a>
 				</div>
+				<a href="/editor">Editor</a>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
-				<button class="btn variant-ringed" on:click={clearLocalStorage}>Clear session</button>
+				<ConfigPopup />
 			</svelte:fragment>
 		</AppBar>
 	</svelte:fragment>
+
 	<svelte:fragment slot="sidebarLeft"><ListPhotos /></svelte:fragment>
-	<svelte:fragment slot="pageHeader">Page Header</svelte:fragment>
-	<!-- Router Slot -->
-	<div class="p-4">
-		<slot />
-	</div>
-	<!-- ---- / ---- -->
-	<svelte:fragment slot="footer">Footer</svelte:fragment>
+
+	<slot />
+
+	<!-- <svelte:fragment slot="footer">Footer</svelte:fragment> -->
 </AppShell>
