@@ -4,7 +4,6 @@ import { FileDropzone } from '@skeletonlabs/skeleton';
 import { toastStore } from '@skeletonlabs/skeleton';
 import type { ToastSettings } from '@skeletonlabs/skeleton';
 
-
 const tAdd: ToastSettings = {
     message: 'Ajouté(s) avec succès',
     background: "variant-filled-surface",
