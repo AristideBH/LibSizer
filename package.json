@@ -39,6 +39,7 @@
 	"type": "module",
 	"dependencies": {
 		"@floating-ui/dom": "^1.2.5",
+		"cropperjs": "2.0.0-beta.2",
 		"idb": "^7.1.1",
 		"uuid": "^9.0.0"
 	}

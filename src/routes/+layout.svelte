@@ -7,6 +7,7 @@
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 
+	import Nav from '$lib/components/Nav.svelte';
 	import ListPhotos from '$lib/components/ListPhotos.svelte';
 	import ConfigPopup from '$lib/components/ConfigPopup.svelte';
 
@@ -33,12 +34,12 @@
 	<svelte:fragment slot="header">
 		<AppBar>
 			<svelte:fragment slot="lead">
-				<div class="flex items-center">
+				<div class="flex items-center gap-6">
 					<button class="lg:hidden btn bg-primary-500 mr-4" on:click={drawerOpen}>
 						<span><Icon icon="ic:baseline-photo-library" /></span> <span>Library</span>
 					</button>
 					<a href="/"><strong class="text-xl uppercase">Lib Resizer</strong></a>
-					<!-- <a href="/editor">Editor</a> -->
+					<Nav />
 				</div>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
