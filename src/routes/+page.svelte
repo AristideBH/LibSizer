@@ -1,16 +1,14 @@
 <script lang="ts">
 	import { library, selected } from '$lib/imagesStore';
 	import { sizes, getUniqueRatios } from '$lib/settingsStore';
+	import type { Size } from '$lib/settingsStore';
 	import { toastStore } from '@skeletonlabs/skeleton';
 	import type { ToastSettings } from '@skeletonlabs/skeleton';
+	import { tEdit } from '$lib/strings';
 
 	$: currentPhoto = library.getById($selected, $library);
 	const ratioList = getUniqueRatios(sizes);
 
-	const tEdit: ToastSettings = {
-		message: 'Photos mis à jour avec succès',
-		background: 'variant-filled-surface'
-	};
 	const save = () => {
 		library.updatePhotoById($selected, { test: '1', position: 'yo' });
 		toastStore.trigger(tEdit);

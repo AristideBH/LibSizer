@@ -1,5 +1,5 @@
 
-interface Size {
+export interface Size {
     id: number;
     name: string;
     width?: number;
@@ -15,7 +15,13 @@ export const sizes: Array<Size> = [
     { id: 6, name: "Bannière Fil", width: 195, height: 195 }
 ]
 
-export function getUniqueRatios(sizes: Array<Size>): Array<{ ratio: number | string, sizes: Array<{ id: number, name: string }> }> {
+export function getUniqueRatios(sizes: Array<Size>): Array<{
+    ratio: number | string, sizes: Array<{
+        height: number;
+        width: number;
+        id: number, name: string
+    }>
+}> {
     const ratioMap = new Map<number | string, Array<{ id: number, name: string, width: number | undefined, height: number | undefined }>>();
     for (let i = 0; i < sizes.length; i++) {
         const { id, width, height, name } = sizes[i];

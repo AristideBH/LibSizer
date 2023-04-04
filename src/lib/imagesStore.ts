@@ -1,17 +1,8 @@
 import { writable } from 'svelte/store';
 import { v4 as uuidv4 } from 'uuid';
-import { FileDropzone } from '@skeletonlabs/skeleton';
+import type { FileDropzone } from '@skeletonlabs/skeleton';
 import { toastStore } from '@skeletonlabs/skeleton';
-import type { ToastSettings } from '@skeletonlabs/skeleton';
-
-const tAdd: ToastSettings = {
-    message: 'Ajouté(s) avec succès',
-    background: "variant-filled-surface",
-};
-const tReset: ToastSettings = {
-    message: 'La librairie a bien été supprimée.',
-    background: "variant-filled-surface",
-};
+import { tAdd, tReset } from '$lib/strings';
 
 function CreateImageStore() {
     const { subscribe, set, update } = writable([]);
@@ -45,7 +36,7 @@ function CreateImageStore() {
         },
         getById: (id: string, store: any) => {
             const files = store; // get the current state of the store
-            return files.find(file => file.id === id); // find the file with matching id
+            return files.find((file: { id: string; }) => file.id === id); // find the file with matching id
         },
         updatePhotoById: (id: string, meta: object) => {
             update(n => {
@@ -73,7 +64,7 @@ export const library = CreateImageStore();
 
 
 function CreateSelectedStore() {
-    const { subscribe, set, update } = writable("");
+    const { subscribe, set } = writable("");
 
     return {
         subscribe,
