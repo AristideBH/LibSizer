@@ -2,18 +2,15 @@
 	import { onMount } from 'svelte';
 	import { afterUpdate } from 'svelte';
 	import { template } from '$lib/cropperSettings';
-	import type Cropper from 'cropperjs';
+	import Cropper from 'cropperjs';
 	import { toastStore } from '@skeletonlabs/skeleton';
 	import { tErr } from '$lib/strings';
 	import { library, selected } from '$lib/imagesStore';
-	import { init } from 'svelte/internal';
 
 	$: currentPhoto = library.getById($selected, $library);
 	$: currentPhoto, changeCropper();
 
-	$: cropper;
-
-	let imgRef: string | HTMLImageElement | HTMLCanvasElement,
+	let imgRef: HTMLImageElement | HTMLCanvasElement,
 		cropper: Cropper | null,
 		canvasEl: HTMLCanvasElement,
 		outputParent: HTMLDivElement;
@@ -22,9 +19,9 @@
 
 	const resetCropper = () => cropper && (cropper = null);
 	const initCropper = async () => {
-		const Cropper = await import('cropperjs');
-		cropper = new Cropper.default(imgRef, {
-			template: template(ratio)
+		cropper = new Cropper(imgRef, {
+			aspectRatio: ratio,
+			viewMode: 3
 		});
 	};
 	const changeCropper = () => {

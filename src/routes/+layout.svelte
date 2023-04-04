@@ -2,6 +2,7 @@
 	import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
 	import '@skeletonlabs/skeleton/styles/all.css';
 	import '../app.postcss';
+	import 'cropperjs/dist/cropper.css';
 	import Icon from '@iconify/svelte';
 	import { AppShell, AppBar, Drawer, drawerStore, storePopup, Toast } from '@skeletonlabs/skeleton';
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';

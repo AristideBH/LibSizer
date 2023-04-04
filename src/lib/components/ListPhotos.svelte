@@ -34,7 +34,7 @@
 		accept="image/png, image/gif, image/jpeg"
 	>
 		<svelte:fragment slot="message">
-			<strong>Upload a photo</strong>
+			<strong>Upload one or multiple photos</strong>
 			<span> or drag and drop</span>
 		</svelte:fragment>
 		<svelte:fragment slot="meta">(PNG and JPG allowed)</svelte:fragment>
@@ -59,7 +59,7 @@
 		</ListBox>
 		<div class="footer mt-auto flex gap-2 flex-wrap">
 			<button class="btn variant-ringed btn-sm" on:click={library.reset}>Clear all photos</button>
-			<button class="btn variant-filled-primary" on:click={library.reset}>Export all edited</button>
+			<button class="btn variant-filled-primary">Export all edited</button>
 		</div>
 	{:else}
 		<p>Aucune photo n'est chargée.</p>

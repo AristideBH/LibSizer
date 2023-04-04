@@ -6,15 +6,18 @@ specifiers:
   '@skeletonlabs/skeleton': ^1.1.0
   '@sveltejs/adapter-auto': ^2.0.0
   '@sveltejs/kit': ^1.15.0
+  '@types/file-saver': ^2.0.5
   '@types/uuid': ^9.0.1
   '@typescript-eslint/eslint-plugin': ^5.57.1
   '@typescript-eslint/parser': ^5.57.1
   autoprefixer: ^10.4.14
-  cropperjs: 2.0.0-beta.2
+  cropperjs: ^1.5.13
   eslint: ^8.37.0
   eslint-config-prettier: ^8.8.0
   eslint-plugin-svelte3: ^4.0.0
+  file-saver: ^2.0.5
   idb: ^7.1.1
+  jszip: ^3.10.1
   postcss: ^8.4.21
   postcss-load-config: ^4.0.1
   prettier: ^2.8.7
@@ -31,8 +34,10 @@ specifiers:
 
 dependencies:
   '@floating-ui/dom': 1.2.5
-  cropperjs: 2.0.0-beta.2
+  cropperjs: 1.5.13
+  file-saver: 2.0.5
   idb: 7.1.1
+  jszip: 3.10.1
   uuid: 9.0.0
 
 devDependencies:
@@ -40,6 +45,7 @@ devDependencies:
   '@skeletonlabs/skeleton': 1.1.0
   '@sveltejs/adapter-auto': 2.0.0_@sveltejs+kit@1.15.0
   '@sveltejs/kit': 1.15.0_svelte@3.58.0+vite@4.2.1
+  '@types/file-saver': 2.0.5
   '@types/uuid': 9.0.1
   '@typescript-eslint/eslint-plugin': 5.57.1_jwd5v5vphzanfmajybkjq25ld4
   '@typescript-eslint/parser': 5.57.1_vwh6htx42aidho2qgfca5u5rwm
@@ -1287,94 +1293,6 @@ packages:
       to-fast-properties: 2.0.0
     dev: true
 
-  /@cropper/element-canvas/2.0.0-beta.2:
-    resolution: {integrity: sha512-LZcnMwv7M3ZxUKX9YrYGxqbf8YsYfeIUFREaB/IkKsm7E7ASaDrrjdc996QYMjdjUNcWdJjxhsoucPNEvl/DXA==}
-    dependencies:
-      '@cropper/element': 2.0.0-beta.2
-      '@cropper/utils': 2.0.0-beta.2
-    dev: false
-
-  /@cropper/element-crosshair/2.0.0-beta.2:
-    resolution: {integrity: sha512-kBxZ2zZ7uR7XlQcnUbudq7562XwtTOqbGNYg5VWem/ukcAAKwYmPlapNlv7n228DSUGEz5FxKW8GSwLucJlQ0Q==}
-    dependencies:
-      '@cropper/element': 2.0.0-beta.2
-      '@cropper/utils': 2.0.0-beta.2
-    dev: false
-
-  /@cropper/element-grid/2.0.0-beta.2:
-    resolution: {integrity: sha512-rWMOjlj+eq9L2oxAthNYdGxbV3sYyV+tra6VAuooZl+RbdQZ9XCnG0Pitb/RfgPZb860ia0q8biE5zEq4Uc8fA==}
-    dependencies:
-      '@cropper/element': 2.0.0-beta.2
-      '@cropper/utils': 2.0.0-beta.2
-    dev: false
-
-  /@cropper/element-handle/2.0.0-beta.2:
-    resolution: {integrity: sha512-IAFyqldnB57ZGzvf3VuE7Y9UAaq9IMmun15v17cAWX1q4ZCVqdFrugAWpRF+V5WgHBL2doxHUOQlfy7LznzRmg==}
-    dependencies:
-      '@cropper/element': 2.0.0-beta.2
-      '@cropper/utils': 2.0.0-beta.2
-    dev: false
-
-  /@cropper/element-image/2.0.0-beta.2:
-    resolution: {integrity: sha512-FgYb+GfcxdewH6VKgw6Ltws8fw3TSP8d0HMH/WZubBC2w/NNAvp92EonwgjDoTLEFFJKbj5P2aKTFY0aO70R0Q==}
-    dependencies:
-      '@cropper/element': 2.0.0-beta.2
-      '@cropper/element-canvas': 2.0.0-beta.2
-      '@cropper/utils': 2.0.0-beta.2
-    dev: false
-
-  /@cropper/element-selection/2.0.0-beta.2:
-    resolution: {integrity: sha512-O/fxpJe/WB5H+mELSVfp4tOAAa7yMVa+wn35DCRxaDPb/1Um55E7OT1G3puAL9Elm7NFA/CCMYuHohl9emE25A==}
-    dependencies:
-      '@cropper/element': 2.0.0-beta.2
-      '@cropper/element-canvas': 2.0.0-beta.2
-      '@cropper/element-image': 2.0.0-beta.2
-      '@cropper/utils': 2.0.0-beta.2
-    dev: false
-
-  /@cropper/element-shade/2.0.0-beta.2:
-    resolution: {integrity: sha512-aY5RP2ygteq51ZDU3+rAj+f+0hSgEf+vRAdJ1YO2bJ1n25TpOaz2klO5COdHxn3unLVjYK97khIZGs7ClbV0rQ==}
-    dependencies:
-      '@cropper/element': 2.0.0-beta.2
-      '@cropper/element-canvas': 2.0.0-beta.2
-      '@cropper/element-selection': 2.0.0-beta.2
-      '@cropper/utils': 2.0.0-beta.2
-    dev: false
-
-  /@cropper/element-viewer/2.0.0-beta.2:
-    resolution: {integrity: sha512-/2BhLFr2Ti5LnRvcIlLlR3NDSF3x9w9BvYukFbnCxoTLIbGvwM02YQV2Qx+al8C0mBoW0ab6uF5ykl6W8i9WkQ==}
-    dependencies:
-      '@cropper/element': 2.0.0-beta.2
-      '@cropper/element-canvas': 2.0.0-beta.2
-      '@cropper/element-image': 2.0.0-beta.2
-      '@cropper/element-selection': 2.0.0-beta.2
-      '@cropper/utils': 2.0.0-beta.2
-    dev: false
-
-  /@cropper/element/2.0.0-beta.2:
-    resolution: {integrity: sha512-i3wfelk5d4MLNgAcQpRa/jOaxWAcDLRAUkiHmU6CMl7xvOAD/4TFQGB3qSpzgx3NK4hUDLn80/gp7gM2nvrBWg==}
-    dependencies:
-      '@cropper/utils': 2.0.0-beta.2
-    dev: false
-
-  /@cropper/elements/2.0.0-beta.2:
-    resolution: {integrity: sha512-l08CmeOvLJ8XLJ95OQ+kSHSbf7+pHcsu3pvQYjustbrUj0H1vzBiWT8VygPjkCUMoVIfsBpYmBNpWVGJvjoy2Q==}
-    dependencies:
-      '@cropper/element': 2.0.0-beta.2
-      '@cropper/element-canvas': 2.0.0-beta.2
-      '@cropper/element-crosshair': 2.0.0-beta.2
-      '@cropper/element-grid': 2.0.0-beta.2
-      '@cropper/element-handle': 2.0.0-beta.2
-      '@cropper/element-image': 2.0.0-beta.2
-      '@cropper/element-selection': 2.0.0-beta.2
-      '@cropper/element-shade': 2.0.0-beta.2
-      '@cropper/element-viewer': 2.0.0-beta.2
-    dev: false
-
-  /@cropper/utils/2.0.0-beta.2:
-    resolution: {integrity: sha512-RJu5IWzH6vcygwLsx9KEqzwjnEqApPkSFViMzxCRbe0IuAXt2ZlSUmYKgLFZY+YJIdaZ+/P7PwiUcZ7GYH3Msw==}
-    dev: false
-
   /@esbuild/android-arm/0.17.15:
     resolution: {integrity: sha512-sRSOVlLawAktpMvDyJIkdLI/c/kdRTOqo8t6ImVxg8yT7LQDUYV5Rp2FKeEosLr6ZCja9UjYAzyRSxGteSJPYg==}
     engines: {node: '>=12'}
@@ -1786,6 +1704,10 @@ packages:
 
   /@types/cookie/0.5.1:
     resolution: {integrity: sha512-COUnqfB2+ckwXXSFInsFdOAWQzCCx+a5hq2ruyj+Vjund94RJQd4LG2u9hnvJrTgunKAaax7ancBYlDrNYxA0g==}
+    dev: true
+
+  /@types/file-saver/2.0.5:
+    resolution: {integrity: sha512-zv9kNf3keYegP5oThGLaPk8E081DFDuwfqjtiTzm6PoxChdJ1raSuADf2YGCVIyrSynLrgc8JWv296s7Q7pQSQ==}
     dev: true
 
   /@types/json-schema/7.0.11:
@@ -2201,11 +2123,12 @@ packages:
       browserslist: 4.21.5
     dev: true
 
-  /cropperjs/2.0.0-beta.2:
-    resolution: {integrity: sha512-jDRSODDGKmi9vp3p/+WXkxMqV/AE+GpSld1U3cHZDRdLy9UykRzurSe8k1dR0TExn45ygCMrv31qkg+K3EeXXw==}
-    dependencies:
-      '@cropper/elements': 2.0.0-beta.2
-      '@cropper/utils': 2.0.0-beta.2
+  /core-util-is/1.0.3:
+    resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
+    dev: false
+
+  /cropperjs/1.5.13:
+    resolution: {integrity: sha512-by7jKAo73y5/Do0K6sxdTKHgndY0NMjG2bEdgeJxycbcmHuCiMXqw8sxy5C5Y5WTOTcDGmbT7Sr5CgKOXR06OA==}
     dev: false
 
   /cross-spawn/7.0.3:
@@ -2495,6 +2418,10 @@ packages:
       flat-cache: 3.0.4
     dev: true
 
+  /file-saver/2.0.5:
+    resolution: {integrity: sha512-P9bmyZ3h/PRG+Nzga+rbdI4OEpNDzAVyy74uVO9ATgzLK6VtAsYybF/+TOCvrc0MO793d6+42lLyZTw7/ArVzA==}
+    dev: false
+
   /fill-range/7.0.1:
     resolution: {integrity: sha512-qOo9F+dMUmC2Lcb4BbVvnKJxTPjCm+RRpe4gDuGrzkL7mEVl/djYSu2OdQ2Pa302N4oqkSg9ir6jaLWJ2USVpQ==}
     engines: {node: '>=8'}
@@ -2653,6 +2580,10 @@ packages:
     engines: {node: '>= 4'}
     dev: true
 
+  /immediate/3.0.6:
+    resolution: {integrity: sha512-XXOFtyqDjNDAQxVfYxuF7g9Il/IbWmmlQg2MYKOH8ExIT1qg6xc4zyS3HaEEATgs1btfzxq15ciUiY7gjSXRGQ==}
+    dev: false
+
   /import-fresh/3.3.0:
     resolution: {integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==}
     engines: {node: '>=6'}
@@ -2679,7 +2610,6 @@ packages:
 
   /inherits/2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
-    dev: true
 
   /is-binary-path/2.1.0:
     resolution: {integrity: sha512-ZMERYes6pDydyuGidse7OsHxtbI7WVeUEozgR/g7rd0xUimYNlvZRE/K2MgZTjWy725IfelLeVcEM97mmtRGXw==}
@@ -2715,6 +2645,10 @@ packages:
     resolution: {integrity: sha512-Fd4gABb+ycGAmKou8eMftCupSir5lRxqf4aD/vd0cD2qc4HL07OjCeuHMr8Ro4CoMaeCKDB0/ECBOVWjTwUvPQ==}
     engines: {node: '>=8'}
     dev: true
+
+  /isarray/1.0.0:
+    resolution: {integrity: sha512-VLghIWNM6ELQzo7zwmcg0NmTVyWKYjvIeM83yjp0wRDTmUnrM678fQbcKBo6n2CJEF0szoG//ytg+TKla89ALQ==}
+    dev: false
 
   /isexe/2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
@@ -2765,6 +2699,15 @@ packages:
     hasBin: true
     dev: true
 
+  /jszip/3.10.1:
+    resolution: {integrity: sha512-xXDvecyTpGLrqFrvkrUSoxxfJI5AH7U8zxxtVclpsUtMCq4JQ290LY8AW5c7Ggnr/Y/oK+bQMbqK2qmtk3pN4g==}
+    dependencies:
+      lie: 3.3.0
+      pako: 1.0.11
+      readable-stream: 2.3.8
+      setimmediate: 1.0.5
+    dev: false
+
   /kleur/4.1.5:
     resolution: {integrity: sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==}
     engines: {node: '>=6'}
@@ -2777,6 +2720,12 @@ packages:
       prelude-ls: 1.2.1
       type-check: 0.4.0
     dev: true
+
+  /lie/3.3.0:
+    resolution: {integrity: sha512-UaiMJzeWRlEujzAuw5LokY1L5ecNQYZKfmyZ9L7wDHb/p5etKaxXhohBcrw0EYby+G/NA52vRSN4N39dxHAIwQ==}
+    dependencies:
+      immediate: 3.0.6
+    dev: false
 
   /lilconfig/2.1.0:
     resolution: {integrity: sha512-utWOt/GHzuUxnLKxB6dk81RoOeoNeHgbrXiuGk4yyF5qlRz+iIVWu56E2fqGHFrXz0QNUhLB/8nKqvRH66JKGQ==}
@@ -2977,6 +2926,10 @@ packages:
       p-limit: 3.1.0
     dev: true
 
+  /pako/1.0.11:
+    resolution: {integrity: sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==}
+    dev: false
+
   /parent-module/1.0.1:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
     engines: {node: '>=6'}
@@ -3140,6 +3093,10 @@ packages:
     hasBin: true
     dev: true
 
+  /process-nextick-args/2.0.1:
+    resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
+    dev: false
+
   /punycode/2.3.0:
     resolution: {integrity: sha512-rRV+zQD8tVFys26lAGR9WUuS4iUAngJScM+ZRSKtvl5tKeZ2t5bvdNFdNHBW9FWR4guGHlgmsZ1G7BSm2wTbuA==}
     engines: {node: '>=6'}
@@ -3159,6 +3116,18 @@ packages:
     dependencies:
       pify: 2.3.0
     dev: true
+
+  /readable-stream/2.3.8:
+    resolution: {integrity: sha512-8p0AUk4XODgIewSi0l8Epjs+EVnWiK7NoDIEGU0HhE7+ZyY8D1IMY7odu5lRrFXGg71L15KG8QrPmum45RTtdA==}
+    dependencies:
+      core-util-is: 1.0.3
+      inherits: 2.0.4
+      isarray: 1.0.0
+      process-nextick-args: 2.0.1
+      safe-buffer: 5.1.2
+      string_decoder: 1.1.1
+      util-deprecate: 1.0.2
+    dev: false
 
   /readdirp/3.6.0:
     resolution: {integrity: sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA==}
@@ -3261,6 +3230,10 @@ packages:
       mri: 1.2.0
     dev: true
 
+  /safe-buffer/5.1.2:
+    resolution: {integrity: sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==}
+    dev: false
+
   /sander/0.5.1:
     resolution: {integrity: sha512-3lVqBir7WuKDHGrKRDn/1Ye3kwpXaDOMsiRP1wd6wpZW56gJhsbp5RqQpA6JG/P+pkXizygnr1dKR8vzWaVsfA==}
     dependencies:
@@ -3291,6 +3264,10 @@ packages:
   /set-cookie-parser/2.6.0:
     resolution: {integrity: sha512-RVnVQxTXuerk653XfuliOxBP81Sf0+qfQE73LIYKcyMYHG94AuH0kgrQpRDuTZnSmjpysHmzxJXKNfa6PjFhyQ==}
     dev: true
+
+  /setimmediate/1.0.5:
+    resolution: {integrity: sha512-MATJdZp8sLqDl/68LfQmbP8zKPLQNV6BIZoIgrscFDQ+RsvK/BxeDQOgyxKKoh0y/8h3BqVFnCqQ/gd+reiIXA==}
+    dev: false
 
   /shebang-command/2.0.0:
     resolution: {integrity: sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA==}
@@ -3347,6 +3324,12 @@ packages:
     resolution: {integrity: sha512-Mcc5wHehp9aXz1ax6bZUyY5afg9u2rv5cqQI3mRrYkGC8rW2hM02jWuwjtL++LS5qinSyhj2QfLyNsuc+VsExg==}
     engines: {node: '>=10.0.0'}
     dev: true
+
+  /string_decoder/1.1.1:
+    resolution: {integrity: sha512-n/ShnvDi6FHbbVfviro+WojiFzv+s8MPMHBczVePfUpDJLwoLT0ht1l4YwBCbi8pJAveEEdnkHyPyTP/mzRfwg==}
+    dependencies:
+      safe-buffer: 5.1.2
+    dev: false
 
   /strip-ansi/6.0.1:
     resolution: {integrity: sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==}
@@ -3738,7 +3721,6 @@ packages:
 
   /util-deprecate/1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
-    dev: true
 
   /uuid/9.0.0:
     resolution: {integrity: sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==}
