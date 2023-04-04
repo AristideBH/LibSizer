@@ -59,7 +59,7 @@
 		</ListBox>
 		<div class="footer mt-auto flex gap-2 flex-wrap">
 			<button class="btn variant-ringed btn-sm" on:click={library.reset}>Clear all photos</button>
-			<button class="btn variant-filled-primary">Export all edited</button>
+			<!-- <button class="btn variant-filled-primary">Export all edited</button> -->
 		</div>
 	{:else}
 		<p>Aucune photo n'est chargée.</p>

@@ -1,9 +1,9 @@
-<script>
+<script lang="ts">
 	import { onMount, createEventDispatcher } from 'svelte';
 
 	const dispatch = createEventDispatcher();
-	export let url;
-	let script;
+	export let url: string;
+	let script: HTMLScriptElement;
 
 	onMount(async () => {
 		script.addEventListener('load', () => {

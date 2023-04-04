@@ -36,10 +36,10 @@
 		<AppBar>
 			<svelte:fragment slot="lead">
 				<div class="flex items-center gap-6">
-					<button class="lg:hidden btn bg-primary-500 mr-4" on:click={drawerOpen}>
+					<button class="lg:hidden btn bg-primary-500" on:click={drawerOpen}>
 						<span><Icon icon="ic:baseline-photo-library" /></span> <span>Library</span>
 					</button>
-					<a href="/"><strong class="text-xl uppercase">Lib Resizer</strong></a>
+					<a href="/"><strong class="text-xl uppercase">LibSizer</strong></a>
 					<Nav />
 				</div>
 			</svelte:fragment>

@@ -18,3 +18,7 @@ export const dataURLToBlob = (dataURL: string): Blob => {
 
     return new Blob([ab], { type: mimeString });
 };
+
+
+
+export const ratioToNb = (ratio: string | number) => (typeof ratio === 'string' ? 0 : ratio);

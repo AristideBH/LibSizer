@@ -5,10 +5,6 @@
 			text: 'Home'
 		},
 		{
-			url: '/editor',
-			text: 'Editor'
-		},
-		{
 			url: '/croppr',
 			text: 'Croppr'
 		}
