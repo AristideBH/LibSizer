@@ -33,15 +33,16 @@
 		multiple
 		accept="image/png, image/gif, image/jpeg"
 	>
-		<svelte:fragment slot="message"
-			><strong>Upload a photo</strong> <span> or drag and drop</span></svelte:fragment
-		>
+		<svelte:fragment slot="message">
+			<strong>Upload a photo</strong>
+			<span> or drag and drop</span>
+		</svelte:fragment>
 		<svelte:fragment slot="meta">(PNG and JPG allowed)</svelte:fragment>
 	</FileDropzone>
 
 	{#if $library.length}
 		<ListBox>
-			{#each $library as item, i}
+			{#each $library as item}
 				<ListBoxItem
 					bind:group={selectedValue}
 					name="medium"
@@ -50,7 +51,6 @@
 				>
 					<div class="flex gap-2 items-center">
 						<img src={item.data} alt={item.name} class="h-4 w-4 object-cover" />
-						<!-- <pre>{JSON.stringify(item, undefined, 2)}</pre> -->
 						<span class="line-clamp-1 mr-auto">{item.name}</span>
 						<Icon icon={statusLogo(item.status)} />
 					</div>
@@ -62,6 +62,6 @@
 			<button class="btn variant-filled-primary" on:click={library.reset}>Export all edited</button>
 		</div>
 	{:else}
-		<p>Aucune photo n'a été chargée.</p>
+		<p>Aucune photo n'est chargée.</p>
 	{/if}
 </div>

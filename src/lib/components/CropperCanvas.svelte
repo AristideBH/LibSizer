@@ -5,27 +5,41 @@
 	import type Cropper from 'cropperjs';
 	import { toastStore } from '@skeletonlabs/skeleton';
 	import { tErr } from '$lib/strings';
+	import { library, selected } from '$lib/imagesStore';
+	import { init } from 'svelte/internal';
+
+	$: currentPhoto = library.getById($selected, $library);
+	$: currentPhoto, changeCropper();
+
+	$: cropper;
 
 	let imgRef: string | HTMLImageElement | HTMLCanvasElement,
 		cropper: Cropper | null,
 		canvasEl: HTMLCanvasElement,
 		outputParent: HTMLDivElement;
 
-	export let ratio: number = 1.7,
-		img: string;
+	export let ratio: number | string = 1.7;
 
 	const resetCropper = () => cropper && (cropper = null);
-
-	onMount(async () => {
+	const initCropper = async () => {
 		const Cropper = await import('cropperjs');
 		cropper = new Cropper.default(imgRef, {
 			template: template(ratio)
 		});
-	});
-	// Destroy the cropper instance on component destroyed
-	afterUpdate(() => resetCropper());
+	};
+	const changeCropper = () => {
+		console.log('cC');
+		// console.log('cropper:', cropper);
+		if (cropper && typeof cropper !== null) {
+			let image = cropper.getCropperImage();
+			if (image) {
+				console.log('img:', image);
+				image.src = currentPhoto.data;
+			}
+		}
+	};
 
-	async function cropImage() {
+	const cropImage = async () => {
 		if (cropper) {
 			const selection = cropper.getCropperSelection();
 			if (selection) {
@@ -35,9 +49,9 @@
 		} else {
 			toastStore.trigger(tErr);
 		}
-	}
+	};
 
-	function download(canvas: HTMLCanvasElement) {
+	const download = (canvas: HTMLCanvasElement) => {
 		const downloadUrl = canvas.toDataURL('image/jpeg');
 		const downloadLink = document.createElement('a');
 		downloadLink.download = 'image';
@@ -45,11 +59,21 @@
 		outputParent.appendChild(downloadLink);
 		downloadLink.click();
 		downloadLink.remove();
-	}
+	};
+
+	onMount(async () => initCropper());
+	afterUpdate(() => resetCropper());
 </script>
 
-<div class="w-full h-full flex flex-col items-center justify-center p-4">
-	<img id="intput" src={img} alt="" bind:this={imgRef} />
-	<button class="btn variant-filled" on:click={cropImage}>Export</button>
-	<div bind:this={outputParent} />
-</div>
+<pre>{JSON.stringify(cropper, undefined, 2)}</pre>
+
+{#if currentPhoto}
+	<div class="w-full h-full flex flex-col items-center justify-center p-4">
+		<img id="intput" src={currentPhoto.data} alt="" bind:this={imgRef} />
+		<button class="btn variant-filled" on:click={cropImage}>Export</button>
+		<button class="btn variant-outline" on:click={initCropper}>init</button>
+		<button class="btn variant-outline" on:click={resetCropper}>Reset</button>
+		<button class="btn variant-outline" on:click={changeCropper}>change</button>
+		<div bind:this={outputParent} />
+	</div>
+{/if}
