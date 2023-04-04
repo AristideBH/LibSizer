@@ -20,6 +20,8 @@ const tReset: ToastSettings = {
     background: "variant-filled-surface",
 };
 
+const noPhoto = "Please upload and select a photo in the library"
+
 export {
-    tErr, tEdit, tAdd, tReset
+    tErr, tEdit, tAdd, tReset, noPhoto
 };

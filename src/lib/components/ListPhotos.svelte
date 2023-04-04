@@ -26,6 +26,8 @@
 <!-- <pre>{JSON.stringify(selectedValue, undefined, 2)}</pre> -->
 
 <div class="p-4 flex flex-col gap-4 h-full">
+	<h2>Library</h2>
+	<hr />
 	<FileDropzone
 		on:change={gotPhotos}
 		bind:files
@@ -62,6 +64,6 @@
 			<!-- <button class="btn variant-filled-primary">Export all edited</button> -->
 		</div>
 	{:else}
-		<p>Aucune photo n'est chargée.</p>
+		<p class="text-center">Aucune photo n'est chargée.</p>
 	{/if}
 </div>

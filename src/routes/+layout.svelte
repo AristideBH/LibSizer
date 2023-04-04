@@ -13,7 +13,9 @@
 	import ConfigPopup from '$lib/components/ConfigPopup.svelte';
 
 	function drawerOpen(): void {
-		drawerStore.open({});
+		drawerStore.open({
+			width: 'w-[280px] md:w-[480px]'
+		});
 	}
 </script>
 
@@ -39,10 +41,11 @@
 			<svelte:fragment slot="lead">
 				<div class="flex items-center gap-6">
 					<button class="l btn bg-primary-500" on:click={drawerOpen}>
-						<span><Icon icon="ic:baseline-photo-library" /></span> <span>Library</span>
+						<span><Icon icon="ic:baseline-photo-library" /></span>
+						<span>Library</span>
 					</button>
 					<a href="/"><strong class="text-xl uppercase">LibSizer</strong></a>
-					<Nav />
+					<!-- <Nav /> -->
 				</div>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
