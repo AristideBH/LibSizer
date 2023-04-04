@@ -18,7 +18,7 @@
 </script>
 
 <svelte:head>
-	<title>Lib Resizer</title>
+	<title>LibSizer</title>
 </svelte:head>
 
 <Toast />

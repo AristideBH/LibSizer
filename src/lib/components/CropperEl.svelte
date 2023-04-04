@@ -1,5 +1,7 @@
 <script lang="ts">
+	import { onMount, onDestroy } from 'svelte';
 	import LibLoader from '$lib/components/LibLoader.svelte';
+	import { slide } from 'svelte/transition';
 	import { library, selected } from '$lib/imagesStore';
 	import Icon from '@iconify/svelte';
 	import { omitExtension, dataURLToBlob } from '$lib/utils';
@@ -13,10 +15,12 @@
 	export let ratio: number, sizes: Size[];
 
 	const initCropper = () => {
+		console.log('cropper initiated');
+
 		cropper = new Cropper(imgRef, {
 			aspectRatio: ratio,
 			viewMode: 2,
-			guides: false,
+			guides: true,
 			autoCropArea: 1,
 			zoomable: false,
 			dragMode: 'none'
@@ -31,7 +35,7 @@
 		}
 	};
 
-	const downloadFile = (imageData: Blob, fileName: string = '') => {
+	const downloadFile = (imageData: Blob, fileName: string) => {
 		saveAs(imageData, omitExtension(currentPhoto.name) + ' - ' + fileName);
 	};
 
@@ -41,7 +45,7 @@
 		}
 	};
 
-	export const gatherCropped = async () => {
+	const gatherCropped = async () => {
 		const zip = new JSZip();
 		sizes.forEach((size) => {
 			zip.file(
@@ -56,11 +60,17 @@
 	};
 
 	export const exportAll = () => {
-		let blobsData = [];
+		let blobsData: { name: string; data: Blob | undefined }[] = [];
 		sizes.forEach((size) => {
 			blobsData.push({ name: size.name, data: exportCroppedImage(size) });
 		});
 		return blobsData;
+	};
+
+	export const resetCropper = () => {
+		if (cropper) {
+			cropper.destroy();
+		}
 	};
 </script>
 
@@ -69,37 +79,39 @@
 	on:loaded={initCropper}
 />
 
-<div class="card w-full p-4 flex flex-wrap md:flex-nowrap gap-8">
-	<div class="max-w-3xl mx-auto">
-		{#if currentPhoto}
-			<img src={currentPhoto.data} alt="" bind:this={imgRef} />
-		{/if}
-	</div>
-
-	<div class="flex flex-col w-full gap-2 h-full">
-		<h2>Gamme ratio {ratio}</h2>
-		<hr />
-		<code class="flex flex-col gap-1 w-fit text-lg my-2">
-			{#each sizes as size}
-				<span><strong>{size.name} </strong>- {size.width} × {size.height}</span>
-			{/each}
-		</code>
-		<div class="flex gap-2 flex-wrap mt-auto">
-			{#each sizes as size}
-				<button class="btn variant-filled btn-sm" on:click|preventDefault={cropImage(size)}>
-					<span><Icon icon="ic:baseline-file-download" /></span>
-					<span>{size.name}</span>
-				</button>
-			{/each}
+{#key currentPhoto}
+	<div class="card w-full p-4 flex flex-wrap md:flex-nowrap gap-8" transition:slide>
+		<div class="max-w-3xl mx-auto">
+			{#if currentPhoto}
+				<img src={currentPhoto.data} alt="" bind:this={imgRef} />
+			{/if}
 		</div>
-		{#if sizes.length > 1}
-			<button class="btn variant-filled-primary w-fit btn-sm" on:click={gatherCropped}>
-				<span><Icon icon="ic:outline-folder-zip" /></span>
-				<span>Download ratio zip</span>
-			</button>
-		{/if}
+
+		<div class="flex flex-col w-full gap-2 h-full">
+			<h2>Gamme ratio <strong>{ratio}</strong></h2>
+			<hr />
+			<code class="flex flex-col gap-1 w-fit text-lg my-2">
+				{#each sizes as size}
+					<span><strong>{size.name} </strong>- {size.width} × {size.height}</span>
+				{/each}
+			</code>
+			<div class="flex gap-2 flex-wrap mt-auto">
+				{#each sizes as size}
+					<button class="btn variant-filled btn-sm" on:click={cropImage(size)}>
+						<span><Icon icon="ic:baseline-file-download" /></span>
+						<span>{size.name}</span>
+					</button>
+				{/each}
+			</div>
+			{#if sizes.length > 1}
+				<button class="btn variant-filled-primary w-fit btn-sm" on:click={gatherCropped}>
+					<span><Icon icon="ic:outline-folder-zip" /></span>
+					<span>Download (Zip)</span>
+				</button>
+			{/if}
+		</div>
 	</div>
-</div>
+{/key}
 
 <style>
 	img {

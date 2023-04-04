@@ -12,7 +12,7 @@
 	$: currentPhoto = library.getById($selected, $library);
 	const ratioList = getUniqueRatios(sizes);
 
-	let childComponents: Array<CropperEl> = [];
+	let cropperEl: Array<CropperEl> = [];
 
 	const save = () => {
 		library.updatePhotoById($selected, { test: '1', position: 'yo' });
@@ -21,7 +21,7 @@
 
 	const exportAll = async () => {
 		let allBlobs: any[] = [];
-		childComponents.forEach((child) => {
+		cropperEl.forEach((child) => {
 			const data = child.exportAll();
 			data.forEach((item) => {
 				allBlobs.push(item);
@@ -29,11 +29,9 @@
 		});
 
 		const zip = new JSZip();
-
 		allBlobs.forEach((blob) => {
 			zip.file(omitExtension(currentPhoto.name) + ' - ' + blob.name + '.jpg', blob.data);
 		});
-
 		let gen = await zip.generateAsync({ type: 'blob' }).then(function (blob) {
 			saveAs(blob, omitExtension(currentPhoto.name));
 		});
@@ -44,8 +42,8 @@
 	class="p-4 bg-surface-50 border-b border-surface-300 gap-2 flex items-center justify-between sticky top-0 z-10"
 >
 	{#if currentPhoto !== undefined}
-		<span class="mr-auto">Editing [{currentPhoto.name}]</span>
-		<button class="btn variant-outline-primary" on:click={save}>Save</button>
+		<span class="mr-auto">Editing <strong>[{currentPhoto.name}]</strong></span>
+		<button class="btn variant-outline-primary" on:click={save} disabled>Save</button>
 		<button class="btn variant-filled-primary" on:click={exportAll}>
 			<span><Icon icon="ic:outline-folder-zip" /></span>
 			<span>Download all files</span>
@@ -56,14 +54,9 @@
 </div>
 
 {#if currentPhoto !== undefined && ratioList}
-	<!-- <pre>{JSON.stringify($library, undefined, 2)}</pre> -->
 	<div class="flex flex-wrap gap-4 p-4">
 		{#each ratioList as ratio, index}
-			<CropperEl
-				ratio={ratioToNb(ratio.ratio)}
-				sizes={ratio.sizes}
-				bind:this={childComponents[index]}
-			/>
+			<CropperEl ratio={ratioToNb(ratio.ratio)} sizes={ratio.sizes} bind:this={cropperEl[index]} />
 		{/each}
 	</div>
 {/if}

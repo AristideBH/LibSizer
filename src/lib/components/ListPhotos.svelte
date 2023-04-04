@@ -52,7 +52,7 @@
 					<div class="flex gap-2 items-center">
 						<img src={item.data} alt={item.name} class="h-4 w-4 object-cover" />
 						<span class="line-clamp-1 mr-auto">{item.name}</span>
-						<Icon icon={statusLogo(item.status)} />
+						<!-- <Icon icon={statusLogo(item.status)} /> -->
 					</div>
 				</ListBoxItem>
 			{/each}
