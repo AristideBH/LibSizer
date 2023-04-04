@@ -4,7 +4,19 @@
 		<meta charset="utf-8" />
 		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
 		<meta name="viewport" content="width=device-width" />
-
+		<script>
+			window.onbeforeunload = function (e) {
+				e = e || window.event;
+			
+				// For IE and Firefox prior to version 4
+				if (e) {
+					e.returnValue = 'Sure?';
+				}
+			
+				// For Safari
+				return 'Sure?';
+			};
+			</script>
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover">
