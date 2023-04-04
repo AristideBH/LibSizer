@@ -19,6 +19,8 @@
 
 <svelte:head>
 	<title>LibSizer</title>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
 </svelte:head>
 
 <Toast />
@@ -36,7 +38,7 @@
 		<AppBar>
 			<svelte:fragment slot="lead">
 				<div class="flex items-center gap-6">
-					<button class="lg:hidden btn bg-primary-500" on:click={drawerOpen}>
+					<button class="l btn bg-primary-500" on:click={drawerOpen}>
 						<span><Icon icon="ic:baseline-photo-library" /></span> <span>Library</span>
 					</button>
 					<a href="/"><strong class="text-xl uppercase">LibSizer</strong></a>
@@ -49,7 +51,7 @@
 		</AppBar>
 	</svelte:fragment>
 
-	<svelte:fragment slot="sidebarLeft"><ListPhotos /></svelte:fragment>
+	<!-- <svelte:fragment slot="sidebarLeft"><ListPhotos /></svelte:fragment> -->
 
 	<slot />
 </AppShell>

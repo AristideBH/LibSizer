@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
 	import LibLoader from '$lib/components/LibLoader.svelte';
-	import { slide } from 'svelte/transition';
+	import { fade } from 'svelte/transition';
 	import { library, selected } from '$lib/imagesStore';
 	import Icon from '@iconify/svelte';
 	import { omitExtension, dataURLToBlob } from '$lib/utils';
@@ -15,11 +15,10 @@
 	export let ratio: number, sizes: Size[];
 
 	const initCropper = () => {
-		console.log('cropper initiated');
-
+		console.log('cropperEl initiated');
 		cropper = new Cropper(imgRef, {
 			aspectRatio: ratio,
-			viewMode: 2,
+			viewMode: 3,
 			guides: true,
 			autoCropArea: 1,
 			zoomable: false,
@@ -72,15 +71,19 @@
 			cropper.destroy();
 		}
 	};
+
+	onMount(async () => {
+		initCropper();
+	});
 </script>
 
-<LibLoader
+<!-- <LibLoader
 	url="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"
 	on:loaded={initCropper}
-/>
+/> -->
 
 {#key currentPhoto}
-	<div class="card w-full p-4 flex flex-wrap md:flex-nowrap gap-8" transition:slide>
+	<div class="card w-full p-4 flex flex-wrap md:flex-nowrap gap-8" transition:fade>
 		<div class="max-w-3xl mx-auto">
 			{#if currentPhoto}
 				<img src={currentPhoto.data} alt="" bind:this={imgRef} />

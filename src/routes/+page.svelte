@@ -39,14 +39,21 @@
 </script>
 
 <div
-	class="p-4 bg-surface-50 border-b border-surface-300 gap-2 flex items-center justify-between sticky top-0 z-10"
+	class="p-4 bg-surface-50 border-b border-surface-300 gap-2 flex items-center justify-between sticky top-0 z-10 flex-wrap"
 >
 	{#if currentPhoto !== undefined}
 		<span class="mr-auto">Editing <strong>[{currentPhoto.name}]</strong></span>
-		<button class="btn variant-outline-primary" on:click={save} disabled>Save</button>
-		<button class="btn variant-filled-primary" on:click={exportAll}>
+		<button class="btn variant-outline-primary" on:click={save} disabled>
+			<span><Icon icon="ic:outline-save" /></span>
+			<span>Save</span>
+		</button>
+		<button
+			class="btn variant-filled-primary"
+			on:click={exportAll}
+			title="Download all files (Zip)"
+		>
 			<span><Icon icon="ic:outline-folder-zip" /></span>
-			<span>Download all files</span>
+			<span>Download all files (Zip)</span>
 		</button>
 	{:else}
 		Please upload and select a photo
@@ -60,3 +67,9 @@
 		{/each}
 	</div>
 {/if}
+
+<style lang="postcss">
+	button span:last-of-type {
+		@apply hidden lg:block;
+	}
+</style>
