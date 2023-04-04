@@ -3,7 +3,7 @@
 	import Icon from '@iconify/svelte';
 	import { library, selected } from '$lib/imagesStore';
 	import { sizes, getUniqueRatios } from '$lib/settingsStore';
-	import { omitExtension, ratioToNb, ratioNbtoString } from '$lib/utils';
+	import { omitExt, ratioToNb, drawerOpen } from '$lib/utils';
 	import { tEdit } from '$lib/strings';
 	import CropperEl from '$lib/components/CropperEl.svelte';
 	import { saveAs } from 'file-saver';
@@ -13,14 +13,13 @@
 	const ratioList = getUniqueRatios(sizes);
 	let cropperEl: Array<CropperEl> = [];
 
-	function drawerOpen(): void {
-		drawerStore.open({
-			width: 'w-[280px] md:w-[480px]'
-		});
-	}
-
 	const save = () => {
-		library.updatePhotoById($selected, { test: '1', position: 'yo' });
+		let allCrops: { ratioName: number; cropData: any }[] = [];
+		cropperEl.forEach((child) => {
+			const data = child.saveMetas();
+			allCrops.push(data);
+		});
+		library.updatePhotoById($selected, allCrops);
 		toastStore.trigger(tEdit);
 	};
 
@@ -35,25 +34,26 @@
 
 		const zip = new JSZip();
 		allBlobs.forEach((blob) => {
-			zip.file(omitExtension(currentPhoto.name) + ' - ' + blob.name + '.jpg', blob.data);
+			zip.file(omitExt(currentPhoto.name) + ' - ' + blob.name + '.jpg', blob.data);
 		});
 		let gen = await zip.generateAsync({ type: 'blob' }).then(function (blob) {
-			saveAs(blob, omitExtension(currentPhoto.name));
+			saveAs(blob, omitExt(currentPhoto.name));
 		});
 	};
 </script>
 
-{#if currentPhoto !== undefined}
+{#if currentPhoto}
+	<!-- <pre>{JSON.stringify(currentPhoto.meta[1], undefined, 2)}</pre> -->
 	<div
 		class="p-4 bg-surface-50 border-b border-surface-300 gap-2 flex items-center justify-between sticky top-0 z-10 flex-wrap"
 	>
 		<span class="mr-auto">Editing <strong>[{currentPhoto.name}]</strong></span>
-		<button class="btn variant-outline-primary" on:click={save} disabled title="Save data">
+		<!-- <button class="btn variant-outline-primary" on:click={save} title="Save data">
 			<span><Icon icon="ic:outline-save" /></span>
 			<span>Save</span>
-		</button>
+		</button> -->
 		<button
-			class="btn variant-filled-primary"
+			class="btn btn-lg variant-filled-primary lg:btn-sm"
 			on:click={exportAll}
 			title="Download all files (Zip)"
 		>
@@ -72,7 +72,7 @@
 {:else}
 	<div class="flex flex-col items-center h-full justify-center gap-6">
 		<Icon icon="ic:outline-photo-size-select-large" class="w-16 h-16 text-surface-500" />
-		<p>Please select a photo in the <a href="" on:click={drawerOpen}>library</a></p>
+		<p>Please select a photo in the <a href="/" on:click={drawerOpen}>library</a></p>
 	</div>
 {/if}
 

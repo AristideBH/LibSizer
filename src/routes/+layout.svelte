@@ -11,12 +11,7 @@
 	import Nav from '$lib/components/Nav.svelte';
 	import ListPhotos from '$lib/components/ListPhotos.svelte';
 	import ConfigPopup from '$lib/components/ConfigPopup.svelte';
-
-	function drawerOpen(): void {
-		drawerStore.open({
-			width: 'w-[280px] md:w-[480px]'
-		});
-	}
+	import { drawerOpen } from '$lib/utils';
 </script>
 
 <svelte:head>

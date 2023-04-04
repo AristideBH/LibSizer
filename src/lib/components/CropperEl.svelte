@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { onMount, onDestroy } from 'svelte';
+	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import Icon from '@iconify/svelte';
 	import JSZip from 'jszip';
 	import { saveAs } from 'file-saver';
 	import { library, selected } from '$lib/imagesStore';
-	import { omitExtension, dataURLToBlob, ratioNbtoString } from '$lib/utils';
+	import { omitExt, dataURLToBlob, ratioNbtoString } from '$lib/utils';
 	import type { Size } from '$lib/settingsStore';
 
 	$: currentPhoto = library.getById($selected, $library);
@@ -14,7 +14,7 @@
 	export let ratio: number, sizes: Size[];
 
 	const initCropper = () => {
-		console.log('cropperEl initiated');
+		// console.log('cropperEl initiated');
 		cropper = new Cropper(imgRef, {
 			aspectRatio: ratio,
 			viewMode: 3,
@@ -25,43 +25,43 @@
 		});
 	};
 
-	const exportCroppedImage = (format: Size) => {
-		if (cropper) {
-			let canvas = cropper.getCroppedCanvas(format);
-			let dataURL = canvas.toDataURL('image/jpeg');
-			return dataURLToBlob(dataURL);
-		}
+	const exportCroppedImg = (format: Size) => {
+		let canvas = cropper.getCroppedCanvas(format);
+		let dataURL = canvas.toDataURL('image/jpeg');
+		return dataURLToBlob(dataURL);
 	};
 
 	const downloadFile = (imageData: Blob, fileName: string) => {
-		saveAs(imageData, omitExtension(currentPhoto.name) + ' - ' + fileName);
+		saveAs(imageData, omitExt(currentPhoto.name) + ' - ' + fileName);
 	};
 
 	const cropImage = (format: Size) => {
 		if (cropper) {
-			downloadFile(exportCroppedImage(format), format.name);
+			downloadFile(exportCroppedImg(format), format.name);
 		}
 	};
 
 	const gatherCropped = async () => {
 		const zip = new JSZip();
 		sizes.forEach((size) => {
-			zip.file(
-				omitExtension(currentPhoto.name) + ' - ' + size.name + '.jpg',
-				exportCroppedImage(size)
-			);
+			zip.file(omitExt(currentPhoto.name) + ' - ' + size.name + '.jpg', exportCroppedImg(size));
 		});
 		let gen = await zip.generateAsync({ type: 'blob' }).then(function (blob) {
-			saveAs(blob, omitExtension(currentPhoto.name));
+			saveAs(blob, omitExt(currentPhoto.name));
 		});
 	};
 
 	export const exportAll = () => {
-		let blobsData: { name: string; data: Blob | undefined }[] = [];
+		let blobsData: { sizeName: string; data: Blob | undefined }[] = [];
 		sizes.forEach((size) => {
-			blobsData.push({ name: size.name, data: exportCroppedImage(size) });
+			blobsData.push({ sizeName: size.name, data: exportCroppedImg(size) });
 		});
 		return blobsData;
+	};
+
+	export const saveMetas = () => {
+		let croppedSize = cropper.getData();
+		return { ratioName: ratio, cropData: croppedSize };
 	};
 
 	onMount(async () => {

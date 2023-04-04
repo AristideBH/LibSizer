@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { ListBox, ListBoxItem, FileDropzone, drawerStore } from '@skeletonlabs/skeleton';
 	import { library, selected } from '$lib/imagesStore';
+	import { drawerClose } from '$lib/utils';
 	import Icon from '@iconify/svelte';
 
 	let files: FileList;
@@ -11,10 +12,6 @@
 	const gotPhotos = () => {
 		library.loadPhotos(files);
 	};
-
-	function drawerClose(): void {
-		drawerStore.close();
-	}
 
 	const statusLogo = (status: string) => {
 		if (status === 'edited') return 'mdi:check';
@@ -58,7 +55,7 @@
 					<div class="flex gap-2 items-center">
 						<img src={item.data} alt={item.name} class="h-4 w-4 object-cover" />
 						<span class="line-clamp-1 mr-auto">{item.name}</span>
-						<!-- <Icon icon={statusLogo(item.status)} /> -->
+						<Icon icon={statusLogo(item.status)} />
 					</div>
 				</ListBoxItem>
 			{/each}

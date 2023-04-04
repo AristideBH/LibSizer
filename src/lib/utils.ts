@@ -1,4 +1,6 @@
-export const omitExtension = (fileName: string): string => {
+import { drawerStore } from "@skeletonlabs/skeleton";
+
+export const omitExt = (fileName: string): string => {
     if (/\.(jpe?g|png)$/i.test(fileName)) {
         return fileName.replace(/\.(jpe?g|png)$/i, '');
     }
@@ -19,9 +21,19 @@ export const dataURLToBlob = (dataURL: string): Blob => {
     return new Blob([ab], { type: mimeString });
 };
 
+export function drawerClose(): void {
+    drawerStore.close();
+}
 
+
+export function drawerOpen(): void {
+    drawerStore.open({
+        width: 'w-[280px] md:w-[480px]'
+    });
+}
 
 export const ratioToNb = (ratio: string | number) => (typeof ratio === 'string' ? 0 : ratio);
+
 export const ratioNbtoString = (ratio: number) => {
     switch (ratio) {
         case 0:
