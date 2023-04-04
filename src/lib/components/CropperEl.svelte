@@ -1,13 +1,12 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
-	import LibLoader from '$lib/components/LibLoader.svelte';
 	import { fade } from 'svelte/transition';
-	import { library, selected } from '$lib/imagesStore';
 	import Icon from '@iconify/svelte';
-	import { omitExtension, dataURLToBlob } from '$lib/utils';
-	import type { Size } from '$lib/settingsStore';
 	import JSZip from 'jszip';
 	import { saveAs } from 'file-saver';
+	import { library, selected } from '$lib/imagesStore';
+	import { omitExtension, dataURLToBlob, ratioNbtoString } from '$lib/utils';
+	import type { Size } from '$lib/settingsStore';
 
 	$: currentPhoto = library.getById($selected, $library);
 
@@ -52,7 +51,6 @@
 				exportCroppedImage(size)
 			);
 		});
-		// console.log(zip);
 		let gen = await zip.generateAsync({ type: 'blob' }).then(function (blob) {
 			saveAs(blob, omitExtension(currentPhoto.name));
 		});
@@ -66,21 +64,10 @@
 		return blobsData;
 	};
 
-	export const resetCropper = () => {
-		if (cropper) {
-			cropper.destroy();
-		}
-	};
-
 	onMount(async () => {
 		initCropper();
 	});
 </script>
-
-<!-- <LibLoader
-	url="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"
-	on:loaded={initCropper}
-/> -->
 
 {#key currentPhoto}
 	<div class="card w-full p-4 flex flex-wrap md:flex-nowrap gap-8" transition:fade>
@@ -91,7 +78,7 @@
 		</div>
 
 		<div class="flex flex-col w-full gap-2 h-full">
-			<h2>Gamme ratio <strong>{ratio}</strong></h2>
+			<h2>Ratio <strong>{ratioNbtoString(ratio)}</strong></h2>
 			<hr />
 			<code class="flex flex-col gap-1 w-fit text-lg my-2">
 				{#each sizes as size}

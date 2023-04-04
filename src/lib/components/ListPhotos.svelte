@@ -34,7 +34,11 @@
 		name="files"
 		multiple
 		accept="image/png, image/gif, image/jpeg"
+		slotLead="flex items-center justify-center mb-4"
 	>
+		<svelte:fragment slot="lead"
+			><Icon class="h-8 w-8" icon="mdi:folder-upload-outline" /></svelte:fragment
+		>
 		<svelte:fragment slot="message">
 			<strong>Upload one or multiple photos</strong>
 			<span> or drag and drop</span>
@@ -64,6 +68,6 @@
 			<!-- <button class="btn variant-filled-primary">Export all edited</button> -->
 		</div>
 	{:else}
-		<p class="text-center">Aucune photo n'est chargée.</p>
+		<p class="text-center">No loaded photos</p>
 	{/if}
 </div>

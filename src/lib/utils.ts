@@ -22,3 +22,29 @@ export const dataURLToBlob = (dataURL: string): Blob => {
 
 
 export const ratioToNb = (ratio: string | number) => (typeof ratio === 'string' ? 0 : ratio);
+export const ratioNbtoString = (ratio: number) => {
+    switch (ratio) {
+        case 0:
+            return 'Fit'
+            break;
+        case 1:
+            return 'Square'
+            break;
+        case 0.8:
+            return '4/5'
+            break;
+        case .75:
+            return '3/4'
+            break;
+        case 1.333333333:
+            return '4/3'
+            break;
+        case 1.25:
+            return '5/4'
+            break;
+
+        default:
+            return ratio
+            break;
+    }
+};

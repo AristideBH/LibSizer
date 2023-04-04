@@ -3,17 +3,14 @@
 	import Icon from '@iconify/svelte';
 	import { library, selected } from '$lib/imagesStore';
 	import { sizes, getUniqueRatios } from '$lib/settingsStore';
-	import { omitExtension, ratioToNb } from '$lib/utils';
+	import { omitExtension, ratioToNb, ratioNbtoString } from '$lib/utils';
 	import { tEdit } from '$lib/strings';
 	import CropperEl from '$lib/components/CropperEl.svelte';
 	import { saveAs } from 'file-saver';
 	import JSZip from 'jszip';
 
-	import { noPhoto } from '$lib/strings';
-
 	$: currentPhoto = library.getById($selected, $library);
 	const ratioList = getUniqueRatios(sizes);
-
 	let cropperEl: Array<CropperEl> = [];
 
 	function drawerOpen(): void {
@@ -73,9 +70,9 @@
 		{/each}
 	</div>
 {:else}
-	<div class="flex flex-col items-center h-full justify-center gap-3">
-		<Icon icon="ic:outline-no-photography" class="w-16 h-16 text-surface-500" />
-		<p>Please upload and select a photo in the <a href="" on:click={drawerOpen}>library</a></p>
+	<div class="flex flex-col items-center h-full justify-center gap-6">
+		<Icon icon="ic:outline-photo-size-select-large" class="w-16 h-16 text-surface-500" />
+		<p>Please select a photo in the <a href="" on:click={drawerOpen}>library</a></p>
 	</div>
 {/if}
 
