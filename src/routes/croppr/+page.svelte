@@ -2,7 +2,6 @@
 	import img from '$lib/assets/img2.jpg';
 	import { toastStore } from '@skeletonlabs/skeleton';
 	import { tErr } from '$lib/strings';
-	import LibLoader from '$lib/components/LibLoader.svelte';
 	import { library, selected } from '$lib/imagesStore';
 	$: currentPhoto = library.getById($selected, $library);
 
@@ -48,11 +47,6 @@
 		}
 	};
 </script>
-
-<LibLoader
-	url="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"
-	on:loaded={initCropper}
-/>
 
 <div class="max-w-xl mx-auto">
 	{#if currentPhoto}
