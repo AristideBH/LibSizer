@@ -24,18 +24,19 @@
 	};
 
 	const exportAll = async () => {
-		let allBlobs: any[] = [];
+		let allBlobs: { sizeName: string; data: Blob | undefined }[] = [];
 		cropperEl.forEach((child) => {
 			const data = child.exportAll();
 			data.forEach((item) => {
 				allBlobs.push(item);
 			});
 		});
-		console.log(allBlobs);
 
 		const zip = new JSZip();
 		allBlobs.forEach((blob) => {
-			zip.file(omitExt(currentPhoto.name) + ' - ' + blob.name + '.jpg', blob.data);
+			if (blob.data) {
+				zip.file(omitExt(currentPhoto.name) + ' - ' + blob.sizeName + '.jpg', blob.data);
+			}
 		});
 		let gen = await zip.generateAsync({ type: 'blob' }).then(function (blob) {
 			saveAs(blob, omitExt(currentPhoto.name));
@@ -56,7 +57,7 @@
 				title="Download all files (Zip)"
 			>
 				<span><Icon icon="ic:outline-folder-zip" /></span>
-				<span>Download all files (Zip)</span>
+				<span>Download zipped files</span>
 			</button>
 		</div>
 	</div>
@@ -76,7 +77,7 @@
 {/if}
 
 <style lang="postcss">
-	button span:last-of-type {
+	/* button span:last-of-type {
 		@apply hidden lg:block;
-	}
+	} */
 </style>
