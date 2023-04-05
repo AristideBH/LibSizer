@@ -64,7 +64,7 @@
 {#if currentPhoto !== undefined && ratioList}
 	<div class="container flex-col p-4 gap-4">
 		{#each ratioList as ratio, index}
-			<!-- <CropperEl ratio={ratioToNb(ratio.ratio)} sizes={ratio.sizes} bind:this={cropperEl[index]} /> -->
+			<CropperEl ratio={ratioToNb(ratio.ratio)} sizes={ratio.sizes} bind:this={cropperEl[index]} />
 		{/each}
 	</div>
 {:else}

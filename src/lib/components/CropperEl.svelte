@@ -37,8 +37,6 @@
 	};
 
 	const cropImage = (format: Size) => {
-		// console.log(format);
-
 		if (cropper) {
 			downloadFile(exportCroppedImg(format), format.name);
 		}
@@ -89,12 +87,12 @@
 				{/each}
 			</code>
 
-			<DrowpdownButton
+			<!-- <DrowpdownButton
 				items={sizes}
 				onSingleDownload={cropImage}
 				onZipDownload={gatherCropped}
 				class="mt-4"
-			/>
+			/> -->
 		</div>
 	</div>
 {/key}
