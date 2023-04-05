@@ -1,22 +1,22 @@
 import type { ToastSettings } from '@skeletonlabs/skeleton';
 
 const tErr: ToastSettings = {
-    message: "Une erreur s'est produite",
+    message: "Something did not go well. Please retry.",
     background: 'variant-filled-error'
 };
 
 const tEdit: ToastSettings = {
-    message: 'Photos mis à jour avec succès',
+    message: 'Pictures successfully updated.',
     background: 'variant-filled-surface'
 };
 
 const tAdd: ToastSettings = {
-    message: 'Ajouté(s) avec succès',
+    message: 'Added with success.',
     background: "variant-filled-surface",
 };
 
 const tReset: ToastSettings = {
-    message: 'La librairie a bien été supprimée.',
+    message: 'The library has been resetted',
     background: "variant-filled-surface",
 };
 
