@@ -17,7 +17,6 @@
 
 <svelte:head>
 	<title>LibSizer</title>
-
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
 </svelte:head>
 

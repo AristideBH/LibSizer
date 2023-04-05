@@ -57,6 +57,8 @@
 		sizes.forEach((size) => {
 			blobsData.push({ sizeName: size.name, data: exportCroppedImg(size) });
 		});
+		// console.log(blobsData);
+
 		return blobsData;
 	};
 
@@ -86,10 +88,24 @@
 					<span><strong>{size.name} </strong>- {size.width} × {size.height}</span>
 				{/each}
 			</code>
+			<div class="flex gap-2 flex-wrap mt-auto">
+				{#each sizes as size}
+					<button class="btn variant-filled btn-sm" on:click={cropImage(size)}>
+						<span><Icon icon="ic:baseline-file-download" /></span>
+						<span>{size.name}</span>
+					</button>
+				{/each}
+			</div>
+			{#if sizes.length > 1}
+				<button class="btn variant-filled-primary w-fit btn-sm" on:click={gatherCropped}>
+					<span><Icon icon="ic:outline-folder-zip" /></span>
+					<span>Download (Zip)</span>
+				</button>
+			{/if}
 
 			<!-- <DrowpdownButton
 				items={sizes}
-				onSingleDownload={cropImage}
+				onSingleDownload={cropImage(sizes[i])}
 				onZipDownload={gatherCropped}
 				class="mt-4"
 			/> -->

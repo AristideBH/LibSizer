@@ -31,6 +31,7 @@
 				allBlobs.push(item);
 			});
 		});
+		console.log(allBlobs);
 
 		const zip = new JSZip();
 		allBlobs.forEach((blob) => {
