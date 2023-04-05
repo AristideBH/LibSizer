@@ -44,27 +44,27 @@
 
 {#if currentPhoto}
 	<!-- <pre>{JSON.stringify(currentPhoto.meta[1], undefined, 2)}</pre> -->
-	<div
-		class="p-4 bg-surface-50 border-b border-surface-300 gap-2 flex items-center justify-between sticky top-0 z-10 flex-wrap"
-	>
-		<span class="mr-auto">Editing <strong>[{currentPhoto.name}]</strong></span>
-		<!-- <button class="btn variant-outline-primary" on:click={save} title="Save data">
-			<span><Icon icon="ic:outline-save" /></span>
-			<span>Save</span>
-		</button> -->
-		<button
-			class="btn btn-lg variant-filled-primary lg:btn-sm"
-			on:click={exportAll}
-			title="Download all files (Zip)"
-		>
-			<span><Icon icon="ic:outline-folder-zip" /></span>
-			<span>Download all files (Zip)</span>
-		</button>
+	<div class="bg-surface-50 border-b border-surface-300 sticky top-0 z-20">
+		<div class="container p-4 items-center justify-between">
+			<span class="mr-auto">Editing <strong>[{currentPhoto.name}]</strong></span>
+			<!-- <button class="btn variant-outline-primary" on:click={save} title="Save data">
+				<span><Icon icon="ic:outline-save" /></span>
+				<span>Save</span>
+			</button> -->
+			<button
+				class="btn variant-outline-primary bg-white"
+				on:click={exportAll}
+				title="Download all files (Zip)"
+			>
+				<span><Icon icon="ic:outline-folder-zip" /></span>
+				<span>Download all files (Zip)</span>
+			</button>
+		</div>
 	</div>
 {/if}
 
 {#if currentPhoto !== undefined && ratioList}
-	<div class="flex flex-wrap gap-4 p-4">
+	<div class="container flex-col p-4 gap-4">
 		{#each ratioList as ratio, index}
 			<CropperEl ratio={ratioToNb(ratio.ratio)} sizes={ratio.sizes} bind:this={cropperEl[index]} />
 		{/each}

@@ -7,6 +7,7 @@
 	import { library, selected } from '$lib/imagesStore';
 	import { omitExt, dataURLToBlob, ratioNbtoString } from '$lib/utils';
 	import type { Size } from '$lib/settingsStore';
+	import DrowpdownButton from '$lib/components/DrowpdownButton.svelte';
 
 	$: currentPhoto = library.getById($selected, $library);
 
@@ -36,6 +37,8 @@
 	};
 
 	const cropImage = (format: Size) => {
+		// console.log(format);
+
 		if (cropper) {
 			downloadFile(exportCroppedImg(format), format.name);
 		}
@@ -70,14 +73,14 @@
 </script>
 
 {#key currentPhoto}
-	<div class="card w-full p-4 flex flex-wrap md:flex-nowrap gap-8" transition:fade>
-		<div class="max-w-3xl mx-auto">
+	<div class="card w-full p-4 flex flex-wrap md:flex-nowrap gap-6 justify-center" transition:fade>
+		<div class="mx-auto bg-slate-100 w-full max-w-3xl">
 			{#if currentPhoto}
 				<img src={currentPhoto.data} alt="" bind:this={imgRef} />
 			{/if}
 		</div>
 
-		<div class="flex flex-col w-full gap-2 h-full">
+		<div class="flex flex-col min-w-[400px] gap-2 h-full items-start">
 			<h2>Ratio <strong>{ratioNbtoString(ratio)}</strong></h2>
 			<hr />
 			<code class="flex flex-col gap-1 w-fit text-lg my-2">
@@ -85,20 +88,13 @@
 					<span><strong>{size.name} </strong>- {size.width} × {size.height}</span>
 				{/each}
 			</code>
-			<div class="flex gap-2 flex-wrap mt-auto">
-				{#each sizes as size}
-					<button class="btn variant-filled btn-sm" on:click={cropImage(size)}>
-						<span><Icon icon="ic:baseline-file-download" /></span>
-						<span>{size.name}</span>
-					</button>
-				{/each}
-			</div>
-			{#if sizes.length > 1}
-				<button class="btn variant-filled-primary w-fit btn-sm" on:click={gatherCropped}>
-					<span><Icon icon="ic:outline-folder-zip" /></span>
-					<span>Download (Zip)</span>
-				</button>
-			{/if}
+
+			<DrowpdownButton
+				items={sizes}
+				onSingleDownload={cropImage}
+				onZipDownload={gatherCropped}
+				class="mt-4"
+			/>
 		</div>
 	</div>
 {/key}

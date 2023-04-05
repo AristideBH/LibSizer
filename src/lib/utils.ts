@@ -28,7 +28,8 @@ export function drawerClose(): void {
 
 export function drawerOpen(): void {
     drawerStore.open({
-        width: 'w-[280px] md:w-[480px]'
+        width: 'w-[280px] md:w-[480px]',
+        position: "right"
     });
 }
 
