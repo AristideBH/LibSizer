@@ -21,7 +21,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
 </svelte:head>
 
-<!-- <svelte:window on:load={drawerOpen()} /> -->
+<svelte:window on:load={drawerOpen()} />
 
 <Toast />
 <Drawer>
@@ -43,12 +43,10 @@
 				<a
 					href="/"
 					class="text-2xl font-black uppercase underline underline-offset-4 decoration-primary-500 decoration-dashed"
-					>LibSizer</a
 				>
-				<!-- <button class="btn bg-primary-500" on:click={drawerOpen}>
-						<span><Icon icon="ic:baseline-photo-library" /></span>
-						<span>Library</span>
-					</button> -->
+					LibSizer
+				</a>
+
 				<Nav />
 			</svelte:fragment>
 			<svelte:fragment slot="trail">

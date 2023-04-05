@@ -46,11 +46,9 @@
 	<!-- <pre>{JSON.stringify(currentPhoto.meta[1], undefined, 2)}</pre> -->
 	<div class="bg-surface-50 border-b border-surface-300 sticky top-0 z-20">
 		<div class="container p-4 items-center justify-between">
-			<span class="mr-auto">Editing <strong>[{currentPhoto.name}]</strong></span>
-			<!-- <button class="btn variant-outline-primary" on:click={save} title="Save data">
-				<span><Icon icon="ic:outline-save" /></span>
-				<span>Save</span>
-			</button> -->
+			<span class="mr-auto">
+				Editing <strong>[{currentPhoto.name}]</strong>
+			</span>
 			<button
 				class="btn variant-outline-primary bg-white"
 				on:click={exportAll}
@@ -66,7 +64,7 @@
 {#if currentPhoto !== undefined && ratioList}
 	<div class="container flex-col p-4 gap-4">
 		{#each ratioList as ratio, index}
-			<CropperEl ratio={ratioToNb(ratio.ratio)} sizes={ratio.sizes} bind:this={cropperEl[index]} />
+			<!-- <CropperEl ratio={ratioToNb(ratio.ratio)} sizes={ratio.sizes} bind:this={cropperEl[index]} /> -->
 		{/each}
 	</div>
 {:else}
