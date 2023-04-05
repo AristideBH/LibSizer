@@ -7,7 +7,6 @@
 	import { library, selected } from '$lib/imagesStore';
 	import { omitExt, dataURLToBlob, ratioNbtoString } from '$lib/utils';
 	import type { Size } from '$lib/settingsStore';
-	import DrowpdownButton from '$lib/components/DrowpdownButton.svelte';
 
 	$: currentPhoto = library.getById($selected, $library);
 
@@ -83,32 +82,34 @@
 		<div class="flex flex-col min-w-[400px] gap-2 h-full items-start">
 			<h2>Ratio <strong>{ratioNbtoString(ratio)}</strong></h2>
 			<hr />
-			<code class="flex flex-col gap-1 w-fit text-lg my-2">
+			<code class="flex flex-col gap-0 w-fit my-2">
 				{#each sizes as size}
-					<span><strong>{size.name} </strong>- {size.width} × {size.height}</span>
-				{/each}
-			</code>
-			<div class="flex gap-2 flex-wrap mt-auto">
-				{#each sizes as size}
-					<button class="btn variant-filled btn-sm" on:click={cropImage(size)}>
-						<span><Icon icon="ic:baseline-file-download" /></span>
-						<span>{size.name}</span>
+					<button
+						class="flex items-center gap-1 p-1 hover:underline text-md"
+						type="button"
+						on:click|preventDefault={cropImage(size)}
+					>
+						<span><Icon icon="ic:round-sim-card-download" class="h-3 w-3" /></span>
+						<strong>{size.name}</strong> :
+						<span>
+							{size.width == undefined ? 'fit' : size.width + 'px'}
+							×
+							{size.height == undefined ? 'fit' : size.height + 'px'}
+						</span>
 					</button>
 				{/each}
-			</div>
+			</code>
+
 			{#if sizes.length > 1}
-				<button class="btn variant-filled-primary w-fit btn-sm" on:click={gatherCropped}>
+				<button
+					class="btn variant-outline-primary w-fit btn-sm bg-white"
+					type="button"
+					on:click={gatherCropped}
+				>
 					<span><Icon icon="ic:outline-folder-zip" /></span>
-					<span>Download (Zip)</span>
+					<span>Download ratio bundle</span>
 				</button>
 			{/if}
-
-			<!-- <DrowpdownButton
-				items={sizes}
-				onSingleDownload={cropImage(sizes[i])}
-				onZipDownload={gatherCropped}
-				class="mt-4"
-			/> -->
 		</div>
 	</div>
 {/key}

@@ -2,7 +2,7 @@
 	import { drawerStore, toastStore } from '@skeletonlabs/skeleton';
 	import Icon from '@iconify/svelte';
 	import { library, selected } from '$lib/imagesStore';
-	import { sizes, getUniqueRatios } from '$lib/settingsStore';
+	import { sizes, getUniqueRatios, sizesStore } from '$lib/settingsStore';
 	import { omitExt, ratioToNb, drawerOpen } from '$lib/utils';
 	import { tEdit } from '$lib/strings';
 	import CropperEl from '$lib/components/CropperEl.svelte';
@@ -10,7 +10,7 @@
 	import JSZip from 'jszip';
 
 	$: currentPhoto = library.getById($selected, $library);
-	const ratioList = getUniqueRatios(sizes);
+	const ratioList = getUniqueRatios($sizesStore);
 	let cropperEl: Array<CropperEl> = [];
 
 	const save = () => {
@@ -52,32 +52,40 @@
 				Editing <strong>[{currentPhoto.name}]</strong>
 			</span>
 			<button
+				type="button"
 				class="btn variant-outline-primary bg-white"
 				on:click={exportAll}
-				title="Download all files (Zip)"
+				title="Download bundle"
 			>
 				<span><Icon icon="ic:outline-folder-zip" /></span>
-				<span>Download zipped files</span>
+				<span>Download bundle</span>
 			</button>
+			<!-- <button
+				type="button"
+				class="btn variant-outline bg-white btn-icon"
+				on:click={save}
+				title="Save metadata"
+			>
+				<span><Icon icon="ic:outline-save" /></span>
+			</button> -->
 		</div>
 	</div>
 {/if}
 
-{#if currentPhoto !== undefined && ratioList}
+{#if currentPhoto && ratioList}
 	<div class="container flex-col p-4 gap-4">
 		{#each ratioList as ratio, index}
 			<CropperEl ratio={ratioToNb(ratio.ratio)} sizes={ratio.sizes} bind:this={cropperEl[index]} />
 		{/each}
 	</div>
-{:else}
-	<div class="flex flex-col items-center h-full justify-center gap-6">
-		<Icon icon="ic:outline-photo-size-select-large" class="w-16 h-16 text-surface-500" />
-		<p>Please select a photo in the <a href="/" on:click={drawerOpen}>library</a></p>
-	</div>
 {/if}
 
-<style lang="postcss">
-	/* button span:last-of-type {
-		@apply hidden lg:block;
-	} */
-</style>
+{#if !currentPhoto}
+	<div class="flex flex-col items-center h-full justify-center gap-6 text-center">
+		<Icon icon="ic:outline-photo-size-select-large" class="w-20 h-20 text-primary-500/30" />
+		<p>
+			No picture selected. <br /> Please choose one from the
+			<a href="/" on:click={drawerOpen}>library</a>
+		</p>
+	</div>
+{/if}

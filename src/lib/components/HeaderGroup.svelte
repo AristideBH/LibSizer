@@ -1,23 +1,29 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
+
 	export let handleLibClick, handleCogClick;
 </script>
 
 <div class="inline-flex group">
-	<button type="button" class="btn variant-filled-primary" on:click={handleLibClick}>
+	<button type="button" class="btn variant-filled-primary" on:click|preventDefault={handleLibClick}>
 		<span><Icon icon="ic:baseline-photo-library" /></span>
 		<span>Library</span></button
 	>
-	<button type="button" class="btn btn-icon variant-soft-primary" on:click={handleCogClick}>
+	<button
+		type="button"
+		class="btn btn-icon variant-filled-primary"
+		on:click|preventDefault={handleCogClick}
+		title="Sizes settings"
+	>
 		<span>
-			<Icon icon="mdi:cog" class="text-black" />
+			<Icon icon="mdi:cog" />
 		</span>
 	</button>
 </div>
 
 <style lang="postcss">
 	.group {
-		@apply gap-[1px] bg-primary-600 rounded-full;
+		@apply gap-[1px] bg-primary-700 rounded-full;
 	}
 	.group .btn:not(:first-of-type):not(:last-of-type) {
 		@apply rounded-none;

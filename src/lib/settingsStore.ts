@@ -1,3 +1,7 @@
+import { writable } from 'svelte/store';
+import { persist, createIndexedDBStorage } from '@macfja/svelte-persistent-store';
+
+
 
 export interface Size {
     id: number;
@@ -14,6 +18,24 @@ export const sizes: Array<Size> = [
     { id: 5, name: "Yammer", width: 2083, height: 2083 },
     { id: 6, name: "Bannière Fil", width: 195, height: 195 }
 ]
+export const sizesStore = persist(writable(sizes), createIndexedDBStorage(), 'SizeSettings');
+// export const sizesStore = writable(sizes);
+
+export function addSize(size: Omit<Size, 'id'>) {
+    sizesStore.update(sizes => {
+        const lastId = sizes[sizes.length - 1]?.id ?? 0;
+        const newId = lastId + 1;
+        const newSize = { ...size, id: newId };
+        return [...sizes, newSize];
+    });
+}
+
+export function deleteSize(id: number) {
+    if (window.confirm('Are you sure you want to delete this size?')) {
+        sizesStore.update(sizes => sizes.filter(size => size.id !== id));
+    }
+}
+
 
 export function getUniqueRatios(sizes: Array<Size>): Array<{
     ratio: number | string, sizes: Array<{

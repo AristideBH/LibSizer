@@ -1,10 +1,6 @@
 <script>
 	const menu = [
 		{
-			url: '/',
-			text: 'Home'
-		},
-		{
 			url: '/about',
 			text: 'About'
 		}

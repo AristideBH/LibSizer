@@ -38,6 +38,11 @@ function CreateImageStore() {
             const files = store; // get the current state of the store
             return files.find((file: { id: string; }) => file.id === id); // find the file with matching id
         },
+        getEdited: (store: any) => {
+            const files = store; // get the current state of the store
+            return files.filter((file: { status: string }) => file.status === "edited"); // find all files with status "edited"
+
+        },
         updatePhotoById: (id: string, meta: object) => {
             update(n => {
                 const updatedFiles = n.map(file => {
@@ -56,6 +61,7 @@ function CreateImageStore() {
                 });
                 return updatedFiles;
             });
+
         }
     };
 }

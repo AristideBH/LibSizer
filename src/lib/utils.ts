@@ -1,12 +1,30 @@
 import { drawerStore } from "@skeletonlabs/skeleton";
 
+export function drawerClose(): void {
+    drawerStore.close();
+}
+
+export function drawerOpen(): void {
+    drawerStore.open({
+        width: 'w-[280px] md:w-[480px]',
+        position: "right"
+    });
+}
+
+export function drawerSettingsOpen(): void {
+    drawerStore.open({
+        width: 'w-[280px] md:w-[480px]',
+        position: "right"
+    });
+}
+
+
 export const omitExt = (fileName: string): string => {
     if (/\.(jpe?g|png)$/i.test(fileName)) {
         return fileName.replace(/\.(jpe?g|png)$/i, '');
     }
     return fileName;
 };
-
 
 export const dataURLToBlob = (dataURL: string): Blob => {
     const byteString = atob(dataURL.split(",")[1]);
@@ -21,17 +39,6 @@ export const dataURLToBlob = (dataURL: string): Blob => {
     return new Blob([ab], { type: mimeString });
 };
 
-export function drawerClose(): void {
-    drawerStore.close();
-}
-
-
-export function drawerOpen(): void {
-    drawerStore.open({
-        width: 'w-[280px] md:w-[480px]',
-        position: "right"
-    });
-}
 
 export const ratioToNb = (ratio: string | number) => (typeof ratio === 'string' ? 0 : ratio);
 

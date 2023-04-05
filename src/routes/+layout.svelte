@@ -7,12 +7,27 @@
 	import { AppShell, AppBar, Drawer, storePopup, Toast } from '@skeletonlabs/skeleton';
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
-
 	import Nav from '$lib/components/Nav.svelte';
 	import ListPhotos from '$lib/components/ListPhotos.svelte';
-	import ConfigPopup from '$lib/components/ConfigPopup.svelte';
 	import HeaderGroup from '$lib/components/HeaderGroup.svelte';
+	import ConfigPopup from '$lib/components/SizesSettings.svelte';
 	import { drawerOpen } from '$lib/utils';
+	import { Modal, modalStore } from '@skeletonlabs/skeleton';
+	import type { ModalSettings, ModalComponent } from '@skeletonlabs/skeleton';
+
+	const settings: ModalSettings = {
+		type: 'component',
+		// Pass the component registry key as a string:
+		component: 'modalComponentOne'
+	};
+
+	const modalComponentRegistry: Record<string, ModalComponent> = {
+		// Custom Modal 1
+		modalComponentOne: {
+			// Pass a reference to your custom component
+			ref: ConfigPopup
+		}
+	};
 </script>
 
 <svelte:head>
@@ -26,11 +41,12 @@
 <Drawer>
 	<ListPhotos />
 </Drawer>
+<Modal components={modalComponentRegistry} />
 
 <AppShell
 	regionPage="relative"
 	slotHeader="border-b border-surface-300 bg-surface-50 "
-	slotPageHeader="bg-surface-50 border-b border-surface-300  gap-2 flex items-center justify-between sticky top-0 "
+	slotPageHeader="bg-surface-50 border-b border-surface-300 gap-2 flex items-center justify-between sticky top-0 "
 	slotSidebarLeft="bg-surface-500/5 w-0 lg:w-64 border-r border-surface-300 resize-x lg:max-w-xl lg:min-w-[16rem] "
 >
 	<svelte:fragment slot="header">
@@ -41,7 +57,7 @@
 			<svelte:fragment slot="lead">
 				<a
 					href="/"
-					class="text-2xl font-black uppercase underline underline-offset-4 decoration-primary-500 decoration-dashed"
+					class="text-2xl font-black uppercase underline underline-offset-4 decoration-primary-500 decoration-dashed hover:decoration-solid"
 				>
 					LibSizer
 				</a>
@@ -49,10 +65,9 @@
 				<Nav />
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
-				<!-- <ConfigPopup /> -->
 				<HeaderGroup
 					handleLibClick={drawerOpen}
-					handleCogClick={() => console.log('todo: openSetting modal')}
+					handleCogClick={() => modalStore.trigger(settings)}
 				/>
 			</svelte:fragment>
 		</AppBar>

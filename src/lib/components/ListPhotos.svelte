@@ -5,7 +5,7 @@
 	import Icon from '@iconify/svelte';
 
 	let files: FileList;
-	let selectedValue: string = '';
+	let selectedValue: string;
 
 	$: selected.set(selectedValue);
 
@@ -17,6 +17,11 @@
 		if (status === 'edited') return 'mdi:check';
 		if (status === 'exported') return 'mdi:check-all';
 		if (status === 'original') return 'mdi:camera-image';
+	};
+
+	const getEdited = () => {
+		const data = library.getEdited($library);
+		console.log(data);
 	};
 </script>
 
@@ -32,12 +37,17 @@
 		multiple
 		accept="image/png, image/gif, image/jpeg"
 		slotLead="flex items-center justify-center mb-4"
+		title="Upload your pictures"
+		placeholder=""
 	>
 		<svelte:fragment slot="lead"
-			><Icon class="h-8 w-8" icon="mdi:folder-upload-outline" /></svelte:fragment
+			><Icon
+				class="h-8 w-8 text-surface-900/70"
+				icon="mdi:folder-upload-outline"
+			/></svelte:fragment
 		>
 		<svelte:fragment slot="message">
-			<strong>Upload one or multiple photos</strong>
+			<strong>Upload one or multiple pictures</strong>
 			<span> or drag and drop</span>
 		</svelte:fragment>
 		<svelte:fragment slot="meta">(PNG and JPG allowed)</svelte:fragment>
@@ -55,16 +65,22 @@
 					<div class="flex gap-2 items-center">
 						<img src={item.data} alt={item.name} class="h-4 w-4 object-cover" />
 						<span class="line-clamp-1 mr-auto">{item.name}</span>
-						<Icon icon={statusLogo(item.status)} />
+						<!-- <span>
+							<Icon icon={statusLogo(item.status)} />
+						</span> -->
 					</div>
 				</ListBoxItem>
 			{/each}
 		</ListBox>
 		<div class="footer mt-auto flex gap-2 flex-wrap">
-			<button class="btn variant-ringed btn-sm" on:click={library.reset}>Clear all photos</button>
-			<!-- <button class="btn variant-filled-primary">Export all edited</button> -->
+			<button class="btn variant-ringed btn-sm" type="button" on:click={library.reset}
+				>Clear all photos</button
+			>
+			<!-- <button class="btn variant-filled-primary" type="button" on:click={getEdited}
+				>Export all edited</button
+			> -->
 		</div>
 	{:else}
-		<p class="text-center">No loaded photos</p>
+		<p class="text-center">No loaded pictures.</p>
 	{/if}
 </div>
