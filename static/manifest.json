@@ -1,6 +1,6 @@
 {
-	"short_name": "svelte-pwa",
-	"name": "svelte-test-pwa",
+	"short_name": "LibSizer",
+	"name": "LibSizer",
 	"start_url": "/",
 	"icons": [
 		{
@@ -9,10 +9,11 @@
 			"sizes": "512x512"
 		}
 	],
-	"background_color": "#0fba81",
-	"display": "standalone",
+	"background_color": "#dcdee8",
+	"display": "minimal-ui",
+
 	"scope": "/",
-	"theme_color": "#0fba81",
+	"theme_color": "#dcdee8",
 	"shortcuts": [],
 	"description": "Lofi to lofi beats, while using the scratchpad to list down tasks and thoughts"
 }
