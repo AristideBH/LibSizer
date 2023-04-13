@@ -73,9 +73,9 @@
 			{/each}
 		</ListBox>
 		<div class="footer mt-auto flex gap-2 flex-wrap">
-			<button class="btn variant-ringed btn-sm" type="button" on:click={library.reset}
-				>Clear all photos</button
-			>
+			<button class="btn variant-ringed btn-sm" type="button" on:click={library.reset}>
+				Clear all photos
+			</button>
 			<!-- <button class="btn variant-filled-primary" type="button" on:click={getEdited}
 				>Export all edited</button
 			> -->

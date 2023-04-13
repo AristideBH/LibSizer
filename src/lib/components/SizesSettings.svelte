@@ -49,7 +49,6 @@
 				{/each}
 			</dt>
 		{/key}
-		<!-- <pre>{JSON.stringify(newSize, undefined, 2)}</pre> -->
 	</div>
 	<!-- <div class="card p-4 flex flex-col mb-6">
 		<h2 class="pb-3">Add a new size</h2>

@@ -1,0 +1,18 @@
+{
+	"short_name": "svelte-pwa",
+	"name": "svelte-test-pwa",
+	"start_url": "/",
+	"icons": [
+		{
+			"src": "logo_512.png",
+			"type": "image/png",
+			"sizes": "512x512"
+		}
+	],
+	"background_color": "#0fba81",
+	"display": "standalone",
+	"scope": "/",
+	"theme_color": "#0fba81",
+	"shortcuts": [],
+	"description": "Lofi to lofi beats, while using the scratchpad to list down tasks and thoughts"
+}

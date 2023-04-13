@@ -2,11 +2,12 @@
 	import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
 	import '@skeletonlabs/skeleton/styles/all.css';
 	import '../app.postcss';
+	import 'cropperjs/dist/cropper.css';
+
 	// prettier-ignore
 	import { AppShell, AppBar, Drawer, storePopup, Toast, Modal, modalStore	} from '@skeletonlabs/skeleton';
 	import type { ModalSettings, ModalComponent } from '@skeletonlabs/skeleton';
 
-	import 'cropperjs/dist/cropper.css';
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 
@@ -38,9 +39,11 @@
 <svelte:window on:load={() => drawerOpen()} />
 
 <Toast />
+
 <Drawer>
 	<ListPhotos />
 </Drawer>
+
 <Modal components={modalComponentRegistry} />
 
 <AppShell
