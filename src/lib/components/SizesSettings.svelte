@@ -16,18 +16,17 @@
 </script>
 
 <div class="flex flex-col gap-2">
-	<div class="card p-4 mt-8">
+	<div class="card p-4 mt-8 min-w-[450px]">
 		<header class="flex flex-row gap-4 justify-between items-center">
 			<h2 class="pb-3">Sizes</h2>
-			<ClientSelect />
+			<!-- <ClientSelect /> -->
 		</header>
 		<hr />
 		{#key $sizesStore}
-			<ul class="my-4">
+			<dt class="my-4">
 				{#each $sizesStore as size}
-					<li class="flex items-center gap-2" />
-					<dl class="list-dl">
-						<div>
+					<dl class="list-dl bg-surface-hover-token rounded-lg">
+						<div class="">
 							<span class="flex-auto">
 								<dt><strong>{size.name}</strong></dt>
 								<dd>
@@ -38,15 +37,17 @@
 									</span>
 								</dd>
 							</span>
-							<!-- <span>
-								<button class="btn variant-outline" on:click={handleRemoveSize(size.id)}>
-									<Icon icon="ic:baseline-delete-outline" />
+							<span>
+								<button class="btn-icon variant-outline" on:click={handleRemoveSize(size.id)}>
+									<span>
+										<Icon icon="ic:baseline-delete-outline" />
+									</span>
 								</button>
-							</span> -->
+							</span>
 						</div>
 					</dl>
 				{/each}
-			</ul>
+			</dt>
 		{/key}
 		<!-- <pre>{JSON.stringify(newSize, undefined, 2)}</pre> -->
 	</div>

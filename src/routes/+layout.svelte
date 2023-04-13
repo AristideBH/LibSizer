@@ -2,28 +2,27 @@
 	import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
 	import '@skeletonlabs/skeleton/styles/all.css';
 	import '../app.postcss';
+	// prettier-ignore
+	import { AppShell, AppBar, Drawer, storePopup, Toast, Modal, modalStore	} from '@skeletonlabs/skeleton';
+	import type { ModalSettings, ModalComponent } from '@skeletonlabs/skeleton';
+
 	import 'cropperjs/dist/cropper.css';
-	import Icon from '@iconify/svelte';
-	import { AppShell, AppBar, Drawer, storePopup, Toast } from '@skeletonlabs/skeleton';
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
+
+	import { drawerOpen } from '$lib/utils';
 	import Nav from '$lib/components/Nav.svelte';
 	import ListPhotos from '$lib/components/ListPhotos.svelte';
 	import HeaderGroup from '$lib/components/HeaderGroup.svelte';
 	import ConfigPopup from '$lib/components/SizesSettings.svelte';
 	import ClientSelect from '$lib/components/ClientSelect.svelte';
-	import { drawerOpen } from '$lib/utils';
-	import { Modal, modalStore } from '@skeletonlabs/skeleton';
-	import type { ModalSettings, ModalComponent } from '@skeletonlabs/skeleton';
 
 	const settings: ModalSettings = {
 		type: 'component',
-		// Pass the component registry key as a string:
 		component: 'modalComponentOne'
 	};
 
 	const modalComponentRegistry: Record<string, ModalComponent> = {
-		// Custom Modal 1
 		modalComponentOne: {
 			// Pass a reference to your custom component
 			ref: ConfigPopup
@@ -36,7 +35,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
 </svelte:head>
 
-<svelte:window on:load={drawerOpen()} />
+<svelte:window on:load={() => drawerOpen()} />
 
 <Toast />
 <Drawer>
@@ -64,7 +63,7 @@
 				</a>
 
 				<Nav />
-				<ClientSelect />
+				<!-- <ClientSelect /> -->
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				<HeaderGroup
