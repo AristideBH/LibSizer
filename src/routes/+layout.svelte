@@ -32,7 +32,7 @@
 </script>
 
 <svelte:head>
-	<title>LibSizer</title>
+	<title>Crop your photos</title>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
 </svelte:head>
 
