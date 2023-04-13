@@ -11,6 +11,7 @@
 	import ListPhotos from '$lib/components/ListPhotos.svelte';
 	import HeaderGroup from '$lib/components/HeaderGroup.svelte';
 	import ConfigPopup from '$lib/components/SizesSettings.svelte';
+	import ClientSelect from '$lib/components/ClientSelect.svelte';
 	import { drawerOpen } from '$lib/utils';
 	import { Modal, modalStore } from '@skeletonlabs/skeleton';
 	import type { ModalSettings, ModalComponent } from '@skeletonlabs/skeleton';
@@ -63,6 +64,7 @@
 				</a>
 
 				<Nav />
+				<ClientSelect />
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				<HeaderGroup

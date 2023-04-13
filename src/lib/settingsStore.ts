@@ -1,13 +1,31 @@
 import { writable } from 'svelte/store';
 import { persist, createIndexedDBStorage } from '@macfja/svelte-persistent-store';
+import { MousquetairesSizes, VisaSizes } from '$lib/SizeBundles';
+import { BundleSelected } from '$lib/bundleStore';
+let settedvalue = "Visa";
 
-
-
+BundleSelected.subscribe(value => settedvalue = value)
 export interface Size {
     id: number;
     name: string;
     width?: number;
     height?: number;
+}
+
+export const bundleSizes = (selectedBundle: string) => {
+    switch (selectedBundle) {
+        case "Mousquetaires":
+            return MousquetairesSizes.bundle
+            break;
+
+        case "Visa":
+            return VisaSizes.bundle
+            break;
+
+        default:
+            return MousquetairesSizes.bundle
+            break;
+    }
 }
 
 export const sizes: Array<Size> = [
@@ -18,8 +36,7 @@ export const sizes: Array<Size> = [
     { id: 5, name: "Yammer", width: 2083, height: 2083 },
     { id: 6, name: "Bannière Fil", width: 195, height: 195 }
 ]
-export const sizesStore = persist(writable(sizes), createIndexedDBStorage(), 'SizeSettings');
-// export const sizesStore = writable(sizes);
+export const sizesStore = persist(writable(bundleSizes(settedvalue)), createIndexedDBStorage(), 'SizeSettings');
 
 export function addSize(size: Omit<Size, 'id'>) {
     sizesStore.update(sizes => {
@@ -35,7 +52,6 @@ export function deleteSize(id: number) {
         sizesStore.update(sizes => sizes.filter(size => size.id !== id));
     }
 }
-
 
 export function getUniqueRatios(sizes: Array<Size>): Array<{
     ratio: number | string, sizes: Array<{

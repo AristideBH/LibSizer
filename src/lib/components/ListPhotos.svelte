@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ListBox, ListBoxItem, FileDropzone, drawerStore } from '@skeletonlabs/skeleton';
+	import { ListBox, ListBoxItem, FileDropzone } from '@skeletonlabs/skeleton';
 	import { library, selected } from '$lib/imagesStore';
 	import { drawerClose } from '$lib/utils';
 	import Icon from '@iconify/svelte';
