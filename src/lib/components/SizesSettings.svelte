@@ -38,7 +38,7 @@
 								</dd>
 							</span>
 							<span>
-								<button class="btn-icon variant-outline" on:click={handleRemoveSize(size.id)}>
+								<button class="btn-icon variant-outline" on:click={() => handleRemoveSize(size.id)}>
 									<span>
 										<Icon icon="ic:baseline-delete-outline" />
 									</span>
