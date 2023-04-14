@@ -1,6 +1,8 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
 	import { AppBar } from '@skeletonlabs/skeleton';
+
+	import { library } from '$lib/stores/imagesStore';
 	import Nav from '$lib/components/Nav.svelte';
 	import ClientSelect from '$lib/components/ClientSelect.svelte';
 
@@ -27,8 +29,11 @@
 				on:click|preventDefault={handleLibClick}
 			>
 				<span><Icon icon="ic:baseline-photo-library" /></span>
-				<span>Library</span></button
-			>
+				<span>Library</span>
+				{#if $library.length > 0}
+					<span>({$library.length})</span>
+				{/if}
+			</button>
 			<button
 				type="button"
 				class="btn btn-icon variant-filled-primary"

@@ -26,11 +26,15 @@
 	};
 </script>
 
-<!-- <pre>{JSON.stringify(selectedValue, undefined, 2)}</pre> -->
-
 <div class="p-4 flex flex-col gap-4 h-full">
 	<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-	<h2 tabindex="0">Library</h2>
+	<h2 tabindex="0">
+		Library
+
+		{#if $library.length > 0}
+			<span>({$library.length})</span>
+		{/if}
+	</h2>
 	<hr />
 
 	<FileDropzone
