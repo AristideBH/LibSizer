@@ -1,9 +1,9 @@
 import { writable } from 'svelte/store';
 import { persist, createIndexedDBStorage } from '@macfja/svelte-persistent-store';
-import { MousquetairesSizes, VisaSizes } from '$lib/SizeBundles';
+import { AllBundles } from '$lib/SizeBundles';
 import { BundleSelected } from '$lib/stores/bundleStore';
 
-let settedvalue = "Visa";
+let settedvalue = "Standard";
 BundleSelected.subscribe(value => settedvalue = value)
 
 export interface Size {
@@ -14,20 +14,13 @@ export interface Size {
 }
 
 export const bundleSizes = (selectedBundle: string) => {
-    switch (selectedBundle) {
-        case "Mousquetaires":
-            return MousquetairesSizes.bundle
-            break;
-
-        case "Visa":
-            return VisaSizes.bundle
-            break;
-
-        default:
-            return MousquetairesSizes.bundle
-            break;
+    const bundle = AllBundles.find((bundle) => bundle.name === selectedBundle);
+    if (bundle) {
+        return bundle.bundle;
+    } else {
+        return AllBundles[0].bundle;
     }
-}
+};
 
 export const sizesStore = persist(writable(bundleSizes(settedvalue)), createIndexedDBStorage(), 'SizeSettings');
 

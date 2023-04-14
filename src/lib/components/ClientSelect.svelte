@@ -1,16 +1,13 @@
 <script lang="ts">
 	import { RadioGroup, RadioItem } from '@skeletonlabs/skeleton';
 	import { BundleSelected } from '$lib/stores/bundleStore';
-	import { MousquetairesSizes, VisaSizes } from '$lib/SizeBundles';
+	import { AllBundles } from '$lib/SizeBundles';
 </script>
 
 <RadioGroup>
-	<RadioItem bind:group={$BundleSelected} name="justify" value={MousquetairesSizes.name}>
-		{MousquetairesSizes.name}
-	</RadioItem>
-	<RadioItem bind:group={$BundleSelected} name="justify" value={VisaSizes.name}>
-		{VisaSizes.name}
-	</RadioItem>
+	{#each AllBundles as bundle}
+		<RadioItem bind:group={$BundleSelected} name="justify" value={bundle.name}>
+			{bundle.name}
+		</RadioItem>
+	{/each}
 </RadioGroup>
-
-<!-- <code>{$BundleSelected}</code> -->

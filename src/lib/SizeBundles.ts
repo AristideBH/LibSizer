@@ -6,9 +6,9 @@ export interface SizesBundle {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// * CLIENTS SIZE BUNDLES
+// * CLIENTS SIZE BUNDLES SET
 ///////////////////////////////////////////////////////////////////////////////
-export const MousquetairesSizes: SizesBundle = {
+const MousquetairesSizes: SizesBundle = {
     name: "Mousquetaires",
     bundle: [
         { id: 1, name: "Vignette Portail Groupement", width: 195, height: 195 },
@@ -20,7 +20,7 @@ export const MousquetairesSizes: SizesBundle = {
     ]
 }
 
-export const VisaSizes: SizesBundle = {
+const VisaSizes: SizesBundle = {
     name: "Visa",
     bundle: [
         { id: 1, name: "Homepage", width: 1024, height: 600 },
@@ -33,3 +33,17 @@ export const VisaSizes: SizesBundle = {
         { id: 8, name: "NL bloc produit", width: 640, height: 760 }
     ]
 }
+
+const StandardSizes: SizesBundle = {
+    name: "Standard",
+    bundle: [
+        { id: 1, name: "Portrait", width: 300, height: 400 },
+        { id: 2, name: "Landscape", width: 1920, height: 1080 },
+        { id: 3, name: "Square", width: 780, height: 780 },
+    ]
+}
+
+// * AGREGATE ALL BUNDLES
+export const AllBundles: SizesBundle[] = [
+    StandardSizes, MousquetairesSizes, VisaSizes
+]
