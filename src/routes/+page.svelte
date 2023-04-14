@@ -62,14 +62,14 @@
 				<span><Icon icon="ic:outline-folder-zip" /></span>
 				<span>Download bundle</span>
 			</button>
-			<!-- <button
+			<button
 				type="button"
 				class="btn variant-outline bg-white btn-icon"
 				on:click={save}
 				title="Save metadata"
 			>
 				<span><Icon icon="ic:outline-save" /></span>
-			</button> -->
+			</button>
 		</div>
 	</div>
 {/if}
