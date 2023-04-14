@@ -10,7 +10,7 @@
 		}
 	],
 	"background_color": "#dcdee8",
-	"display": "minimal-ui",
+	"display": "standalone ",
 
 	"scope": "/",
 	"theme_color": "#dcdee8",
