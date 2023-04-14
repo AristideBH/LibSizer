@@ -41,7 +41,7 @@
 	<!-- <svelte:fragment slot="sidebarLeft"><ListPhotos /></svelte:fragment> -->
 
 	<svelte:fragment slot="pageFooter">
-		<div class="container p-2 flex justify-between text-sm">
+		<div class="container py-2 px-4 flex justify-between text-sm">
 			<div>
 				Developped with ♥ by <a href="https://github.com/AristideBH" target="_blank">AristideBH</a>
 			</div>
