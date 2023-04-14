@@ -9,6 +9,9 @@
 	import { drawerOpen, modalSettingsOpen, modalComponentRegistry } from '$lib/utils';
 	import ListPhotos from '$lib/components/ListPhotos.svelte';
 	import HeaderGroup from '$lib/components/HeaderBar.svelte';
+	import type { LayoutData } from './$types';
+
+	export let data: LayoutData;
 </script>
 
 <svelte:head>
@@ -37,5 +40,11 @@
 
 	<!-- <svelte:fragment slot="sidebarLeft"><ListPhotos /></svelte:fragment> -->
 
+	<svelte:fragment slot="pageFooter">
+		<div class="container p-2 flex justify-between text-sm">
+			<div>Developped with ♥ by <a href="https://github.com/AristideBH">AristideBH</a></div>
+			<div>{data.appVersion}</div>
+		</div>
+	</svelte:fragment>
 	<slot />
 </AppShell>

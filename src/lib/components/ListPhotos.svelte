@@ -3,6 +3,7 @@
 	import { library, selected } from '$lib/stores/imagesStore';
 	import { drawerClose } from '$lib/utils';
 	import Icon from '@iconify/svelte';
+	import { goto } from '$app/navigation';
 
 	let files: FileList;
 	let selectedValue: string;
@@ -30,8 +31,8 @@
 <div class="p-4 flex flex-col gap-4 h-full">
 	<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 	<h2 tabindex="0">Library</h2>
-
 	<hr />
+
 	<FileDropzone
 		on:change={gotPhotos}
 		bind:files
@@ -54,6 +55,7 @@
 		<svelte:fragment slot="meta">(PNG and JPG allowed)</svelte:fragment>
 	</FileDropzone>
 
+	<!-- LIST UPLOADED PHOTOS -->
 	{#if $library.length}
 		<ListBox>
 			{#each $library as item}
@@ -61,7 +63,10 @@
 					bind:group={selectedValue}
 					name="medium"
 					value={item.id}
-					on:click={drawerClose}
+					on:click={() => {
+						drawerClose();
+						goto('/');
+					}}
 				>
 					<div class="flex gap-2 items-center">
 						<img src={item.data} alt={item.name} class="h-4 w-4 object-cover" />

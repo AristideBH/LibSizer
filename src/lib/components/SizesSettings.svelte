@@ -19,8 +19,8 @@
 
 <div class="flex flex-col gap-2">
 	<div class="card p-4 mt-8 min-w-[750px] w-full">
-		<header class="flex flex-row gap-4 justify-between items-center">
-			<h2 class="pb-3">Sizes</h2>
+		<header class="flex flex-row gap-4 justify-between items-center pb-3">
+			<h2 class="">Sizes</h2>
 			<ClientSelect />
 		</header>
 		<hr />

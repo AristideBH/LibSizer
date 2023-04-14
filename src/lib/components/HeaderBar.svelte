@@ -17,9 +17,9 @@
 		</a>
 
 		<Nav />
-		<ClientSelect />
 	</svelte:fragment>
 	<svelte:fragment slot="trail">
+		<ClientSelect />
 		<div class="inline-flex group">
 			<button
 				type="button"
