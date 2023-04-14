@@ -10,12 +10,12 @@ const tErr: ToastSettings = {
 
 const tEdit: ToastSettings = {
     message: 'Pictures successfully updated.',
-    background: 'variant-success-surface'
+    background: 'variant-filled-success'
 };
 
 const tAdd: ToastSettings = {
     message: 'Added with success.',
-    background: "variant-success-surface",
+    background: "variant-filled-success"
 };
 
 const tReset: ToastSettings = {
