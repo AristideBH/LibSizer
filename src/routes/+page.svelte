@@ -64,7 +64,7 @@
 			</button>
 			<button
 				type="button"
-				class="btn variant-outline bg-white btn-icon"
+				class="variant-outline-primary bg-white btn-icon"
 				on:click={save}
 				title="Save metadata"
 			>

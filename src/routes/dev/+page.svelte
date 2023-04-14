@@ -40,6 +40,8 @@
 											<code><strong>height:</strong> {photo.meta[key].cropData.height}</code>
 										</li>
 									{/if}
+								{:else}
+									<li><code>no metadata provided</code></li>
 								{/each}
 							</ul>
 						</td>

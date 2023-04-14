@@ -9,13 +9,13 @@ const tErr: ToastSettings = {
 };
 
 const tEdit: ToastSettings = {
-    message: 'Pictures successfully updated.',
-    background: 'variant-filled-success'
+    message: 'Picture successfully updated.',
+    background: 'variant-filled-primary'
 };
 
 const tAdd: ToastSettings = {
     message: 'Added with success.',
-    background: "variant-filled-success"
+    background: "variant-filled-primary"
 };
 
 const tReset: ToastSettings = {
