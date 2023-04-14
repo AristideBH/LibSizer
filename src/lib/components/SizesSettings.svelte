@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { sizesStore, addSize, deleteSize, bundleSizes } from '$lib/stores/settingsStore';
+	import { addSize, deleteSize, bundleSizes } from '$lib/stores/settingsStore';
 	import { BundleSelected } from '$lib/stores/bundleStore';
 
 	import Icon from '@iconify/svelte';
 	import ClientSelect from '$lib/components/ClientSelect.svelte';
-	import { fade } from 'svelte/transition';
+	import { slide } from 'svelte/transition';
 
 	let newSize = { name: '', width: 0, height: 0 };
 
@@ -26,7 +26,7 @@
 		</header>
 		<hr />
 		{#key bundleSizes($BundleSelected)}
-			<dt class="my-4" transition:fade>
+			<dt class="my-4" transition:slide>
 				{#each bundleSizes($BundleSelected) as size}
 					<dl class="list-dl bg-surface-hover-token rounded-lg">
 						<div class="">
@@ -40,13 +40,13 @@
 									</span>
 								</dd>
 							</span>
-							<!-- <span>
+							<span>
 								<button class="btn-icon variant-outline" on:click={() => handleRemoveSize(size.id)}>
 									<span>
 										<Icon icon="ic:baseline-delete-outline" />
 									</span>
 								</button>
-							</span> -->
+							</span>
 						</div>
 					</dl>
 				{/each}
