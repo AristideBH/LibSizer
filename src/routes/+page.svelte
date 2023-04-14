@@ -1,16 +1,18 @@
 <script lang="ts">
 	import { toastStore } from '@skeletonlabs/skeleton';
 	import Icon from '@iconify/svelte';
+	import JSZip from 'jszip';
+	import { saveAs } from 'file-saver';
+
 	import { library, selected } from '$lib/stores/imagesStore';
-	import { getUniqueRatios, sizesStore } from '$lib/stores/settingsStore';
+	import { getUniqueRatios, bundleSizes } from '$lib/stores/settingsStore';
+	import { BundleSelected } from '$lib/stores/bundleStore';
 	import { omitExt, ratioToNb, drawerOpen } from '$lib/utils';
 	import { tEdit } from '$lib/strings';
 	import CropperEl from '$lib/components/CropperEl.svelte';
-	import { saveAs } from 'file-saver';
-	import JSZip from 'jszip';
 
 	$: currentPhoto = library.getById($selected, $library);
-	const ratioList = getUniqueRatios($sizesStore);
+	$: ratioList = getUniqueRatios(bundleSizes($BundleSelected));
 	let cropperEl: Array<CropperEl> = [];
 
 	const save = () => {
@@ -74,14 +76,22 @@
 {#if currentPhoto && ratioList}
 	<div class="container flex-col p-4 gap-4">
 		{#each ratioList as ratio, index}
-			<CropperEl ratio={ratioToNb(ratio.ratio)} sizes={ratio.sizes} bind:this={cropperEl[index]} />
+			{#key currentPhoto && bundleSizes($BundleSelected)}
+				<CropperEl
+					ratio={ratioToNb(ratio.ratio)}
+					sizes={ratio.sizes}
+					bind:this={cropperEl[index]}
+				/>
+			{/key}
 		{/each}
 	</div>
 {/if}
 
 {#if !currentPhoto}
 	<div class="flex flex-col items-center h-full justify-center gap-6 text-center">
-		<Icon icon="ic:outline-photo-size-select-large" class="w-20 h-20 text-primary-500/30" />
+		<span class="w-20 h-20 text-primary-500/30">
+			<Icon icon="ic:outline-photo-size-select-large" width="100%" />
+		</span>
 		<p>
 			No picture selected. <br /> Please choose one from the
 			<a href="/" on:click={drawerOpen}>library</a>

@@ -1,10 +1,5 @@
 <script>
-	const menu = [
-		{
-			url: '/about',
-			text: 'About'
-		}
-	];
+	const menu = [{ url: '/about', text: 'About' }];
 </script>
 
 <nav>

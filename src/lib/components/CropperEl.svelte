@@ -4,7 +4,10 @@
 	import Icon from '@iconify/svelte';
 	import JSZip from 'jszip';
 	import { saveAs } from 'file-saver';
+
 	import { library, selected } from '$lib/stores/imagesStore';
+	import { BundleSelected } from '$lib/stores/bundleStore';
+	import { bundleSizes } from '$lib/stores/settingsStore';
 	import type { Size } from '$lib/stores/settingsStore';
 	import { omitExt, dataURLToBlob, ratioNbtoString } from '$lib/utils';
 
@@ -57,7 +60,6 @@
 			blobsData.push({ sizeName: size.name, data: exportCroppedImg(size) });
 		});
 		// console.log(blobsData);
-
 		return blobsData;
 	};
 
@@ -71,53 +73,51 @@
 	});
 </script>
 
-{#key currentPhoto}
-	<div class="card w-full p-4 flex flex-wrap md:flex-nowrap gap-6 justify-center" transition:fade>
-		<div class="mx-auto bg-slate-100 w-full max-w-3xl">
-			{#if currentPhoto}
-				<img src={currentPhoto.data} alt="" bind:this={imgRef} />
-			{/if}
-		</div>
-
-		<div class="flex flex-col min-w-[400px] gap-2 h-full items-start">
-			<h2>Ratio <strong>{ratioNbtoString(ratio)}</strong></h2>
-			<hr />
-			<code class="flex flex-col gap-0 w-fit my-2">
-				{#each sizes as size}
-					<button
-						class="flex items-center gap-1 p-1 hover:underline text-md"
-						type="button"
-						on:click|preventDefault={cropImage(size)}
-					>
-						<span><Icon icon="ic:round-sim-card-download" class="h-3 w-3" /></span>
-						<strong>{size.name}</strong> :
-						<span>
-							{size.width == undefined ? 'fit' : size.width + 'px'}
-							×
-							{size.height == undefined ? 'fit' : size.height + 'px'}
-						</span>
-					</button>
-				{/each}
-			</code>
-
-			{#if sizes.length > 1}
-				<button
-					class="btn variant-outline-primary w-fit btn-sm bg-white"
-					type="button"
-					on:click={gatherCropped}
-				>
-					<span><Icon icon="ic:outline-folder-zip" /></span>
-					<span>Download ratio bundle</span>
-				</button>
-			{/if}
-		</div>
+<div class="card w-full p-4 flex flex-wrap md:flex-nowrap gap-6 justify-center" transition:fade>
+	<div class="mx-auto bg-slate-100 w-full max-w-3xl">
+		{#if currentPhoto}
+			<img src={currentPhoto.data} alt="" bind:this={imgRef} class="block max-w-[100%] w-full" />
+		{/if}
 	</div>
-{/key}
+
+	<div class="flex flex-col min-w-[400px] gap-2 h-full items-start">
+		<h2>Ratio <strong>{ratioNbtoString(ratio)}</strong></h2>
+		<hr />
+		<code class="flex flex-col gap-0 w-fit my-2">
+			{#each sizes as size}
+				<button
+					class="flex items-center gap-1 p-1 hover:underline text-md"
+					type="button"
+					on:click={() => cropImage(size)}
+				>
+					<span><Icon icon="ic:round-sim-card-download" /></span>
+					<strong>{size.name}</strong> :
+					<span>
+						{size.width == undefined ? 'fit' : size.width + 'px'}
+						×
+						{size.height == undefined ? 'fit' : size.height + 'px'}
+					</span>
+				</button>
+			{/each}
+		</code>
+
+		{#if sizes.length > 1}
+			<button
+				class="btn variant-outline-primary w-fit btn-sm bg-white"
+				type="button"
+				on:click={gatherCropped}
+			>
+				<span><Icon icon="ic:outline-folder-zip" /></span>
+				<span>Download ratio bundle</span>
+			</button>
+		{/if}
+	</div>
+</div>
 
 <style>
-	img {
+	/* img {
 		display: block;
 		max-width: 100%;
 		width: 100%;
-	}
+	} */
 </style>

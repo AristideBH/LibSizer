@@ -40,12 +40,11 @@
 		title="Upload your pictures"
 		placeholder=""
 	>
-		<svelte:fragment slot="lead"
-			><Icon
-				class="h-8 w-8 text-surface-900/70"
-				icon="mdi:folder-upload-outline"
-			/></svelte:fragment
-		>
+		<svelte:fragment slot="lead">
+			<span class="h-8 w-8 text-primary-900/70">
+				<Icon icon="mdi:folder-upload-outline" width="100%" />
+			</span>
+		</svelte:fragment>
 		<svelte:fragment slot="message">
 			<strong>Upload one or multiple pictures</strong>
 			<span> or drag and drop</span>

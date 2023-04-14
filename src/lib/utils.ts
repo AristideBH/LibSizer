@@ -1,7 +1,8 @@
-import { drawerStore } from "@skeletonlabs/skeleton";
+import { drawerStore, modalStore, type ModalSettings, type ModalComponent } from "@skeletonlabs/skeleton";
+import ConfigPopup from '$lib/components/SizesSettings.svelte';
 
 ///////////////////////////////////////////////////////////////////////////////
-// * DRAWER FUNCTIONS
+// * DRAWERS & MODAL FUNCTIONS
 ///////////////////////////////////////////////////////////////////////////////
 export function drawerClose(): void {
     drawerStore.close();
@@ -14,12 +15,19 @@ export function drawerOpen(): void {
     });
 }
 
-export function drawerSettingsOpen(): void {
-    drawerStore.open({
-        width: 'w-[280px] md:w-[480px]',
-        position: "right"
-    });
+export const modalComponentRegistry: Record<string, ModalComponent> = {
+    modalComponentOne: { ref: ConfigPopup }
+};
+
+const modalSettings: ModalSettings = {
+    type: 'component',
+    component: 'modalComponentOne'
+};
+
+export const modalSettingsOpen = () => {
+    modalStore.trigger(modalSettings)
 }
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // * VARIOUS FUNCTIONS

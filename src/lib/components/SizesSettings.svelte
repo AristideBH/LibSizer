@@ -1,5 +1,7 @@
 <script lang="ts">
-	import { sizesStore, addSize, deleteSize } from '$lib/stores/settingsStore';
+	import { sizesStore, addSize, deleteSize, bundleSizes } from '$lib/stores/settingsStore';
+	import { BundleSelected } from '$lib/stores/bundleStore';
+
 	import Icon from '@iconify/svelte';
 	import ClientSelect from '$lib/components/ClientSelect.svelte';
 
@@ -16,15 +18,15 @@
 </script>
 
 <div class="flex flex-col gap-2">
-	<div class="card p-4 mt-8 min-w-[450px]">
+	<div class="card p-4 mt-8 min-w-[750px] w-full">
 		<header class="flex flex-row gap-4 justify-between items-center">
 			<h2 class="pb-3">Sizes</h2>
-			<!-- <ClientSelect /> -->
+			<ClientSelect />
 		</header>
 		<hr />
-		{#key $sizesStore}
+		{#key bundleSizes($BundleSelected)}
 			<dt class="my-4">
-				{#each $sizesStore as size}
+				{#each bundleSizes($BundleSelected) as size}
 					<dl class="list-dl bg-surface-hover-token rounded-lg">
 						<div class="">
 							<span class="flex-auto">
