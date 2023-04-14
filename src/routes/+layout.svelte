@@ -2,7 +2,7 @@
 	import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
 	import '@skeletonlabs/skeleton/styles/all.css';
 	import '../app.postcss';
-	import '$lib/css/croppr.css';
+	import '$lib/css/croppr.postcss';
 
 	import { AppShell, Drawer, Toast, Modal } from '@skeletonlabs/skeleton';
 
