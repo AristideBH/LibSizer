@@ -43,6 +43,7 @@ function CreateImageStore() {
 
         // * Return the photo with matching ID
         getById: (id: string, store: any) => {
+
             const files = store;
             return files.find((file: { id: string; }) => file.id === id);
         },

@@ -47,6 +47,7 @@
 </script>
 
 {#if currentPhoto}
+	<!-- TOOLBAR -->
 	<div class="bg-surface-50 border-b border-surface-300 sticky top-0 z-20">
 		<div class="container p-4 items-center justify-between">
 			<span class="mr-auto">
@@ -73,7 +74,8 @@
 	</div>
 {/if}
 
-{#if currentPhoto && ratioList}
+{#if currentPhoto}
+	<!-- EDITING SCREEN -->
 	<div class="container flex-col p-4 gap-4">
 		{#each ratioList as ratio, index}
 			{#key currentPhoto && bundleSizes($BundleSelected)}

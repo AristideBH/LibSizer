@@ -7,7 +7,7 @@
 	let files: FileList;
 	let selectedValue: string;
 
-	$: selected.set(selectedValue);
+	$: if (selectedValue) selected.set(selectedValue);
 
 	const gotPhotos = () => {
 		library.loadPhotos(files);
@@ -28,7 +28,9 @@
 <!-- <pre>{JSON.stringify(selectedValue, undefined, 2)}</pre> -->
 
 <div class="p-4 flex flex-col gap-4 h-full">
-	<h2>Library</h2>
+	<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+	<h2 tabindex="0">Library</h2>
+
 	<hr />
 	<FileDropzone
 		on:change={gotPhotos}

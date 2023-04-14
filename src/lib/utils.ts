@@ -76,7 +76,7 @@ export const ratioNbtoString = (ratio: number) => {
             break;
 
         default:
-            return ratio
+            return ratio.toFixed(3)
             break;
     }
 };
