@@ -4,9 +4,9 @@
 	import Icon from '@iconify/svelte';
 	import JSZip from 'jszip';
 	import { saveAs } from 'file-saver';
-	import { library, selected } from '$lib/imagesStore';
+	import { library, selected } from '$lib/stores/imagesStore';
+	import type { Size } from '$lib/stores/settingsStore';
 	import { omitExt, dataURLToBlob, ratioNbtoString } from '$lib/utils';
-	import type { Size } from '$lib/settingsStore';
 
 	$: currentPhoto = library.getById($selected, $library);
 

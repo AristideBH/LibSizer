@@ -1,5 +1,8 @@
 import type { ToastSettings } from '@skeletonlabs/skeleton';
 
+///////////////////////////////////////////////////////////////////////////////
+// * TOASTS STRINGS
+///////////////////////////////////////////////////////////////////////////////
 const tErr: ToastSettings = {
     message: "Something did not go well. Please retry.",
     background: 'variant-filled-error'
@@ -7,12 +10,12 @@ const tErr: ToastSettings = {
 
 const tEdit: ToastSettings = {
     message: 'Pictures successfully updated.',
-    background: 'variant-filled-surface'
+    background: 'variant-success-surface'
 };
 
 const tAdd: ToastSettings = {
     message: 'Added with success.',
-    background: "variant-filled-surface",
+    background: "variant-success-surface",
 };
 
 const tReset: ToastSettings = {
@@ -20,8 +23,12 @@ const tReset: ToastSettings = {
     background: "variant-filled-surface",
 };
 
+///////////////////////////////////////////////////////////////////////////////
+// * STATIC STRINGS
+///////////////////////////////////////////////////////////////////////////////
 const noPhoto = "Please upload and select a photo in the library"
 
+///////////////////////////////////////////////////////////////////////////////
 export {
     tErr, tEdit, tAdd, tReset, noPhoto
 };

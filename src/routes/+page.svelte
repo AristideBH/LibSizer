@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { drawerStore, toastStore } from '@skeletonlabs/skeleton';
+	import { toastStore } from '@skeletonlabs/skeleton';
 	import Icon from '@iconify/svelte';
-	import { library, selected } from '$lib/imagesStore';
-	import { sizes, getUniqueRatios, sizesStore } from '$lib/settingsStore';
+	import { library, selected } from '$lib/stores/imagesStore';
+	import { getUniqueRatios, sizesStore } from '$lib/stores/settingsStore';
 	import { omitExt, ratioToNb, drawerOpen } from '$lib/utils';
 	import { tEdit } from '$lib/strings';
 	import CropperEl from '$lib/components/CropperEl.svelte';
@@ -45,7 +45,6 @@
 </script>
 
 {#if currentPhoto}
-	<!-- <pre>{JSON.stringify(currentPhoto.meta[1], undefined, 2)}</pre> -->
 	<div class="bg-surface-50 border-b border-surface-300 sticky top-0 z-20">
 		<div class="container p-4 items-center justify-between">
 			<span class="mr-auto">

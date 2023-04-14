@@ -1,10 +1,11 @@
 import { writable } from 'svelte/store';
 import { persist, createIndexedDBStorage } from '@macfja/svelte-persistent-store';
 import { MousquetairesSizes, VisaSizes } from '$lib/SizeBundles';
-import { BundleSelected } from '$lib/bundleStore';
-let settedvalue = "Visa";
+import { BundleSelected } from '$lib/stores/bundleStore';
 
+let settedvalue = "Visa";
 BundleSelected.subscribe(value => settedvalue = value)
+
 export interface Size {
     id: number;
     name: string;
@@ -28,16 +29,11 @@ export const bundleSizes = (selectedBundle: string) => {
     }
 }
 
-export const sizes: Array<Size> = [
-    { id: 1, name: "Vignette Portail Groupement", width: 195, height: 195 },
-    { id: 2, name: "Vignette Document Groupement", width: 150, height: 120 },
-    { id: 3, name: "Vignette Fil", width: 195, height: 195 },
-    { id: 4, name: "Corps Documents Intranet", width: 500 },
-    { id: 5, name: "Yammer", width: 2083, height: 2083 },
-    { id: 6, name: "Bannière Fil", width: 195, height: 195 }
-]
 export const sizesStore = persist(writable(bundleSizes(settedvalue)), createIndexedDBStorage(), 'SizeSettings');
 
+///////////////////////////////////////////////////////////////////////////////
+// * STORES FUNCTIONS
+///////////////////////////////////////////////////////////////////////////////
 export function addSize(size: Omit<Size, 'id'>) {
     sizesStore.update(sizes => {
         const lastId = sizes[sizes.length - 1]?.id ?? 0;

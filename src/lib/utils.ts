@@ -1,5 +1,8 @@
 import { drawerStore } from "@skeletonlabs/skeleton";
 
+///////////////////////////////////////////////////////////////////////////////
+// * DRAWER FUNCTIONS
+///////////////////////////////////////////////////////////////////////////////
 export function drawerClose(): void {
     drawerStore.close();
 }
@@ -18,7 +21,9 @@ export function drawerSettingsOpen(): void {
     });
 }
 
-
+///////////////////////////////////////////////////////////////////////////////
+// * VARIOUS FUNCTIONS
+///////////////////////////////////////////////////////////////////////////////
 export const omitExt = (fileName: string): string => {
     if (/\.(jpe?g|png)$/i.test(fileName)) {
         return fileName.replace(/\.(jpe?g|png)$/i, '');
@@ -38,7 +43,6 @@ export const dataURLToBlob = (dataURL: string): Blob => {
 
     return new Blob([ab], { type: mimeString });
 };
-
 
 export const ratioToNb = (ratio: string | number) => (typeof ratio === 'string' ? 0 : ratio);
 

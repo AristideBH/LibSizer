@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { bundleSizes } from '$lib/settingsStore';
-	import { BundleSelected } from '$lib/bundleStore';
+	import { bundleSizes } from '$lib/stores/settingsStore';
+	import { BundleSelected } from '$lib/stores/bundleStore';
 </script>
 
 <div class="container flex-col py-4 px-4 space-y-3">

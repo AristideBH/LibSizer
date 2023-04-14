@@ -1,12 +1,13 @@
-import type { Size } from "./settingsStore"
-
+import type { Size } from "$lib/stores/settingsStore"
 
 export interface SizesBundle {
     name: string;
     bundle: Array<Size>;
 }
 
-
+///////////////////////////////////////////////////////////////////////////////
+// * CLIENTS SIZE BUNDLES
+///////////////////////////////////////////////////////////////////////////////
 export const MousquetairesSizes: SizesBundle = {
     name: "Mousquetaires",
     bundle: [
@@ -18,6 +19,7 @@ export const MousquetairesSizes: SizesBundle = {
         { id: 6, name: "Bannière Fil", width: 195, height: 195 }
     ]
 }
+
 export const VisaSizes: SizesBundle = {
     name: "Visa",
     bundle: [

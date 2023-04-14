@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { sizesStore, addSize, deleteSize } from '$lib/settingsStore';
+	import { sizesStore, addSize, deleteSize } from '$lib/stores/settingsStore';
 	import Icon from '@iconify/svelte';
 	import ClientSelect from '$lib/components/ClientSelect.svelte';
 
@@ -37,13 +37,13 @@
 									</span>
 								</dd>
 							</span>
-							<span>
+							<!-- <span>
 								<button class="btn-icon variant-outline" on:click={() => handleRemoveSize(size.id)}>
 									<span>
 										<Icon icon="ic:baseline-delete-outline" />
 									</span>
 								</button>
-							</span>
+							</span> -->
 						</div>
 					</dl>
 				{/each}

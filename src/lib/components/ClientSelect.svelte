@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { RadioGroup, RadioItem } from '@skeletonlabs/skeleton';
-	import { BundleSelected } from '$lib/bundleStore';
+	import { BundleSelected } from '$lib/stores/bundleStore';
 	import { MousquetairesSizes, VisaSizes } from '$lib/SizeBundles';
 </script>
 
