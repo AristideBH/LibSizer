@@ -42,7 +42,9 @@
 
 	<svelte:fragment slot="pageFooter">
 		<div class="container p-2 flex justify-between text-sm">
-			<div>Developped with ♥ by <a href="https://github.com/AristideBH">AristideBH</a></div>
+			<div>
+				Developped with ♥ by <a href="https://github.com/AristideBH" target="_blank">AristideBH</a>
+			</div>
 			<div>{data.appVersion}</div>
 		</div>
 	</svelte:fragment>

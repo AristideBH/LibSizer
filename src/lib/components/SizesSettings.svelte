@@ -4,6 +4,7 @@
 
 	import Icon from '@iconify/svelte';
 	import ClientSelect from '$lib/components/ClientSelect.svelte';
+	import { fade } from 'svelte/transition';
 
 	let newSize = { name: '', width: 0, height: 0 };
 
@@ -25,7 +26,7 @@
 		</header>
 		<hr />
 		{#key bundleSizes($BundleSelected)}
-			<dt class="my-4">
+			<dt class="my-4" transition:fade>
 				{#each bundleSizes($BundleSelected) as size}
 					<dl class="list-dl bg-surface-hover-token rounded-lg">
 						<div class="">
