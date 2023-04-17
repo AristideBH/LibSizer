@@ -54,35 +54,17 @@ export const dataURLToBlob = (dataURL: string): Blob => {
 
 export const ratioToNb = (ratio: string | number) => (typeof ratio === 'string' ? 0 : ratio);
 
-export const ratioNbtoString = (ratio: number) => {
-    switch (ratio) {
-        case 0:
-            return 'Fit'
-            break;
-        case 1:
-            return 'Square'
-            break;
-        case 0.8:
-            return '4/5'
-            break;
-        case 0.75:
-            return '3/4'
-            break;
-        case 1.3333:
-            return '4/3'
-            break;
-        case 1.25:
-            return '5/4'
-            break;
-        case 0.5625:
-            return '9/16'
-            break;
-        case 1.7778:
-            return '9/16'
-            break;
+export const ratioNbtoString = (ratio: number): string => {
+    const ratios: Record<number, string> = {
+        0: 'Fit',
+        1: 'Square',
+        0.8: '4/5',
+        0.75: '3/4',
+        1.3333: '4/3',
+        1.25: '5/4',
+        0.5625: '9/16',
+        1.7778: '9/16'
+    };
 
-        default:
-            return parseFloat(ratio.toFixed(4))
-            break;
-    }
+    return ratios[ratio] || ratio.toFixed(4).toString();
 };
