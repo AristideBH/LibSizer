@@ -13,8 +13,8 @@
 			specific list of format/dimensions.
 		</p>
 		<p>
-			Currently, the tool only supports Zip bundling for one photo at the time, and for two sets of
-			dimensions : <code>Mousquetaires</code> and <code>Visa</code>.
+			Currently, the tool only supports Zip bundling for one photo at the time, and for three sets
+			of dimensions : <code>Standard</code>, <code>Mousquetaires</code> and <code>Visa</code>.
 		</p>
 
 		<h2 class="pt-4 pb-2">Usage</h2>
@@ -23,14 +23,14 @@
 			<li>Load your photos in the <code>Library</code> sidebar with the dedicated filezone.</li>
 			<li>Select one of your photo from your loaded photos.</li>
 			<li>
-				LibSizer will automatically group listed dimensions into ratios.
-				<br />(eg. Square, 4/3, etc)
+				LibSizer will automatically group listed dimensions into similar ratios.
+				<br />(eg. Square, 4/3, 16/9, etc)
 			</li>
 			<li>Crop your image to your need, for each of the ratios.</li>
 			<li>
-				Use the <code>Export bundle</code> in the toolbar to export the full cropped package.
+				Use the <code>Export bundle</code> button in the toolbar to export the full package.
 				<br />
-				You'll be prompted to download the said file.
+				A window will open and let you chose where to save the zip file.
 			</li>
 			<li>You can use the dedicated button to donwload specific dimensions or ratio bundle.</li>
 		</ol>
