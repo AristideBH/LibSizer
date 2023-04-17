@@ -65,18 +65,24 @@ export const ratioNbtoString = (ratio: number) => {
         case 0.8:
             return '4/5'
             break;
-        case .75:
+        case 0.75:
             return '3/4'
             break;
-        case 1.333333333:
+        case 1.3333:
             return '4/3'
             break;
         case 1.25:
             return '5/4'
             break;
+        case 0.5625:
+            return '9/16'
+            break;
+        case 1.7778:
+            return '9/16'
+            break;
 
         default:
-            return ratio.toFixed(3)
+            return parseFloat(ratio.toFixed(4))
             break;
     }
 };

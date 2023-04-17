@@ -81,7 +81,7 @@
 	</div>
 
 	<div class="flex flex-col min-w-[400px] gap-2 h-full items-start">
-		<h2>Ratio <strong>{ratioNbtoString(ratio)}</strong></h2>
+		<h2>Ratio <strong>{ratioNbtoString(parseFloat(ratio.toFixed(4)))}</strong></h2>
 		<hr />
 		<code class="flex flex-col gap-0 w-fit my-2">
 			{#each sizes as size}
@@ -113,11 +113,3 @@
 		{/if}
 	</div>
 </div>
-
-<style>
-	/* img {
-		display: block;
-		max-width: 100%;
-		width: 100%;
-	} */
-</style>
