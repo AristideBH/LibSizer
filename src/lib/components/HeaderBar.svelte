@@ -6,10 +6,15 @@
 	import Nav from '$lib/components/Nav.svelte';
 	import ClientSelect from '$lib/components/ClientSelect.svelte';
 
-	export let handleLibClick, handleCogClick;
+	export let handleLibClick: Function, handleCogClick: Function;
 </script>
 
-<AppBar regionRowMain=" gap-2 justify-between px-4 container" slotLead="flex gap-7 justify-center">
+<AppBar
+	regionRowMain=" gap-2 justify-between px-4 container"
+	slotLead="flex gap-7 justify-center"
+	slotTrail="flex flex-wrap"
+	slotDefault="flex justify-center"
+>
 	<svelte:fragment slot="lead">
 		<a
 			href="/"
@@ -20,14 +25,12 @@
 
 		<Nav />
 	</svelte:fragment>
-	<svelte:fragment slot="trail">
+	<svelte:fragment slot="default">
 		<ClientSelect />
+	</svelte:fragment>
+	<svelte:fragment slot="trail">
 		<div class="inline-flex group">
-			<button
-				type="button"
-				class="btn variant-filled-primary"
-				on:click|preventDefault={handleLibClick}
-			>
+			<button type="button" class="btn variant-filled-primary" on:click={handleLibClick}>
 				<span><Icon icon="ic:baseline-photo-library" /></span>
 				<span>Library</span>
 				{#if $library.length > 0}
@@ -37,7 +40,7 @@
 			<button
 				type="button"
 				class="btn btn-icon variant-filled-primary"
-				on:click|preventDefault={handleCogClick}
+				on:click={handleCogClick}
 				title="Sizes settings"
 			>
 				<span>

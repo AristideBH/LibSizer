@@ -34,6 +34,38 @@
 			</li>
 			<li>You can use the dedicated button to donwload specific dimensions or ratio bundle.</li>
 		</ol>
+
+		<h2 class="pt-4 pb-2">Roadmap</h2>
+
+		<fieldset class="space-y-1">
+			<legend>(Features may not be implemented)</legend>
+
+			<div class="flex gap-2 items-center">
+				<input type="checkbox" id="cropSave" name="cropSave" disabled />
+				<label for="cropSave">Save cropping metadatas for later exports</label>
+			</div>
+			<div class="flex gap-2 items-center">
+				<input type="checkbox" id="nextCrop" name="nextCrop" disabled />
+				<label for="nextCrop">Switch to next picture in library upon saving metadatas</label>
+			</div>
+			<div class="flex gap-2 items-center">
+				<input type="checkbox" id="navArrows" name="navArrows" disabled />
+				<label for="navArrows">Arrows for next and previous photos in library</label>
+			</div>
+			<div class="flex gap-2 items-center">
+				<input type="checkbox" id="savePopup" name="savePopup" disabled />
+				<label for="savePopup">Popup upon page/photos change if metadatas are not saved</label>
+			</div>
+			<div class="flex gap-2 items-center">
+				<input type="checkbox" id="listStatus" name="listStatus" disabled checked />
+				<label for="listStatus">Add a status icon per image in the library <sub>(0.2.4)</sub></label
+				>
+			</div>
+			<div class="flex gap-2 items-center">
+				<input type="checkbox" id="multiExport" name="multiExport" disabled />
+				<label for="multiExport">Allow for export all images with "edited" status in one go </label>
+			</div>
+		</fieldset>
 	</div>
 
 	<!-- <pre>{JSON.stringify(bundleSizes($BundleSelected), null, 2)}</pre> -->

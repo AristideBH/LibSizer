@@ -36,9 +36,8 @@
 
 		const zip = new JSZip();
 		allBlobs.forEach((blob) => {
-			if (blob.data) {
+			if (blob.data)
 				zip.file(omitExt(currentPhoto.name) + ' - ' + blob.sizeName + '.jpg', blob.data);
-			}
 		});
 		let gen = await zip.generateAsync({ type: 'blob' }).then(function (blob) {
 			saveAs(blob, omitExt(currentPhoto.name));
