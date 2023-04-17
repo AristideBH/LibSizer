@@ -63,7 +63,7 @@ export const ratioNbtoString = (ratio: number): string => {
         1.3333: '4/3',
         1.25: '5/4',
         0.5625: '9/16',
-        1.7778: '9/16'
+        1.7778: '16/9'
     };
 
     return ratios[ratio] || ratio.toFixed(4).toString();
