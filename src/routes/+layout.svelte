@@ -4,14 +4,13 @@
 	import '../app.postcss';
 	import '$lib/css/croppr.postcss';
 
-	import { AppShell, Drawer, Toast, Modal } from '@skeletonlabs/skeleton';
-	import { ProgressBar } from '@skeletonlabs/skeleton';
+	import { AppShell, Drawer, Toast, Modal, ProgressBar } from '@skeletonlabs/skeleton';
+	import { slide } from 'svelte/transition';
 
 	import { drawerOpen, modalSettingsOpen, modalComponentRegistry } from '$lib/utils';
 	import ListPhotos from '$lib/components/ListPhotos.svelte';
 	import HeaderGroup from '$lib/components/HeaderBar.svelte';
 	import Footer from '$lib/components/Footer.svelte';
-	import { slide } from 'svelte/transition';
 </script>
 
 <svelte:head>
