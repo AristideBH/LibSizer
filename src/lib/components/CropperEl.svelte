@@ -33,7 +33,6 @@
 		if (isEmpty(currentPhoto.meta)) {
 		} else {
 			cropData = getObjectByRatioName(currentPhoto.meta, ratio);
-			console.log('cropdata', cropData);
 		}
 		cropper = new Cropper(imgRef, {
 			aspectRatio: ratio,
