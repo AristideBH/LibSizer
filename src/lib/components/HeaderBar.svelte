@@ -9,10 +9,9 @@
 </script>
 
 <AppBar
-	regionRowMain="gap-2 px-4 container  justify-center	sm:flex-row sm:justify-between"
-	slotLead="flex gap-7 justify-center"
+	regionRowMain=" px-4 container !gap-x-3 !gap-y-4 flex-col justify-center sm:flex-row sm:justify-between"
 	slotTrail="flex flex-wrap"
-	slotDefault="flex justify-center"
+	slotDefault="hidden"
 >
 	<svelte:fragment slot="lead">
 		<a

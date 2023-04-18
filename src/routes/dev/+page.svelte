@@ -3,7 +3,7 @@
 </script>
 
 <!-- Responsive Container (recommended) -->
-<div class="container py-4">
+<div class="container py-6 px-4">
 	<div class="table-container">
 		<!-- Native Table Element -->
 		<table class="table table-hover">
