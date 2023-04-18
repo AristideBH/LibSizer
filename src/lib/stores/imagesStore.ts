@@ -2,7 +2,7 @@ import { writable } from 'svelte/store';
 import { v4 as uuidv4 } from 'uuid';
 import { toastStore } from '@skeletonlabs/skeleton';
 import { tAdd, tReset } from '$lib/strings';
-
+let nextId = 1;
 ///////////////////////////////////////////////////////////////////////////////
 // * LOADED IMAGES STORE
 ///////////////////////////////////////////////////////////////////////////////
@@ -22,6 +22,7 @@ function CreateImageStore() {
         },
 
         // * Add loaded photos to the store with additionnal metadatas 
+
         loadPhotos: (fileList: FileList) => {
             Array.from(fileList).forEach(file => {
                 const reader = new FileReader();
@@ -30,7 +31,7 @@ function CreateImageStore() {
                     const newFile = {
                         data: base64String,
                         name: file.name,
-                        id: uuidv4(),
+                        id: nextId++,
                         status: "original",
                         meta: {}
                     };
@@ -42,10 +43,9 @@ function CreateImageStore() {
         },
 
         // * Return the photo with matching ID
-        getById: (id: string, store: any) => {
-
+        getById: (id: number, store: any) => {
             const files = store;
-            return files.find((file: { id: string; }) => file.id === id);
+            return files.find((file: { id: number; }) => file.id === id);
         },
 
         // * Return all photos with status "edited"
@@ -55,7 +55,7 @@ function CreateImageStore() {
         },
 
         // * Add metadatas and "edited" status to the photo with matching ID
-        updatePhotoById: (id: string, meta: object) => {
+        updatePhotoById: (id: number, meta: object) => {
             update(n => {
                 const updatedFiles = n.map(file => {
                     if (file.id === id) {
@@ -84,12 +84,12 @@ export const library = CreateImageStore();
 // * SELECTED IMAGE STORE from LIBRARY
 ///////////////////////////////////////////////////////////////////////////////
 function CreateSelectedStore() {
-    const { subscribe, set } = writable("");
+    const { subscribe, set } = writable(0);
 
     return {
         subscribe,
         set,
-        reset: () => set('[]')
+        reset: () => set(0),
     };
 }
 

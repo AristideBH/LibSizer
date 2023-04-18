@@ -42,15 +42,19 @@
 
 			<div class="flex gap-2 items-center">
 				<input type="checkbox" id="cropSave" name="cropSave" disabled />
-				<label for="cropSave">Save cropping metadatas for later exports</label>
+				<label for="cropSave"
+					>Save cropping metadatas for later exports <sub>(partial-WIP)</sub></label
+				>
 			</div>
 			<div class="flex gap-2 items-center">
 				<input type="checkbox" id="nextCrop" name="nextCrop" disabled />
 				<label for="nextCrop">Switch to next picture in library upon saving metadatas</label>
 			</div>
 			<div class="flex gap-2 items-center">
-				<input type="checkbox" id="navArrows" name="navArrows" disabled />
-				<label for="navArrows">Arrows for next and previous photos in library</label>
+				<input type="checkbox" id="navArrows" name="navArrows" disabled checked />
+				<label for="navArrows"
+					>Arrows for next and previous photos in library <sub>(0.2.5)</sub></label
+				>
 			</div>
 			<div class="flex gap-2 items-center">
 				<input type="checkbox" id="savePopup" name="savePopup" disabled />

@@ -10,14 +10,15 @@
 	import { omitExt, ratioToNb, drawerOpen } from '$lib/utils';
 	import { tEdit } from '$lib/strings';
 	import CropperEl from '$lib/components/CropperEl.svelte';
+	import Arrow from '$lib/components/Arrow.svelte';
 
 	$: currentPhoto = library.getById($selected, $library);
 	$: ratioList = getUniqueRatios(bundleSizes($BundleSelected));
-	let cropperEl: Array<CropperEl> = [];
+	let cropperEls: Array<CropperEl> = [];
 
 	const save = () => {
 		let allCrops: { ratioName: number; cropData: any }[] = [];
-		cropperEl.forEach((child) => {
+		cropperEls.forEach((child) => {
 			const data = child.saveMetas();
 			allCrops.push(data);
 		});
@@ -27,7 +28,7 @@
 
 	const exportAll = async () => {
 		let allBlobs: { sizeName: string; data: Blob | undefined }[] = [];
-		cropperEl.forEach((child) => {
+		cropperEls.forEach((child) => {
 			const data = child.exportAll();
 			data.forEach((item) => {
 				allBlobs.push(item);
@@ -49,9 +50,14 @@
 	<!-- TOOLBAR -->
 	<div class="bg-surface-50 border-b border-surface-300 sticky top-0 z-20">
 		<div class="container p-4 items-center justify-between">
-			<span class="mr-auto">
-				Editing <strong>[{currentPhoto.name}]</strong>
-			</span>
+			<div class="mr-auto flex gap-3 items-center">
+				<Arrow direction="left" />
+				<span>
+					Editing <strong>[{currentPhoto.name}]</strong>
+				</span>
+				<Arrow direction="right" />
+			</div>
+
 			<button
 				type="button"
 				class="btn variant-outline-primary bg-white"
@@ -81,7 +87,7 @@
 				<CropperEl
 					ratio={ratioToNb(ratio.ratio)}
 					sizes={ratio.sizes}
-					bind:this={cropperEl[index]}
+					bind:this={cropperEls[index]}
 				/>
 			{/key}
 		{/each}
