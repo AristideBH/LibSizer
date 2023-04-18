@@ -33,8 +33,8 @@
 
 <AppShell
 	regionPage="relative"
-	slotHeader="border-b border-surface-300 bg-surface-50 "
-	slotSidebarLeft="bg-surface-500/5 w-0 lg:w-64 border-r border-surface-300 resize-x lg:max-w-xl lg:min-w-[16rem] "
+	slotHeader="border-b border-surface-200-700-token bg-surface-200-700-token "
+	slotSidebarLeft="bg-surface-500/5 w-0 lg:w-64 border-r border-surface-500/50 resize-x lg:max-w-xl lg:min-w-[16rem] "
 >
 	<svelte:fragment slot="header">
 		<HeaderGroup handleLibClick={drawerOpen} handleCogClick={modalSettingsOpen} />

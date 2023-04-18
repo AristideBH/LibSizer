@@ -19,7 +19,7 @@
 	}
 </script>
 
-<div class="flex flex-col gap-2 w-modal items-end">
+<div class="flex flex-col gap-2 w-modal">
 	<div class="card p-4 w-full">
 		<header
 			class="flex flex-col gap-x-4 gap-y-2 pb-3 items-center justify-center
@@ -56,10 +56,11 @@
 				{/each}
 			</dt>
 		{/key}
-	</div>
-	<div class="flex gap-2 items-center">
-		<span class="text-xs">THEME :</span>
-		<LightSwitch />
+		<hr />
+		<div class="flex gap-2 items-center pt-3 px-2">
+			<span class="text-xs">THEME</span>
+			<LightSwitch />
+		</div>
 	</div>
 	<!-- <div class="card p-4 flex flex-col mb-6">
 		<h2 class="pb-3">Add a new size</h2>
