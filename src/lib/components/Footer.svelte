@@ -5,7 +5,7 @@
 	export let data: LayoutData;
 </script>
 
-<div class="container py-2 px-4 flex justify-between text-sm">
+<div class="container py-2 px-4 flex justify-between text-sm border-t border-surface-300">
 	<div>
 		<span class="badge variant-ghost-primary">{data.appVersion}</span>
 		by <a href="https://github.com/AristideBH" target="_blank">AristideBH</a>

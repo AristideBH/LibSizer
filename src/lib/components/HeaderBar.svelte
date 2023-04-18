@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
 	import { AppBar } from '@skeletonlabs/skeleton';
-
 	import { library } from '$lib/stores/imagesStore';
 
 	export let handleLibClick: svelte.JSX.MouseEventHandler<HTMLButtonElement>,

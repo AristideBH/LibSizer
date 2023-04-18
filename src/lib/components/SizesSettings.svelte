@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { addSize, deleteSize, bundleSizes } from '$lib/stores/settingsStore';
 	import { BundleSelected } from '$lib/stores/bundleStore';
+	import { LightSwitch } from '@skeletonlabs/skeleton';
 
 	import Icon from '@iconify/svelte';
 	import ClientSelect from '$lib/components/ClientSelect.svelte';
@@ -18,8 +19,8 @@
 	}
 </script>
 
-<div class="flex flex-col gap-2 w-modal">
-	<div class="card p-4 mt-8 w-full">
+<div class="flex flex-col gap-2 w-modal items-end">
+	<div class="card p-4 w-full">
 		<header
 			class="flex flex-col gap-x-4 gap-y-2 pb-3 items-center justify-center
 				sm:flex-row sm:justify-between"
@@ -55,6 +56,10 @@
 				{/each}
 			</dt>
 		{/key}
+	</div>
+	<div class="flex gap-2 items-center">
+		<span class="text-xs">THEME :</span>
+		<LightSwitch />
 	</div>
 	<!-- <div class="card p-4 flex flex-col mb-6">
 		<h2 class="pb-3">Add a new size</h2>
