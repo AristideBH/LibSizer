@@ -1,7 +1,7 @@
 <script>
 	const menu = [
 		{ url: '/about', text: 'About' },
-		{ url: '/dev', text: 'Dev' }
+		{ url: '/dev', text: 'Devlog' }
 	];
 </script>
 

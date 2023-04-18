@@ -19,7 +19,7 @@
 
 		<h2 class="pt-4 pb-2">Usage</h2>
 		<ol class="list-decimal pl-6 space-y-1">
-			<li>Choose your dimensions set in the header or in the setting modal.</li>
+			<li>Choose your dimensions set in the setting modal.</li>
 			<li>Load your photos in the <code>Library</code> sidebar with the dedicated filezone.</li>
 			<li>Select one of your photo from your loaded photos.</li>
 			<li>

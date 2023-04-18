@@ -3,14 +3,13 @@
 	import { AppBar } from '@skeletonlabs/skeleton';
 
 	import { library } from '$lib/stores/imagesStore';
-	import Nav from '$lib/components/Nav.svelte';
-	import ClientSelect from '$lib/components/ClientSelect.svelte';
 
-	export let handleLibClick: Function, handleCogClick: Function;
+	export let handleLibClick: svelte.JSX.MouseEventHandler<HTMLButtonElement>,
+		handleCogClick: svelte.JSX.MouseEventHandler<HTMLButtonElement>;
 </script>
 
 <AppBar
-	regionRowMain=" gap-2 justify-between px-4 container"
+	regionRowMain="gap-2 px-4 container  justify-center	sm:flex-row sm:justify-between"
 	slotLead="flex gap-7 justify-center"
 	slotTrail="flex flex-wrap"
 	slotDefault="flex justify-center"
@@ -22,15 +21,15 @@
 		>
 			LibSizer
 		</a>
+	</svelte:fragment>
 
-		<Nav />
-	</svelte:fragment>
-	<svelte:fragment slot="default">
-		<ClientSelect />
-	</svelte:fragment>
 	<svelte:fragment slot="trail">
 		<div class="inline-flex group">
-			<button type="button" class="btn variant-filled-primary" on:click={handleLibClick}>
+			<button
+				type="button"
+				class="btn variant-filled-primary"
+				on:click|preventDefault={handleLibClick}
+			>
 				<span><Icon icon="ic:baseline-photo-library" /></span>
 				<span>Library</span>
 				{#if $library.length > 0}
@@ -39,13 +38,14 @@
 			</button>
 			<button
 				type="button"
-				class="btn btn-icon variant-filled-primary"
-				on:click={handleCogClick}
+				class="btn variant-filled-primary"
+				on:click|preventDefault={handleCogClick}
 				title="Sizes settings"
 			>
 				<span>
 					<Icon icon="mdi:cog" />
 				</span>
+				<span> Settings </span>
 			</button>
 		</div>
 	</svelte:fragment>
@@ -62,6 +62,6 @@
 		@apply rounded-r-none pl-6;
 	}
 	.group .btn:last-of-type {
-		@apply rounded-l-none pr-1;
+		@apply rounded-l-none pl-4;
 	}
 </style>

@@ -6,8 +6,6 @@
 	import { saveAs } from 'file-saver';
 
 	import { library, selected } from '$lib/stores/imagesStore';
-	import { BundleSelected } from '$lib/stores/bundleStore';
-	import { bundleSizes } from '$lib/stores/settingsStore';
 	import type { Size } from '$lib/stores/settingsStore';
 	import { omitExt, dataURLToBlob, ratioNbtoString } from '$lib/utils';
 
@@ -17,7 +15,6 @@
 	export let ratio: number, sizes: Size[];
 
 	const initCropper = () => {
-		// console.log('cropperEl initiated');
 		cropper = new Cropper(imgRef, {
 			aspectRatio: ratio,
 			viewMode: 3,
@@ -59,7 +56,6 @@
 		sizes.forEach((size) => {
 			blobsData.push({ sizeName: size.name, data: exportCroppedImg(size) });
 		});
-		// console.log(blobsData);
 		return blobsData;
 	};
 

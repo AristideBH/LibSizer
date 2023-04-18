@@ -9,13 +9,15 @@
 	import { drawerOpen, modalSettingsOpen, modalComponentRegistry } from '$lib/utils';
 	import ListPhotos from '$lib/components/ListPhotos.svelte';
 	import HeaderGroup from '$lib/components/HeaderBar.svelte';
+	import Footer from '$lib/components/Footer.svelte';
+
 	import type { LayoutData } from './$types';
 
 	export let data: LayoutData;
 </script>
 
 <svelte:head>
-	<title>Crop your photos</title>
+	<title>Crop your library easily</title>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
 </svelte:head>
 
@@ -40,13 +42,8 @@
 
 	<!-- <svelte:fragment slot="sidebarLeft"><ListPhotos /></svelte:fragment> -->
 
-	<svelte:fragment slot="pageFooter">
-		<div class="container py-2 px-4 flex justify-between text-sm">
-			<div>
-				Developped with ♥ by <a href="https://github.com/AristideBH" target="_blank">AristideBH</a>
-			</div>
-			<div>{data.appVersion}</div>
-		</div>
-	</svelte:fragment>
 	<slot />
+	<svelte:fragment slot="pageFooter">
+		<Footer {data} />
+	</svelte:fragment>
 </AppShell>

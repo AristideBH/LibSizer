@@ -1,6 +1,7 @@
 import { drawerStore, modalStore, type ModalSettings, type ModalComponent } from "@skeletonlabs/skeleton";
 import ConfigPopup from '$lib/components/SizesSettings.svelte';
 
+
 ///////////////////////////////////////////////////////////////////////////////
 // * DRAWERS & MODAL FUNCTIONS
 ///////////////////////////////////////////////////////////////////////////////
@@ -67,4 +68,24 @@ export const ratioNbtoString = (ratio: number): string => {
     };
 
     return ratios[ratio] || ratio.toFixed(4).toString();
+};
+
+
+///////////////////////////////////////////////////////////////////////////////
+// * TEMPLATING FORMAT
+///////////////////////////////////////////////////////////////////////////////
+
+import type { IconifyIcon } from '@iconify/svelte';
+interface StatusIcons {
+    [key: string]: IconifyIcon;
+}
+
+export const statusIcon = (status: string): IconifyIcon => {
+    const icons: StatusIcons = {
+        edited: 'mdi:check' as unknown as IconifyIcon,
+        exported: 'mdi:check-all' as unknown as IconifyIcon,
+        original: 'mdi:camera-image' as unknown as IconifyIcon,
+    };
+
+    return icons[status] || 'mdi:check' as unknown as IconifyIcon;
 };

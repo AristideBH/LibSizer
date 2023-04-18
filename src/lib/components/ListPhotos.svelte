@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { ListBox, ListBoxItem, FileDropzone } from '@skeletonlabs/skeleton';
-	import { library, selected } from '$lib/stores/imagesStore';
-	import { drawerClose } from '$lib/utils';
 	import Icon from '@iconify/svelte';
 	import { goto } from '$app/navigation';
+	import { library, selected } from '$lib/stores/imagesStore';
+	import { drawerClose, statusIcon } from '$lib/utils';
 
 	let files: FileList;
 	let selectedValue: string;
@@ -12,12 +12,6 @@
 
 	const gotPhotos = () => {
 		library.loadPhotos(files);
-	};
-
-	const statusLogo = (status: string) => {
-		if (status === 'edited') return 'mdi:check';
-		if (status === 'exported') return 'mdi:check-all';
-		if (status === 'original') return 'mdi:camera-image';
 	};
 
 	const getEdited = () => {
@@ -62,21 +56,21 @@
 	<!-- LIST UPLOADED PHOTOS -->
 	{#if $library.length}
 		<ListBox>
-			{#each $library as item}
+			{#each $library as { id, data, name, status }}
 				<ListBoxItem
 					bind:group={selectedValue}
 					name="medium"
-					value={item.id}
+					value={id}
 					on:click={() => {
 						drawerClose();
 						goto('/');
 					}}
 				>
 					<div class="flex gap-2 items-center">
-						<img src={item.data} alt={item.name} class="h-4 w-4 object-cover" />
-						<span class="line-clamp-1 mr-auto">{item.name}</span>
+						<img src={data} alt={name} class="h-4 w-4 object-cover" />
+						<span class="line-clamp-1 mr-auto">{name}</span>
 						<span>
-							<Icon icon={statusLogo(item.status)} />
+							<Icon icon={statusIcon(status)} />
 						</span>
 					</div>
 				</ListBoxItem>
