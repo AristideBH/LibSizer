@@ -16,13 +16,11 @@
 	const handleClick = () => {
 		if (direction == 'right') {
 			if ($selected < $library.length) {
-				console.log('next');
 				$selected++;
 			}
 		} else {
 			if ($selected > 1) {
 				$selected--;
-				console.log('previous');
 			}
 		}
 	};
@@ -44,7 +42,7 @@
 	};
 </script>
 
-<button class="btn-icon btn-icon-sm variant-ghost" on:click={handleClick} disabled={disabled()}>
+<button class="btn-icon btn-icon-sm variant-outline" on:click={handleClick} disabled={disabled()}>
 	<span>
 		<Icon icon={directionsIcons(direction)} />
 	</span>

@@ -6,7 +6,7 @@
 	import { drawerClose, statusIcon } from '$lib/utils';
 
 	let files: FileList;
-	let selectedValue: string;
+	let selectedValue: number;
 
 	$: if (selectedValue) selected.set(selectedValue);
 
@@ -80,9 +80,9 @@
 			<button class="btn variant-ringed btn-sm" type="button" on:click={library.reset}>
 				Clear all photos
 			</button>
-			<!-- <button class="btn variant-filled-primary" type="button" on:click={getEdited}
+			<button class="btn variant-filled-primary" type="button" on:click={getEdited}
 				>Export all edited</button
-			> -->
+			>
 		</div>
 	{:else}
 		<p class="text-center">No loaded pictures.</p>

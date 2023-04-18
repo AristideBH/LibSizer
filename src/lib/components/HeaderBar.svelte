@@ -8,7 +8,7 @@
 </script>
 
 <AppBar
-	regionRowMain=" px-4 container !gap-x-3 !gap-y-4 flex-col justify-center sm:flex-row sm:justify-between"
+	regionRowMain=" px-2 container !gap-x-3 !gap-y-4 flex-row justify-between"
 	slotTrail="flex flex-wrap"
 	slotDefault="hidden"
 >
@@ -43,7 +43,6 @@
 				<span>
 					<Icon icon="mdi:cog" />
 				</span>
-				<span> Settings </span>
 			</button>
 		</div>
 	</svelte:fragment>

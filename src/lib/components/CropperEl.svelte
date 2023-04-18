@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { fade } from 'svelte/transition';
 	import Icon from '@iconify/svelte';
 	import JSZip from 'jszip';
 	import { saveAs } from 'file-saver';
@@ -14,14 +13,40 @@
 	let imgRef: HTMLImageElement, cropper: Cropper | null;
 	export let ratio: number, sizes: Size[];
 
+	function isEmpty(obj: {}) {
+		return Object.keys(obj).length === 0;
+	}
+
+	function getObjectByRatioName(array: any, ratioName: number) {
+		for (const key in array) {
+			if (array.hasOwnProperty(key)) {
+				if (array[key].ratioName === ratioName) {
+					return array[key].cropData;
+				}
+			}
+		}
+		return null; // return null if the ratioName is not found in any of the objects
+	}
+
 	const initCropper = () => {
+		let cropData;
+		if (isEmpty(currentPhoto.meta)) {
+			console.log('metadatas are empty');
+		} else {
+			console.log('metadatas are present');
+			cropData = getObjectByRatioName(currentPhoto.meta, ratio);
+			console.log('cropdata', cropData);
+			// cropper.setData(cropData);
+		}
 		cropper = new Cropper(imgRef, {
 			aspectRatio: ratio,
 			viewMode: 3,
 			guides: true,
 			autoCropArea: 1,
 			zoomable: false,
-			dragMode: 'none'
+			dragMode: 'none',
+			data: cropData,
+			autoCrop: true
 		});
 	};
 
@@ -60,8 +85,12 @@
 	};
 
 	export const saveMetas = () => {
-		let croppedSize = cropper.getData();
+		let croppedSize = cropper.getData(true);
 		return { ratioName: ratio, cropData: croppedSize };
+	};
+
+	const handleCropperReset = () => {
+		if (cropper) cropper.reset();
 	};
 
 	onMount(async () => {
@@ -69,14 +98,18 @@
 	});
 </script>
 
-<div class="card w-full p-4 flex flex-wrap md:flex-nowrap gap-6 justify-center" transition:fade>
+<!-- <pre>{JSON.stringify(currentPhoto.meta, undefined, 2)}</pre> -->
+<!-- <pre>{JSON.stringify(ratio, undefined, 2)}</pre> -->
+<!-- <pre>{JSON.stringify(getObjectByRatioName(currentPhoto.meta, ratio), undefined, 2)}</pre> -->
+
+<div class="card w-full p-4 flex flex-wrap md:flex-nowrap gap-6 justify-stretch items-stretch">
 	<div class="mx-auto bg-slate-100 w-full max-w-3xl">
 		{#if currentPhoto}
 			<img src={currentPhoto.data} alt="" bind:this={imgRef} class="block max-w-[100%] w-full" />
 		{/if}
 	</div>
 
-	<div class="flex flex-col min-w-[400px] gap-2 h-full items-start">
+	<div class="flex flex-col w-full gap-2 items-start">
 		<h2>Ratio <strong>{ratioNbtoString(parseFloat(ratio.toFixed(4)))}</strong></h2>
 		<hr />
 		<code class="flex flex-col gap-0 w-fit my-2">
@@ -107,5 +140,9 @@
 				<span>Download ratio bundle</span>
 			</button>
 		{/if}
+
+		<button class="btn btn-sm variant-filled mt-auto" on:click={handleCropperReset}>
+			Reset crop zone
+		</button>
 	</div>
 </div>
