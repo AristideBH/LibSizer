@@ -42,7 +42,7 @@
 		placeholder=""
 	>
 		<svelte:fragment slot="lead">
-			<span class="h-8 w-8 text-primary-900/70">
+			<span class="h-8 w-8 text-primary-500/70">
 				<Icon icon="mdi:folder-upload-outline" width="100%" />
 			</span>
 		</svelte:fragment>

@@ -4,7 +4,7 @@
 	import { AllBundles } from '$lib/SizeBundles';
 </script>
 
-<RadioGroup>
+<RadioGroup hover="hover:variant-soft-primary">
 	{#each AllBundles as bundle}
 		<RadioItem bind:group={$BundleSelected} name="justify" value={bundle.name}>
 			{bundle.name}

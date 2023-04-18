@@ -11,6 +11,7 @@
 	import { tEdit } from '$lib/strings';
 	import CropperEl from '$lib/components/CropperEl.svelte';
 	import Arrow from '$lib/components/Arrow.svelte';
+	import ClientSelect from '$lib/components/ClientSelect.svelte';
 
 	$: currentPhoto = library.getById($selected, $library);
 	$: ratioList = getUniqueRatios(bundleSizes($BundleSelected));
@@ -96,12 +97,13 @@
 
 {#if !currentPhoto}
 	<div class="flex flex-col items-center h-full justify-center gap-6 text-center">
-		<span class="w-20 h-20 text-primary-500/30">
+		<span class="w-20 h-20 text-primary-500/50">
 			<Icon icon="ic:outline-photo-size-select-large" width="100%" />
 		</span>
 		<p>
 			No picture selected. <br /> Please choose one from the
-			<a href="/" on:click={drawerOpen}>library</a>
+			<a href="/" on:click={drawerOpen}>library</a>.
 		</p>
+		<ClientSelect />
 	</div>
 {/if}

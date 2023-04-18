@@ -77,7 +77,7 @@
 				</div>
 				<div class="flex gap-2 items-center">
 					<input type="checkbox" id="cursorLoading" name="cursorLoading" disabled />
-					<label for="cursorLoading">Add a waiting state to the cursor upon image load </label>
+					<label for="cursorLoading">Add a waiting state upon image load </label>
 				</div>
 				<div class="flex gap-2 items-center">
 					<input type="checkbox" id="resetCropperEl" name="resetCropperEl" disabled checked />

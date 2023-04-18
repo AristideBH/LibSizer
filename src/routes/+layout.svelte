@@ -5,15 +5,13 @@
 	import '$lib/css/croppr.postcss';
 
 	import { AppShell, Drawer, Toast, Modal } from '@skeletonlabs/skeleton';
+	import { ProgressBar } from '@skeletonlabs/skeleton';
 
 	import { drawerOpen, modalSettingsOpen, modalComponentRegistry } from '$lib/utils';
 	import ListPhotos from '$lib/components/ListPhotos.svelte';
 	import HeaderGroup from '$lib/components/HeaderBar.svelte';
 	import Footer from '$lib/components/Footer.svelte';
-
-	import type { LayoutData } from './$types';
-
-	export let data: LayoutData;
+	import { slide } from 'svelte/transition';
 </script>
 
 <svelte:head>
@@ -31,6 +29,10 @@
 
 <Modal components={modalComponentRegistry} />
 
+<!-- <div transition:slide>
+	<ProgressBar rounded="rounded-none" meter="bg-primary-500" />
+</div> -->
+
 <AppShell
 	regionPage="relative"
 	slotHeader="border-b border-surface-200-700-token bg-surface-200-700-token "
@@ -43,6 +45,7 @@
 	<!-- <svelte:fragment slot="sidebarLeft"><ListPhotos /></svelte:fragment> -->
 
 	<slot />
+
 	<svelte:fragment slot="pageFooter">
 		<Footer />
 	</svelte:fragment>
