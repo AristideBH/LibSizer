@@ -31,12 +31,9 @@
 	const initCropper = () => {
 		let cropData;
 		if (isEmpty(currentPhoto.meta)) {
-			console.log('metadatas are empty');
 		} else {
-			console.log('metadatas are present');
 			cropData = getObjectByRatioName(currentPhoto.meta, ratio);
 			console.log('cropdata', cropData);
-			// cropper.setData(cropData);
 		}
 		cropper = new Cropper(imgRef, {
 			aspectRatio: ratio,
@@ -85,7 +82,7 @@
 	};
 
 	export const saveMetas = () => {
-		let croppedSize = cropper.getData(true);
+		let croppedSize = cropper.getData();
 		return { ratioName: ratio, cropData: croppedSize };
 	};
 

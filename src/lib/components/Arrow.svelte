@@ -42,8 +42,10 @@
 	};
 </script>
 
-<button class="btn-icon btn-icon-sm variant-outline" on:click={handleClick} disabled={disabled()}>
-	<span>
-		<Icon icon={directionsIcons(direction)} />
-	</span>
-</button>
+{#if $library.length > 1}
+	<button class="btn-icon btn-icon-sm variant-outline" on:click={handleClick} disabled={disabled()}>
+		<span>
+			<Icon icon={directionsIcons(direction)} />
+		</span>
+	</button>
+{/if}

@@ -2,6 +2,7 @@
 	import { addSize, deleteSize, bundleSizes } from '$lib/stores/settingsStore';
 	import { BundleSelected } from '$lib/stores/bundleStore';
 	import { LightSwitch } from '@skeletonlabs/skeleton';
+	import { page } from '$app/stores';
 
 	import Icon from '@iconify/svelte';
 	import ClientSelect from '$lib/components/ClientSelect.svelte';
@@ -15,8 +16,10 @@
 	}
 
 	function handleRemoveSize(id: number) {
-		deleteSize(id);
+		// deleteSize(id);
 	}
+
+	console.log($page.data.appVersion);
 </script>
 
 <div class="flex flex-col gap-2 w-modal">
@@ -33,7 +36,7 @@
 			<dt class="my-4" transition:slide>
 				{#each bundleSizes($BundleSelected) as size}
 					<dl class="list-dl bg-surface-hover-token rounded-lg">
-						<div class="">
+						<div>
 							<span class="flex-auto">
 								<dt><strong>{size.name}</strong></dt>
 								<dd>
@@ -44,22 +47,28 @@
 									</span>
 								</dd>
 							</span>
-							<span>
+							<!-- <span>
 								<button class="btn-icon variant-outline" on:click={() => handleRemoveSize(size.id)}>
 									<span>
 										<Icon icon="ic:baseline-delete-outline" />
 									</span>
 								</button>
-							</span>
+							</span> -->
 						</div>
 					</dl>
 				{/each}
 			</dt>
 		{/key}
 		<hr />
-		<div class="flex gap-2 items-center pt-3 px-2">
-			<span class="text-xs">THEME</span>
-			<LightSwitch />
+		<div class="flex gap-2 items-center pt-3 px-2 justify-between text-sm">
+			<!-- <span class="text-xs">THEME</span>
+			<LightSwitch /> -->
+
+			<span class="badge variant-ghost-primary">{$page.data.appVersion}</span>
+			<span>
+				Made with love by
+				<a href="https://github.com/AristideBH" target="_blank">AristideBH</a>
+			</span>
 		</div>
 	</div>
 	<!-- <div class="card p-4 flex flex-col mb-6">

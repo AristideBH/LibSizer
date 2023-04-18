@@ -44,6 +44,6 @@
 
 	<slot />
 	<svelte:fragment slot="pageFooter">
-		<Footer {data} />
+		<Footer />
 	</svelte:fragment>
 </AppShell>
