@@ -11,6 +11,7 @@
 	import ListPhotos from '$lib/components/ListPhotos.svelte';
 	import HeaderGroup from '$lib/components/HeaderBar.svelte';
 	import Footer from '$lib/components/Footer.svelte';
+	import { loading } from '$lib/stores/imagesStore';
 </script>
 
 <svelte:head>
@@ -28,9 +29,11 @@
 
 <Modal components={modalComponentRegistry} />
 
-<!-- <div transition:slide>
-	<ProgressBar rounded="rounded-none" meter="bg-primary-500" />
-</div> -->
+{#if $loading}
+	<div transition:slide>
+		<ProgressBar rounded="rounded-none" meter="bg-primary-500" />
+	</div>
+{/if}
 
 <AppShell
 	regionPage="relative"

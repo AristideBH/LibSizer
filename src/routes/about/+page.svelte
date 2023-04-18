@@ -41,48 +41,58 @@
 		<div class="flex flex-col w-full">
 			<h2 class="pt-4 pb-2">Roadmap</h2>
 			<fieldset class="space-y-1">
-				<div class="flex gap-2 items-baseline">
-					<input type="checkbox" id="cropSave" name="cropSave" disabled checked />
-					<label for="cropSave"
-						>Save cropping metadatas for later exports <sub>(partial-WIP)</sub>
-						<br />
-						If metadatas are present, load them in InitCropper()</label
+				<div class="flex gap-2 items-center">
+					<input type="checkbox" id="cursorLoading" name="cursorLoading" disabled />
+					<label for="cursorLoading"
+						>Add a waiting state upon image load and <i>selection</i>
+						<sub>(partial-WIP)</sub></label
 					>
 				</div>
+
 				<div class="flex gap-2 items-center">
 					<input type="checkbox" id="nextCrop" name="nextCrop" disabled />
 					<label for="nextCrop">Switch to next picture in library upon saving metadatas</label>
 				</div>
-				<div class="flex gap-2 items-center">
-					<input type="checkbox" id="navArrows" name="navArrows" disabled checked />
-					<label for="navArrows"
-						>Arrows for next and previous photos in library <sub>(0.2.5)</sub></label
-					>
-				</div>
+
 				<div class="flex gap-2 items-center">
 					<input type="checkbox" id="savePopup" name="savePopup" disabled />
 					<label for="savePopup">Popup upon page/photos change if metadatas are not saved</label>
 				</div>
-				<div class="flex gap-2 items-center">
-					<input type="checkbox" id="listStatus" name="listStatus" disabled checked />
-					<label for="listStatus"
-						>Add a status icon per image in the library <sub>(0.2.4)</sub></label
-					>
-				</div>
+
 				<div class="flex gap-2 items-center">
 					<input type="checkbox" id="multiExport" name="multiExport" disabled />
 					<label for="multiExport"
 						>Allow for export all images with "edited" status in one go
 					</label>
 				</div>
-				<div class="flex gap-2 items-center">
-					<input type="checkbox" id="cursorLoading" name="cursorLoading" disabled />
-					<label for="cursorLoading">Add a waiting state upon image load </label>
-				</div>
+
 				<div class="flex gap-2 items-center">
 					<input type="checkbox" id="resetCropperEl" name="resetCropperEl" disabled checked />
 					<label for="resetCropperEl"
 						>Add a 'reset crop' button to cropping section <sub>(0.2.5)</sub></label
+					>
+				</div>
+
+				<div class="flex gap-2 items-baseline">
+					<input type="checkbox" id="cropSave" name="cropSave" disabled checked />
+					<label for="cropSave"
+						>Save cropping metadatas for later exports
+						<br />
+						If metadatas are present, load them in InitCropper()</label
+					>
+				</div>
+
+				<div class="flex gap-2 items-center">
+					<input type="checkbox" id="navArrows" name="navArrows" disabled checked />
+					<label for="navArrows"
+						>Arrows for next and previous photos in library <sub>(0.2.5)</sub></label
+					>
+				</div>
+
+				<div class="flex gap-2 items-center">
+					<input type="checkbox" id="listStatus" name="listStatus" disabled checked />
+					<label for="listStatus"
+						>Add a status icon per image in the library <sub>(0.2.4)</sub></label
 					>
 				</div>
 			</fieldset>

@@ -10,8 +10,8 @@
 
 	$: if (selectedValue) selected.set(selectedValue);
 
-	const gotPhotos = () => {
-		library.loadPhotos(files);
+	const gotPhotos = async () => {
+		await library.loadPhotos(files);
 	};
 
 	const getEdited = () => {
@@ -67,7 +67,7 @@
 					}}
 				>
 					<div class="flex gap-2 items-center">
-						<img src={data} alt={name} class="h-4 w-4 object-cover" />
+						<!-- <img src={data} alt={name} class="h-4 w-4 object-cover" /> -->
 						<span class="line-clamp-1 mr-auto">{name}</span>
 						<span>
 							<Icon icon={statusIcon(status)} />

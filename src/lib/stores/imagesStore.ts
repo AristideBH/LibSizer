@@ -22,25 +22,31 @@ function CreateImageStore() {
         },
 
         // * Add loaded photos to the store with additionnal metadatas 
-
-        loadPhotos: (fileList: FileList) => {
-            Array.from(fileList).forEach(file => {
-                const reader = new FileReader();
-                reader.onload = () => {
-                    const base64String = reader.result;
-                    const newFile = {
-                        data: base64String,
-                        name: file.name,
-                        id: nextId++,
-                        status: "original",
-                        meta: {}
+        loadPhotos: async (fileList: FileList) => {
+            loading.set(true); // Set loading to true before loading photos
+            const promises = Array.from(fileList).map(file => {
+                return new Promise(resolve => {
+                    const reader = new FileReader();
+                    reader.onload = () => {
+                        const base64String = reader.result;
+                        const newFile = {
+                            data: base64String,
+                            name: file.name,
+                            id: nextId++,
+                            status: "original",
+                            meta: {}
+                        };
+                        update(n => [...n, newFile]);
+                        resolve();
                     };
-                    update(n => [...n, newFile]);
-                };
-                reader.readAsDataURL(file);
+                    reader.readAsDataURL(file);
+                });
             });
+            await Promise.all(promises);
+            loading.set(false); // Set loading to false when loading is finished
             toastStore.trigger(tAdd);
         },
+
 
         // * Return the photo with matching ID
         getById: (id: number, store: any) => {
@@ -77,7 +83,9 @@ function CreateImageStore() {
         }
     };
 }
+const loading = writable(false);
 
+export { loading };
 export const library = CreateImageStore();
 
 ///////////////////////////////////////////////////////////////////////////////
