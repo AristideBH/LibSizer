@@ -41,6 +41,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@floating-ui/dom": "^1.2.6",
 		"@macfja/svelte-persistent-store": "^2.2.1",
 		"cropperjs": "^1.5.13",
 		"file-saver": "^2.0.5",

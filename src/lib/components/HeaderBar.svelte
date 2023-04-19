@@ -8,9 +8,10 @@
 </script>
 
 <AppBar
-	regionRowMain="px-4 container !gap-x-3 !gap-y-4 flex-row justify-between"
+	regionRowMain="sm:px-4 container !gap-x-3 !gap-y-4 flex-row justify-between"
 	slotTrail="flex flex-wrap"
 	slotDefault="hidden"
+	slot
 >
 	<svelte:fragment slot="lead">
 		<a

@@ -4,18 +4,15 @@
 	import JSZip from 'jszip';
 	import { saveAs } from 'file-saver';
 
+	import { popup, type PopupSettings } from '@skeletonlabs/skeleton';
 	import { library, selected } from '$lib/stores/imagesStore';
 	import type { Size } from '$lib/stores/settingsStore';
-	import { omitExt, dataURLToBlob, ratioNbtoString } from '$lib/utils';
+	import { omitExt, dataURLToBlob, ratioNbtoString, isEmpty } from '$lib/utils';
 
 	$: currentPhoto = library.getById($selected, $library);
 
 	let imgRef: HTMLImageElement, cropper: Cropper | null;
 	export let ratio: number, sizes: Size[];
-
-	function isEmpty(obj: {}) {
-		return Object.keys(obj).length === 0;
-	}
 
 	function getObjectByRatioName(array: any, ratioName: number) {
 		for (const key in array) {
@@ -92,6 +89,12 @@
 	onMount(async () => {
 		initCropper();
 	});
+
+	let popupWarnSize: PopupSettings = {
+		event: 'hover',
+		target: 'popupWarnSize',
+		placement: 'right'
+	};
 </script>
 
 <!-- <pre>{JSON.stringify(currentPhoto.meta, undefined, 2)}</pre> -->
@@ -123,6 +126,26 @@
 						×
 						{size.height == undefined ? 'fit' : size.height + 'px'}
 					</span>
+					{#if currentPhoto.dimensions.width < size.width || currentPhoto.dimensions.height < size.height}
+						<div class="ml-2 flex flex-row text-error-500">
+							<span use:popup={popupWarnSize}><Icon icon="ic:round-warning-amber" /> </span>
+							<div
+								class="tes bg-surface-200-700-token px-2 py-1 text-xs rounded-sm"
+								data-popup="popupWarnSize"
+							>
+								<div class="arrow bg-surface-200-700-token" />
+								<div class="flex-col items-start justify-center flex">
+									{#if currentPhoto.dimensions.width < size.width}
+										<span>Image is smaller then desired width</span>
+									{/if}
+									{#if currentPhoto.dimensions.height < size.height}
+										<span>Image is smaller then desired height</span>
+									{/if}
+									<strong>> This might result in pixelated output</strong>
+								</div>
+							</div>
+						</div>
+					{/if}
 				</button>
 			{/each}
 		</code>

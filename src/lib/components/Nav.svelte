@@ -33,7 +33,7 @@
 </script>
 
 <nav>
-	<ul class=" flex flex-nowrap gap-4">
+	<ul class=" flex flex-wrap gap-x-4 gap-y-2 justify-center">
 		{#each menu as item}
 			<li>
 				<a href={item.url} target={target(item)} class="inline-flex items-center gap-1">

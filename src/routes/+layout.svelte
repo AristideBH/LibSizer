@@ -10,11 +10,14 @@
 		Toast,
 		Modal,
 		ProgressBar,
-		autoModeWatcher
+		autoModeWatcher,
+		storePopup
 	} from '@skeletonlabs/skeleton';
+	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	import { slide } from 'svelte/transition';
 	import { navigating } from '$app/stores';
 	import type { PageData } from './$types';
+	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 
 	import { drawerOpen, modalSettingsOpen, modalComponentRegistry, scrollToTop } from '$lib/utils';
 	import { loading } from '$lib/stores/imagesStore';
@@ -51,7 +54,7 @@
 
 <AppShell
 	regionPage="relative"
-	slotPageHeader="border-b border-surface-200-700-token bg-surface-200-700-token z-30"
+	slotPageHeader="border-b border-surface-200-700-token bg-surface-200-700-token z-30 "
 	slotSidebarRight="bg-surface-100-800-token w-0 lg:w-64 border-l border-surface-500/50 lg:max-w-xl lg:min-w-[480px] "
 >
 	<svelte:fragment slot="pageHeader">

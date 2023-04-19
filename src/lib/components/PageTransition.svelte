@@ -8,7 +8,7 @@
 
 {#key pathname}
 	<div
-		class="h-full w-full overflow-hidden"
+		class="flex-auto h-full"
 		in:fly={{ duration: speed, delay: speed, y: distance, easing: quadInOut }}
 		out:fly={{ duration: speed, y: -distance }}
 	>

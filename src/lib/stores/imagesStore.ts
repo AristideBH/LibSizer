@@ -3,6 +3,19 @@ import { v4 as uuidv4 } from 'uuid';
 import { toastStore } from '@skeletonlabs/skeleton';
 import { tAdd, tReset } from '$lib/strings';
 let nextId = 1;
+
+function getImageDimensions(blob: Blob) {
+    return new Promise((resolve, reject) => {
+        const image = new Image();
+        image.onload = () => {
+            URL.revokeObjectURL(image.src); // Free memory
+            resolve({ width: image.width, height: image.height });
+        };
+        image.onerror = reject;
+        image.src = URL.createObjectURL(blob);
+    });
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 // * LOADED IMAGES STORE
 ///////////////////////////////////////////////////////////////////////////////
@@ -25,16 +38,20 @@ function CreateImageStore() {
         loadPhotos: async (fileList: FileList) => {
             loading.set(true); // Set loading to true before loading photos
             const promises = Array.from(fileList).map(file => {
-                return new Promise(resolve => {
+                return new Promise<void>(resolve => {
                     const reader = new FileReader();
-                    reader.onload = () => {
+                    console.log(file)
+                    reader.onload = async () => {
+                        const dimensions = await getImageDimensions(file);
                         const base64String = reader.result;
                         const newFile = {
                             data: base64String,
                             name: file.name,
                             id: nextId++,
                             status: "original",
-                            meta: {}
+                            meta: {},
+                            type: file.type,
+                            dimensions
                         };
                         update(n => [...n, newFile]);
                         resolve();
