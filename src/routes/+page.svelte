@@ -101,7 +101,7 @@
 {/if}
 
 {#if !currentPhoto}
-	<div class="flex flex-col items-center h-full justify-center gap-6 text-center">
+	<div class="flex flex-col items-center h-full justify-center gap-6 text-center my-4 px-4">
 		<span class="w-20 h-20 text-primary-500/50">
 			<Icon icon="solar:crop-minimalistic-bold-duotone" width="100%" />
 		</span>
