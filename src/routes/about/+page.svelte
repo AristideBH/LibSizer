@@ -7,7 +7,7 @@
 		About LibSizer
 		<span class="text-sm"><div class="badge variant-ghost-primary">{data.appVersion}</div></span>
 	</h1>
-	<div class="flex flex-col">
+	<div class="flex flex-col max-w-4xl">
 		<p>
 			LibSizer is a tool created to simplify your work when you need to crop mutliples images to a
 			specific list of format/dimensions.
@@ -17,6 +17,8 @@
 			of dimensions : <code>Standard</code>, <code>Mousquetaires</code> and <code>Visa</code>.
 		</p>
 	</div>
+
+	<hr />
 
 	<section class="w-full flex flex-col lg:flex-row gap-10">
 		<div class="flex flex-col w-full">
@@ -38,7 +40,26 @@
 				<li>You can use the dedicated button to donwload specific dimensions or ratio bundle.</li>
 			</ol>
 		</div>
-		<div class="flex flex-col w-full">
+		<div class="flex flex-col min-w-[320px]">
+			<h2 class="pt-4 pb-2">Thanks to</h2>
+			<ol class="list-disc pl-6 space-y-1">
+				<li>
+					<a href="https://kit.svelte.dev/" target="_blank">Sveltekit</a> for their awesome framework
+				</li>
+				<li><a href="https://www.skeleton.dev/" target="_blank">Skeleton</a> for the UI Toolkit</li>
+				<li>
+					<a href="https://fengyuanchen.github.io/cropperjs/" target="_blank">CropperJS</a>
+					for the cropping JS library
+				</li>
+				<li>
+					<a href="https://icon-sets.iconify.design/" target="_blank">Iconify</a> for all the used icons
+				</li>
+				<li>
+					<a href="https://noise.fr" target="_blank">Noise</a> for sponsoring the developpment
+				</li>
+			</ol>
+		</div>
+		<!-- <div class="flex flex-col w-full">
 			<h2 class="pt-4 pb-2">Roadmap</h2>
 			<fieldset class="space-y-1">
 				<div class="flex gap-2 items-center">
@@ -65,38 +86,8 @@
 						>Allow for export all images with "edited" status in one go
 					</label>
 				</div>
-
-				<div class="flex gap-2 items-center">
-					<input type="checkbox" id="resetCropperEl" name="resetCropperEl" disabled checked />
-					<label for="resetCropperEl"
-						>Add a 'reset crop' button to cropping section <sub>(0.2.5)</sub></label
-					>
-				</div>
-
-				<div class="flex gap-2 items-baseline">
-					<input type="checkbox" id="cropSave" name="cropSave" disabled checked />
-					<label for="cropSave"
-						>Save cropping metadatas for later exports
-						<br />
-						If metadatas are present, load them in InitCropper()</label
-					>
-				</div>
-
-				<div class="flex gap-2 items-center">
-					<input type="checkbox" id="navArrows" name="navArrows" disabled checked />
-					<label for="navArrows"
-						>Arrows for next and previous photos in library <sub>(0.2.5)</sub></label
-					>
-				</div>
-
-				<div class="flex gap-2 items-center">
-					<input type="checkbox" id="listStatus" name="listStatus" disabled checked />
-					<label for="listStatus"
-						>Add a status icon per image in the library <sub>(0.2.4)</sub></label
-					>
-				</div>
 			</fieldset>
-		</div>
+		</div> -->
 	</section>
 
 	<!-- <pre>{JSON.stringify(bundleSizes($BundleSelected), null, 2)}</pre> -->

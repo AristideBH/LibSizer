@@ -2,7 +2,8 @@
 	import { library } from '$lib/stores/imagesStore';
 </script>
 
-<div class="container py-6 px-2">
+<div class="container py-6 px-2 space-y-3">
+	<h1>Datatable</h1>
 	<div class="table-container">
 		<table class="table table-hover">
 			<thead>

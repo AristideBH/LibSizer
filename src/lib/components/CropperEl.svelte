@@ -14,21 +14,9 @@
 	let imgRef: HTMLImageElement, cropper: Cropper | null;
 	export let ratio: number, sizes: Size[];
 
-	function getObjectByRatioName(array: any, ratioName: number) {
-		for (const key in array) {
-			if (array.hasOwnProperty(key)) {
-				if (array[key].ratioName === ratioName) {
-					return array[key].cropData;
-				}
-			}
-		}
-		return null; // return null if the ratioName is not found in any of the objects
-	}
-
 	const initCropper = () => {
 		let cropData;
-		if (isEmpty(currentPhoto.meta)) {
-		} else {
+		if (!isEmpty(currentPhoto.meta)) {
 			cropData = getObjectByRatioName(currentPhoto.meta, ratio);
 		}
 		cropper = new Cropper(imgRef, {
@@ -76,6 +64,16 @@
 		});
 		return blobsData;
 	};
+	function getObjectByRatioName(array: any, ratioName: number) {
+		for (const key in array) {
+			if (array.hasOwnProperty(key)) {
+				if (array[key].ratioName === ratioName) {
+					return array[key].cropData;
+				}
+			}
+		}
+		return null; // return null if the ratioName is not found in any of the objects
+	}
 
 	export const saveMetas = () => {
 		let croppedSize = cropper.getData();
@@ -83,7 +81,11 @@
 	};
 
 	const handleCropperReset = () => {
-		if (cropper) cropper.reset();
+		if (cropper) {
+			if (confirm('Are you sure you want to reset your crop?')) {
+				cropper.reset();
+			}
+		}
 	};
 
 	onMount(async () => {
@@ -136,7 +138,7 @@
 								<div class="arrow bg-surface-200-700-token" />
 								<div class="flex-col items-start justify-center flex">
 									{#if currentPhoto.dimensions.width < size.width}
-										<span>Image is smaller then desired width</span>
+										<span>Image is narrower then desired width</span>
 									{/if}
 									{#if currentPhoto.dimensions.height < size.height}
 										<span>Image is smaller then desired height</span>
@@ -152,7 +154,7 @@
 
 		{#if sizes.length > 1}
 			<button
-				class="btn variant-outline-primary w-fit btn-sm bg-white"
+				class="btn variant-outline-primary w-fit btn-sm"
 				type="button"
 				on:click={gatherCropped}
 			>
