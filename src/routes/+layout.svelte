@@ -22,7 +22,7 @@
 	import { drawerOpen, modalSettingsOpen, modalComponentRegistry, scrollToTop } from '$lib/utils';
 	import { loading } from '$lib/stores/imagesStore';
 	import ListPhotos from '$lib/components/ListPhotos.svelte';
-	import HeaderGroup from '$lib/components/HeaderBar.svelte';
+	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import PageTransition from '$lib/components/PageTransition.svelte';
 
@@ -58,7 +58,7 @@
 	slotSidebarRight="bg-surface-100-800-token w-0 lg:w-64 border-l border-surface-500/50 lg:max-w-xl lg:min-w-[480px] "
 >
 	<svelte:fragment slot="pageHeader">
-		<HeaderGroup handleLibClick={drawerOpen} handleCogClick={modalSettingsOpen} />
+		<Header handleLibClick={drawerOpen} handleCogClick={modalSettingsOpen} />
 	</svelte:fragment>
 
 	<!-- <svelte:fragment slot="sidebarRight"><ListPhotos /></svelte:fragment> -->
