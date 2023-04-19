@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import Nav from '$lib/components/Nav.svelte';
 </script>
 
@@ -10,6 +9,5 @@
 	<span class="flex md:ml-auto gap-2">
 		Made with love by
 		<a href="https://github.com/AristideBH" target="_blank">AristideBH</a>
-		<span class=" text-xs badge variant-ghost-primary">{$page.data.appVersion}</span>
 	</span>
 </div>
