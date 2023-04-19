@@ -100,11 +100,12 @@
 {/if}
 
 {#if !currentPhoto}
+	<!-- WELCOME SCREEN -->
 	<div class="flex flex-col items-center h-full justify-center gap-6 text-center py-6 px-4">
-		<span class="w-20 h-20 text-primary-500/50">
+		<span class="w-24 h-24 text-primary-500/50">
 			<Icon icon="solar:crop-minimalistic-bold-duotone" width="100%" />
 		</span>
-		<p>
+		<p class="pb-3">
 			No picture selected. <br /> Please choose one from the
 			<a href="/" on:click={drawerOpen}>library</a>.
 		</p>
