@@ -4,6 +4,10 @@
 	import '../app.postcss';
 	import '$lib/css/croppr.postcss';
 
+	import { slide } from 'svelte/transition';
+	import { navigating } from '$app/stores';
+	import type { PageData } from './$types';
+	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 	import {
 		AppShell,
 		Drawer,
@@ -14,10 +18,7 @@
 		storePopup
 	} from '@skeletonlabs/skeleton';
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
-	import { slide } from 'svelte/transition';
-	import { navigating } from '$app/stores';
-	import type { PageData } from './$types';
-	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
+	import { Svrollbar } from 'svrollbar';
 
 	import { drawerOpen, modalSettingsOpen, modalComponentRegistry, scrollToTop } from '$lib/utils';
 	import { loading } from '$lib/stores/imagesStore';
@@ -71,3 +72,5 @@
 		<Footer />
 	</svelte:fragment>
 </AppShell>
+
+<Svrollbar initiallyVisible />

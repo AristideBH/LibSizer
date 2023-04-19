@@ -39,7 +39,6 @@ function CreateImageStore() {
             const promises = Array.from(fileList).map(file => {
                 return new Promise<void>(resolve => {
                     const reader = new FileReader();
-                    console.log(file)
                     reader.onload = async () => {
                         const dimensions = await getImageDimensions(file);
                         const base64String = reader.result;

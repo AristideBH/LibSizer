@@ -7,15 +7,21 @@
 		About LibSizer
 		<span class="text-sm"><div class="badge variant-ghost-primary">{data.appVersion}</div></span>
 	</h1>
-	<div class="flex flex-col max-w-4xl">
-		<p>
+	<div class="flex flex-col max-w-4xl prose">
+		<!-- <p>
 			LibSizer is a tool created to simplify your work when you need to crop mutliples images to a
 			specific list of format/dimensions.
+		</p> -->
+
+		<p class="mb-2">
+			Do you need to crop multiple images to specific formats or dimensions? LibSizer is the tool
+			for you!
 		</p>
 		<p>
-			Currently, the tool only supports Zip bundling for one photo at the time, and for three sets
-			of dimensions : <code>Standard</code>, <code>Mousquetaires</code> and <code>Visa</code>.
+			LibSizer is a simple and powerful tool that lets you crop your photos library to predefined
+			dimensions in just a few clicks.
 		</p>
+		<p>Try it now for free and see how easy it is to resize your library!</p>
 	</div>
 
 	<hr />
