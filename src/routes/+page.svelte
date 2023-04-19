@@ -57,7 +57,7 @@
 			<div class="mr-auto flex items-center">
 				<Arrow direction="left" />
 				<Arrow direction="right" />
-				<span class="pl-3 line-clamp-1">
+				<span class=" line-clamp-1">
 					<strong>{currentPhoto.name}</strong>
 				</span>
 			</div>
@@ -69,7 +69,7 @@
 					on:click={exportAll}
 					title="Download bundle"
 				>
-					<span><Icon icon="ic:outline-folder-zip" /></span>
+					<span><Icon icon="solar:zip-file-linear" /></span>
 					<span class="hidden md:block">Download bundle</span>
 				</button>
 				<button
@@ -103,7 +103,7 @@
 {#if !currentPhoto}
 	<div class="flex flex-col items-center h-full justify-center gap-6 text-center">
 		<span class="w-20 h-20 text-primary-500/50">
-			<Icon icon="ic:outline-photo-size-select-large" width="100%" />
+			<Icon icon="solar:crop-minimalistic-bold-duotone" width="100%" />
 		</span>
 		<p>
 			No picture selected. <br /> Please choose one from the

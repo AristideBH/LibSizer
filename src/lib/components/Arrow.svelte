@@ -7,8 +7,8 @@
 
 	const directionsIcons = () =>
 		direction == 'right'
-			? ('ic:baseline-keyboard-arrow-right' as unknown as IconifyIcon)
-			: ('ic:baseline-keyboard-arrow-left' as unknown as IconifyIcon);
+			? ('material-symbols:arrow-forward-ios-rounded' as unknown as IconifyIcon)
+			: ('material-symbols:arrow-back-ios-new-rounded' as unknown as IconifyIcon);
 
 	const directionClass = () => (direction === 'right' ? 'right' : 'left');
 
@@ -54,6 +54,6 @@
 		@apply rounded-r-none;
 	}
 	.right {
-		@apply rounded-l-none -translate-x-[1px];
+		@apply rounded-l-none -translate-x-[1px] mr-3;
 	}
 </style>

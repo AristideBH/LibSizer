@@ -20,7 +20,7 @@
 	}
 </script>
 
-<div class="flex flex-col gap-2 w-modal">
+<div class="flex flex-col gap-2 w-full max-w-[580px] shadow-sm">
 	<div class="card p-4 w-full">
 		<header
 			class="flex flex-col gap-x-4 gap-y-2 pb-3 items-center justify-center
@@ -32,9 +32,12 @@
 		<hr />
 		{#key bundleSizes($BundleSelected)}
 			<dt class="mt-4" transition:slide>
-				{#each bundleSizes($BundleSelected) as size}
+				{#each bundleSizes($BundleSelected) as size, i}
 					<dl class="list-dl bg-surface-hover-token rounded-lg">
 						<div class="text-left">
+							<span class="badge-icon p-4 variant-soft-primary border border-primary-500">
+								{i + 1}
+							</span>
 							<span class="flex-auto">
 								<dt><strong>{size.name}</strong></dt>
 								<dd>

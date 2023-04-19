@@ -89,9 +89,9 @@ interface StatusIcons {
 
 export const statusIcon = (status: string): IconifyIcon => {
     const icons: StatusIcons = {
-        edited: 'mdi:check' as unknown as IconifyIcon,
-        exported: 'mdi:check-all' as unknown as IconifyIcon,
-        original: 'mdi:camera-image' as unknown as IconifyIcon,
+        edited: 'solar:file-check-linear' as unknown as IconifyIcon,
+        exported: 'solar:file-download-linear' as unknown as IconifyIcon,
+        original: 'solar:file-linear' as unknown as IconifyIcon,
     };
 
     return icons[status] || 'mdi:check' as unknown as IconifyIcon;

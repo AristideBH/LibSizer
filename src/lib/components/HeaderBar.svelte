@@ -8,7 +8,7 @@
 </script>
 
 <AppBar
-	regionRowMain="px-2 container !gap-x-3 !gap-y-4 flex-row justify-between"
+	regionRowMain="px-4 container !gap-x-3 !gap-y-4 flex-row justify-between"
 	slotTrail="flex flex-wrap"
 	slotDefault="hidden"
 >
@@ -28,7 +28,7 @@
 				class="btn variant-filled-primary"
 				on:click|preventDefault={handleLibClick}
 			>
-				<span><Icon icon="ic:baseline-photo-library" /></span>
+				<span><Icon icon="solar:album-linear" /></span>
 				<span>Library</span>
 				{#if $library.length > 0}
 					<span>({$library.length})</span>
@@ -41,7 +41,7 @@
 				title="Sizes settings"
 			>
 				<span>
-					<Icon icon="mdi:cog" />
+					<Icon icon="solar:settings-linear" />
 				</span>
 			</button>
 		</div>

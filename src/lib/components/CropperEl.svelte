@@ -114,8 +114,9 @@
 					class="flex items-center gap-1 p-1 hover:underline text-md"
 					type="button"
 					on:click={() => cropImage(size)}
+					title="Download file"
 				>
-					<span><Icon icon="ic:round-sim-card-download" /></span>
+					<span><Icon icon="solar:download-minimalistic-linear" /></span>
 					<strong>{size.name}</strong> :
 					<span>
 						{size.width == undefined ? 'fit' : size.width + 'px'}
@@ -138,7 +139,8 @@
 		{/if}
 
 		<button class="btn btn-sm variant-filled mt-auto" on:click={handleCropperReset}>
-			Reset crop zone
+			<span><Icon icon="solar:crop-minimalistic-linear" /></span>
+			<span>Reset crop zone</span>
 		</button>
 	</div>
 </div>
