@@ -71,6 +71,13 @@ export const ratioNbtoString = (ratio: number): string => {
 };
 
 
+export const scrollToTop = () => {
+    const page = document.getElementById('page');
+    if (page) {
+        page.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 // * TEMPLATING FORMAT
 ///////////////////////////////////////////////////////////////////////////////
@@ -89,3 +96,5 @@ export const statusIcon = (status: string): IconifyIcon => {
 
     return icons[status] || 'mdi:check' as unknown as IconifyIcon;
 };
+
+

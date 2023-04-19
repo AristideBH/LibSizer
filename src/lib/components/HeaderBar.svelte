@@ -8,7 +8,7 @@
 </script>
 
 <AppBar
-	regionRowMain=" px-2 container !gap-x-3 !gap-y-4 flex-row justify-between"
+	regionRowMain="px-2 container !gap-x-3 !gap-y-4 flex-row justify-between"
 	slotTrail="flex flex-wrap"
 	slotDefault="hidden"
 >

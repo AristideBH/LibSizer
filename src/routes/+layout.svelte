@@ -4,18 +4,32 @@
 	import '../app.postcss';
 	import '$lib/css/croppr.postcss';
 
-	import { AppShell, Drawer, Toast, Modal, ProgressBar } from '@skeletonlabs/skeleton';
+	import {
+		AppShell,
+		Drawer,
+		Toast,
+		Modal,
+		ProgressBar,
+		autoModeWatcher
+	} from '@skeletonlabs/skeleton';
 	import { slide } from 'svelte/transition';
+	import { navigating } from '$app/stores';
+	import type { PageData } from './$types';
 
-	import { drawerOpen, modalSettingsOpen, modalComponentRegistry } from '$lib/utils';
+	import { drawerOpen, modalSettingsOpen, modalComponentRegistry, scrollToTop } from '$lib/utils';
+	import { loading } from '$lib/stores/imagesStore';
 	import ListPhotos from '$lib/components/ListPhotos.svelte';
 	import HeaderGroup from '$lib/components/HeaderBar.svelte';
 	import Footer from '$lib/components/Footer.svelte';
-	import { loading } from '$lib/stores/imagesStore';
+	import PageTransition from '$lib/components/PageTransition.svelte';
+
+	export let data: PageData;
+	$: if ($navigating) scrollToTop();
 </script>
 
 <svelte:head>
 	<title>Crop your library easily</title>
+	{@html `<script>${autoModeWatcher.toString()} autoModeWatcher();</script>`}
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
 </svelte:head>
 
@@ -23,11 +37,11 @@
 
 <Toast />
 
-<Drawer>
+<Drawer rounded="rounded-none">
 	<ListPhotos />
 </Drawer>
 
-<Modal components={modalComponentRegistry} />
+<Modal shadow="shadow-xl" components={modalComponentRegistry} />
 
 {#if $loading}
 	<div transition:slide>
@@ -37,16 +51,18 @@
 
 <AppShell
 	regionPage="relative"
-	slotHeader="border-b border-surface-200-700-token bg-surface-200-700-token "
-	slotSidebarLeft="bg-surface-500/5 w-0 lg:w-64 border-r border-surface-500/50 resize-x lg:max-w-xl lg:min-w-[16rem] "
+	slotPageHeader="border-b border-surface-200-700-token bg-surface-200-700-token "
+	slotSidebarRight="bg-surface-100-800-token w-0 lg:w-64 border-l border-surface-500/50 lg:max-w-xl lg:min-w-[480px] "
 >
-	<svelte:fragment slot="header">
+	<svelte:fragment slot="pageHeader">
 		<HeaderGroup handleLibClick={drawerOpen} handleCogClick={modalSettingsOpen} />
 	</svelte:fragment>
 
-	<!-- <svelte:fragment slot="sidebarLeft"><ListPhotos /></svelte:fragment> -->
+	<!-- <svelte:fragment slot="sidebarRight"><ListPhotos /></svelte:fragment> -->
 
-	<slot />
+	<PageTransition pathname={data.pathName}>
+		<slot />
+	</PageTransition>
 
 	<svelte:fragment slot="pageFooter">
 		<Footer />

@@ -22,11 +22,11 @@
 
 <div class="p-4 flex flex-col gap-4 h-full">
 	<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-	<h2 tabindex="0">
+	<h2>
 		Library
 
 		{#if $library.length > 0}
-			<span>({$library.length})</span>
+			<small>({$library.length} photos)</small>
 		{/if}
 	</h2>
 	<hr />
@@ -68,10 +68,10 @@
 				>
 					<div class="flex gap-2 items-center">
 						<!-- <img src={data} alt={name} class="h-4 w-4 object-cover" /> -->
-						<span class="line-clamp-1 mr-auto">{name}</span>
 						<span>
 							<Icon icon={statusIcon(status)} />
 						</span>
+						<span class="line-clamp-1 mr-auto">{name}</span>
 					</div>
 				</ListBoxItem>
 			{/each}

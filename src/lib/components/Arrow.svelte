@@ -5,23 +5,18 @@
 	import { selected, library } from '$lib/stores/imagesStore';
 	export let direction: 'right' | 'left';
 
-	const directionsIcons = (direction: 'right' | 'left'): IconifyIcon => {
-		if (direction == 'right') {
-			return 'ic:baseline-keyboard-arrow-right' as unknown as IconifyIcon;
-		} else {
-			return 'ic:baseline-keyboard-arrow-left' as unknown as IconifyIcon;
-		}
-	};
+	const directionsIcons = () =>
+		direction == 'right'
+			? ('ic:baseline-keyboard-arrow-right' as unknown as IconifyIcon)
+			: ('ic:baseline-keyboard-arrow-left' as unknown as IconifyIcon);
+
+	const directionClass = () => (direction === 'right' ? 'right' : 'left');
 
 	const handleClick = () => {
 		if (direction == 'right') {
-			if ($selected < $library.length) {
-				$selected++;
-			}
+			if ($selected < $library.length) $selected++;
 		} else {
-			if ($selected > 1) {
-				$selected--;
-			}
+			if ($selected > 1) $selected--;
 		}
 	};
 
@@ -43,9 +38,22 @@
 </script>
 
 {#if $library.length > 1}
-	<button class="btn-icon btn-icon-sm variant-outline" on:click={handleClick} disabled={disabled()}>
+	<button
+		class="btn-icon btn-icon-sm h-[33px] variant-outline {directionClass()}"
+		on:click={handleClick}
+		disabled={disabled()}
+	>
 		<span>
-			<Icon icon={directionsIcons(direction)} />
+			<Icon icon={directionsIcons()} />
 		</span>
 	</button>
 {/if}
+
+<style lang="postcss">
+	.left {
+		@apply rounded-r-none;
+	}
+	.right {
+		@apply rounded-l-none -translate-x-[1px];
+	}
+</style>

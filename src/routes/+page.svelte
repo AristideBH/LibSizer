@@ -12,6 +12,7 @@
 	import CropperEl from '$lib/components/CropperEl.svelte';
 	import Arrow from '$lib/components/Arrow.svelte';
 	import ClientSelect from '$lib/components/ClientSelect.svelte';
+	import SizesSettings from '$lib/components/SizesSettings.svelte';
 
 	$: currentPhoto = library.getById($selected, $library);
 	$: ratioList = getUniqueRatios(bundleSizes($BundleSelected));
@@ -49,33 +50,37 @@
 
 {#if currentPhoto}
 	<!-- TOOLBAR -->
-	<div class="bg-surface-50 border-b border-surface-300 sticky top-0 z-20">
-		<div class="container p-4 items-center justify-between">
-			<div class="mr-auto flex gap-3 items-center">
+	<div
+		class="bg-surface-100-800-token border-b border-surface-200-700-token sticky top-0 z-20 shadow-sm"
+	>
+		<div class="container px-4 py-3 items-center justify-between !gap-y-3 !gap-x-2 !flex-nowrap">
+			<div class="mr-auto flex items-center">
 				<Arrow direction="left" />
-				<span>
-					Editing <strong>[{currentPhoto.name}]</strong>
-				</span>
 				<Arrow direction="right" />
+				<span class="pl-3 line-clamp-1">
+					<strong>{currentPhoto.name}</strong>
+				</span>
 			</div>
 
-			<button
-				type="button"
-				class="btn variant-outline-primary bg-white"
-				on:click={exportAll}
-				title="Download bundle"
-			>
-				<span><Icon icon="ic:outline-folder-zip" /></span>
-				<span>Download bundle</span>
-			</button>
-			<button
-				type="button"
-				class="variant-outline-primary bg-white btn-icon"
-				on:click={save}
-				title="Save metadata"
-			>
-				<span><Icon icon="ic:outline-save" /></span>
-			</button>
+			<div class="flex gap-2 ml-auto">
+				<button
+					type="button"
+					class="btn-icon md:btn md:aspect-auto md:w-fit variant-ghost-primary ml-auto"
+					on:click={exportAll}
+					title="Download bundle"
+				>
+					<span><Icon icon="ic:outline-folder-zip" /></span>
+					<span class="hidden md:block">Download bundle</span>
+				</button>
+				<button
+					type="button"
+					class="variant-ghost-primary btn-icon"
+					on:click={save}
+					title="Save metadata"
+				>
+					<span><Icon icon="ic:outline-save" /></span>
+				</button>
+			</div>
 		</div>
 	</div>
 {/if}
@@ -104,6 +109,6 @@
 			No picture selected. <br /> Please choose one from the
 			<a href="/" on:click={drawerOpen}>library</a>.
 		</p>
-		<ClientSelect />
+		<SizesSettings />
 	</div>
 {/if}

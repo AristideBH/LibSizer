@@ -5,7 +5,7 @@
 <div class="container flex-col py-4 px-4 space-y-3">
 	<h1 class="py-4">
 		About LibSizer
-		<span class="text-sm">{data.appVersion}</span>
+		<span class="text-sm"><div class="badge variant-ghost-primary">{data.appVersion}</div></span>
 	</h1>
 	<div class="flex flex-col">
 		<p>

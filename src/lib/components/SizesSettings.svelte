@@ -18,8 +18,6 @@
 	function handleRemoveSize(id: number) {
 		// deleteSize(id);
 	}
-
-	console.log($page.data.appVersion);
 </script>
 
 <div class="flex flex-col gap-2 w-modal">
@@ -28,15 +26,15 @@
 			class="flex flex-col gap-x-4 gap-y-2 pb-3 items-center justify-center
 				sm:flex-row sm:justify-between"
 		>
-			<h2 class="">Sizes</h2>
+			<h2>Sizes</h2>
 			<ClientSelect />
 		</header>
 		<hr />
 		{#key bundleSizes($BundleSelected)}
-			<dt class="my-4" transition:slide>
+			<dt class="mt-4" transition:slide>
 				{#each bundleSizes($BundleSelected) as size}
 					<dl class="list-dl bg-surface-hover-token rounded-lg">
-						<div>
+						<div class="text-left">
 							<span class="flex-auto">
 								<dt><strong>{size.name}</strong></dt>
 								<dd>
@@ -59,17 +57,6 @@
 				{/each}
 			</dt>
 		{/key}
-		<hr />
-		<div class="flex gap-2 items-center pt-3 px-2 justify-between text-sm">
-			<!-- <span class="text-xs">THEME</span>
-			<LightSwitch /> -->
-
-			<span class="badge variant-ghost-primary">{$page.data.appVersion}</span>
-			<span>
-				Made with love by
-				<a href="https://github.com/AristideBH" target="_blank">AristideBH</a>
-			</span>
-		</div>
 	</div>
 	<!-- <div class="card p-4 flex flex-col mb-6">
 		<h2 class="pb-3">Add a new size</h2>
