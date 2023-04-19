@@ -11,7 +11,6 @@
 	import { tEdit } from '$lib/strings';
 	import CropperEl from '$lib/components/CropperEl.svelte';
 	import Arrow from '$lib/components/Arrow.svelte';
-	import ClientSelect from '$lib/components/ClientSelect.svelte';
 	import SizesSettings from '$lib/components/SizesSettings.svelte';
 
 	$: currentPhoto = library.getById($selected, $library);
@@ -101,7 +100,7 @@
 {/if}
 
 {#if !currentPhoto}
-	<div class="flex flex-col items-center h-full justify-center gap-6 text-center my-4 px-4">
+	<div class="flex flex-col items-center h-full justify-center gap-6 text-center py-6 px-4">
 		<span class="w-20 h-20 text-primary-500/50">
 			<Icon icon="solar:crop-minimalistic-bold-duotone" width="100%" />
 		</span>
