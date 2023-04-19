@@ -138,10 +138,14 @@
 								<div class="arrow bg-surface-200-700-token" />
 								<div class="flex-col items-start justify-center flex">
 									{#if currentPhoto.dimensions.width < size.width}
-										<span>Image is narrower then desired width</span>
+										<span
+											>Image is narrower then desired width: {currentPhoto.dimensions.width} px</span
+										>
 									{/if}
 									{#if currentPhoto.dimensions.height < size.height}
-										<span>Image is smaller then desired height</span>
+										<span
+											>Image is shorter then desired height: {currentPhoto.dimensions.height} px</span
+										>
 									{/if}
 									<strong>> This might result in pixelated output</strong>
 								</div>

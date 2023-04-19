@@ -46,9 +46,8 @@
 </Drawer>
 
 <Modal shadow="shadow-xl" components={modalComponentRegistry} />
-
 {#if $loading}
-	<div transition:slide>
+	<div transition:slide|local class="z-0" style="z-index:999999;">
 		<ProgressBar rounded="rounded-none" meter="bg-primary-500" />
 	</div>
 {/if}
