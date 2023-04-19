@@ -31,7 +31,7 @@
 		</header>
 		<hr />
 		{#key bundleSizes($BundleSelected)}
-			<dt class="mt-4" transition:slide>
+			<dt class="mt-4" transition:slide|local>
 				{#each bundleSizes($BundleSelected) as size, i}
 					<dl class="list-dl bg-surface-hover-token rounded-lg">
 						<div class="text-left">

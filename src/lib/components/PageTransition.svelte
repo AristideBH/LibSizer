@@ -1,14 +1,14 @@
 <script lang="ts">
 	import { fly, fade } from 'svelte/transition';
 	export let pathname = '',
-		speed = 250;
+		speed = 500;
 </script>
 
 {#key pathname}
 	<div
-		class="gab TransitionHolder h-full"
-		in:fade={{ duration: speed, delay: speed }}
-		out:fade={{ duration: speed }}
+		class="h-full w-full"
+		in:fly={{ duration: speed, delay: speed, y: 100 }}
+		out:fly={{ duration: speed, y: -100 }}
 	>
 		<slot />
 	</div>
