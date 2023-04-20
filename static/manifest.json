@@ -11,9 +11,7 @@
 	],
 	"background_color": "#dcdee8",
 	"display": "standalone ",
-
 	"scope": "/",
-	"theme_color": "#dcdee8",
 	"shortcuts": [],
 	"description": "Easily crop your library to different sizes"
 }
