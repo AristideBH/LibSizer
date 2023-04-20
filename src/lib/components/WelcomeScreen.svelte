@@ -9,9 +9,9 @@
 		<span class="w-24 h-24 text-primary-500/50">
 			<Icon icon="solar:crop-minimalistic-bold-duotone" width="100%" />
 		</span>
-		<p class="pb-3">
+		<p class="py-3">
 			No picture selected. <br /> Please choose one from the
-			<a href="/" on:click={drawerOpen}>library</a>.
+			<a href="/" on:click={drawerOpen}>library</a>
 		</p>
 	</div>
 	<SizesSettings />

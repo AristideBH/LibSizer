@@ -1,7 +1,10 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
-	import { AppBar } from '@skeletonlabs/skeleton';
-	import { library } from '$lib/stores/imagesStore';
+	import { page } from '$app/stores';
+	import { slide } from 'svelte/transition';
+	import { library, selected } from '$lib/stores/imagesStore';
+
+	$: currentPhoto = library.getById($selected, $library);
 
 	export let handleLibClick: svelte.JSX.MouseEventHandler<HTMLButtonElement>,
 		handleCogClick: svelte.JSX.MouseEventHandler<HTMLButtonElement>;
@@ -11,9 +14,11 @@
 	class="container flex bg-surface-100-800-token py-4 px-4 flex-row items-center justify-between"
 >
 	<a href="/" class=" unstyled text-2xl font-black uppercase flex flex-row items-center gap-1">
-		<span class="w-9 h-9 text-primary-500/70 translate-y-[2px]">
-			<Icon icon="solar:crop-minimalistic-bold-duotone" width="100%" height="100%" />
-		</span>
+		{#if $selected != 0}
+			<span class="w-9 h-9 text-primary-500/70 translate-y-[2px]" transition:slide={{ axis: 'y' }}>
+				<Icon icon="solar:crop-minimalistic-bold-duotone" width="100%" height="100%" />
+			</span>
+		{/if}
 		LibSizer
 	</a>
 	<div class="inline-flex group">

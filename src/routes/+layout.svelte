@@ -67,7 +67,10 @@
 <!-- <Svrollbar initiallyVisible /> -->
 
 {#if $loading}
-	<div transition:slide|local class="progress-bar w-full fixed bottom-0 z-50 left-0 right-0">
-		<ProgressBar rounded="rounded-none" meter="bg-primary-500" />
+	<div
+		transition:slide|local
+		class="progress-bar w-full fixed bottom-0 z-50 left-0 right-0 pointer-events-none"
+	>
+		<ProgressBar rounded="rounded-none" meter="bg-primary-500" class="pointer-events-none" />
 	</div>
 {/if}
