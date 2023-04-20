@@ -28,7 +28,7 @@
 		>
 			<span><Icon icon="solar:album-linear" /></span>
 
-			<span class="hidden sm:inline">Library</span>
+			<span>Library</span>
 			{#if $library.length > 0}
 				<span>({$library.length})</span>
 			{/if}

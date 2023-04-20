@@ -56,7 +56,7 @@
 			<Arrow direction="left" />
 			<Arrow direction="right" />
 		</div>
-		<strong class=" line-clamp-1">{currentPhoto.name}</strong>
+		<strong class=" line-clamp-1">{currentPhoto?.name}</strong>
 
 		<div class="flex gap-2 ml-auto">
 			<button

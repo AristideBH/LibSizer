@@ -79,7 +79,9 @@ export const scrollToTop = () => {
 }
 
 export const isEmpty = (obj: object) => {
-    return Object.keys(obj).length === 0;
+    if (obj) {
+        return Object.keys(obj).length === 0;
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////

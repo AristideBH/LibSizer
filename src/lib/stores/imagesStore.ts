@@ -29,6 +29,7 @@ function CreateImageStore() {
             const confirmed = confirm("Are you sure you want to delete all photos ?");
             if (confirmed) {
                 set([])
+                selected.set(0)
                 toastStore.trigger(tReset);
             }
         },
@@ -66,7 +67,7 @@ function CreateImageStore() {
         // * Return the photo with matching ID
         getById: (id: number, store: any) => {
             const files = store;
-            return files.find((file: { id: number; }) => file.id === id);
+            return files.find((file: { id: number }) => file.id === id);
         },
 
         // * Return all photos with status "edited"

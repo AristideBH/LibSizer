@@ -10,8 +10,6 @@
 			? ('material-symbols:arrow-forward-ios-rounded' as unknown as IconifyIcon)
 			: ('material-symbols:arrow-back-ios-new-rounded' as unknown as IconifyIcon);
 
-	const directionClass = () => (direction === 'right' ? 'right' : 'left');
-
 	const handleClick = () => {
 		if (direction == 'right') {
 			if ($selected < $library.length) $selected++;
@@ -39,7 +37,7 @@
 
 {#if $library.length > 1}
 	<button
-		class="btn-icon btn-icon-sm h-[33px] variant-outline {directionClass()}"
+		class="btn-icon btn-icon-sm h-[33px] variant-outline {direction}"
 		on:click={handleClick}
 		disabled={disabled()}
 	>

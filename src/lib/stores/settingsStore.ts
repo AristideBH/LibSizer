@@ -44,8 +44,8 @@ export function deleteSize(id: number) {
 
 export function getUniqueRatios(sizes: Array<Size>): Array<{
     ratio: number | string, sizes: Array<{
-        height: number;
-        width: number;
+        height: number | undefined;
+        width: number | undefined;
         id: number, name: string
     }>
 }> {
@@ -55,6 +55,7 @@ export function getUniqueRatios(sizes: Array<Size>): Array<{
         if (height !== undefined && width !== undefined) {
             const ratio = width / height;
             if (ratioMap.has(ratio)) {
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 const names = ratioMap.get(ratio)!;
                 names.push({ id, name, width, height });
                 ratioMap.set(ratio, names);
@@ -64,6 +65,7 @@ export function getUniqueRatios(sizes: Array<Size>): Array<{
         } else {
             const manualRatio = "fit";
             if (ratioMap.has(manualRatio)) {
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 const names = ratioMap.get(manualRatio)!;
                 names.push({ id, name, width, height });
                 ratioMap.set(manualRatio, names);

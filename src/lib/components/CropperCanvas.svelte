@@ -11,7 +11,7 @@
 	let cropperEls: Array<CropperEl> = [];
 </script>
 
-<div class="container flex-col p-4 gap-4">
+<div class="container flex-col p-4 !gap-4">
 	{#each ratioList as ratio, index}
 		{#key currentPhoto && bundleSizes($BundleSelected)}
 			<CropperEl ratio={ratioToNb(ratio.ratio)} sizes={ratio.sizes} bind:this={cropperEls[index]} />

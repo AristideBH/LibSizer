@@ -16,7 +16,7 @@
 
 	const initCropper = () => {
 		let cropData;
-		if (!isEmpty(currentPhoto.meta)) {
+		if (currentPhoto && !isEmpty(currentPhoto?.meta)) {
 			cropData = getObjectByRatioName(currentPhoto.meta, ratio);
 		}
 		cropper = new Cropper(imgRef, {
@@ -100,77 +100,79 @@
 	};
 </script>
 
-<div
-	class="card w-full p-4 flex gap-y-6 gap-x-8 justify-center items-stretch flex-wrap lg:flex-nowrap"
->
-	<div class=" bg-slate-100 mx-auto md:mx-0 max-w-2xl w-full">
-		{#if currentPhoto}
-			<img src={currentPhoto.data} alt="" bind:this={imgRef} class="block w-full" />
-		{/if}
-	</div>
+{#if currentPhoto}
+	<div
+		class="card w-full p-4 flex gap-y-6 gap-x-8 justify-center items-stretch flex-wrap lg:flex-nowrap"
+	>
+		<div class=" bg-slate-100 mx-auto md:mx-0 max-w-2xl w-full">
+			{#if currentPhoto}
+				<img src={currentPhoto.data} alt="" bind:this={imgRef} class="block w-full" />
+			{/if}
+		</div>
 
-	<div class="flex flex-col gap-2 items-start w-full max-w-2xl xl:w-full">
-		<h2>Ratio <strong>{ratioNbtoString(parseFloat(ratio.toFixed(4)))}</strong></h2>
-		<hr />
-		<code class="flex flex-col gap-0 w-fit my-2">
-			{#each sizes as size}
-				<button
-					class="flex items-center gap-1 p-1 hover:underline text-md"
-					type="button"
-					on:click={() => cropImage(size)}
-					title="Download file"
-				>
-					{#if size.height && size.width}
-						{#if currentPhoto.dimensions.width < size.width || currentPhoto.dimensions.height < size.height}
-							<div class="flex flex-row text-error-500">
-								<span use:popup={popupWarnSize}><Icon icon="ic:round-warning-amber" /> </span>
-								<div
-									class="tes bg-surface-200-700-token px-2 py-1 text-xs rounded-sm"
-									data-popup="popupWarnSize"
-								>
-									<div class="arrow bg-surface-200-700-token" />
-									<div class="flex-col items-start justify-center flex">
-										{#if currentPhoto.dimensions.width < size.width}
-											<span
-												>Image is narrower then desired width: {currentPhoto.dimensions.width} px</span
-											>
-										{/if}
-										{#if currentPhoto.dimensions.height < size.height}
-											<span
-												>Image is shorter then desired height: {currentPhoto.dimensions.height} px</span
-											>
-										{/if}
-										<strong>> This might result in pixelated output</strong>
+		<div class="flex flex-col gap-2 items-start w-full max-w-2xl xl:w-full">
+			<h2>Ratio <strong>{ratioNbtoString(parseFloat(ratio.toFixed(4)))}</strong></h2>
+			<hr />
+			<code class="flex flex-col gap-0 w-fit my-2">
+				{#each sizes as size}
+					<button
+						class="flex items-center gap-1 p-1 hover:underline text-md"
+						type="button"
+						on:click={() => cropImage(size)}
+						title="Download file"
+					>
+						{#if size.height && size.width && currentPhoto}
+							{#if currentPhoto.dimensions.width < size.width || currentPhoto.dimensions.height < size.height}
+								<div class="flex flex-row text-error-500">
+									<span use:popup={popupWarnSize}><Icon icon="ic:round-warning-amber" /> </span>
+									<div
+										class="tes bg-surface-200-700-token px-2 py-1 text-xs rounded-sm"
+										data-popup="popupWarnSize"
+									>
+										<div class="arrow bg-surface-200-700-token" />
+										<div class="flex-col items-start justify-center flex">
+											{#if currentPhoto.dimensions.width < size.width}
+												<span
+													>Image is narrower then desired width: {currentPhoto.dimensions.width} px</span
+												>
+											{/if}
+											{#if currentPhoto.dimensions.height < size.height}
+												<span
+													>Image is shorter then desired height: {currentPhoto.dimensions.height} px</span
+												>
+											{/if}
+											<strong>> This might result in pixelated output</strong>
+										</div>
 									</div>
 								</div>
-							</div>
+							{/if}
 						{/if}
-					{/if}
-					<span><Icon icon="solar:download-minimalistic-linear" /></span>
-					<strong>{size.name}</strong> :
-					<span>
-						{size.width == undefined ? 'fit' : size.width + 'px'}
-						×
-						{size.height == undefined ? 'fit' : size.height + 'px'}
-					</span>
+						<span><Icon icon="solar:download-minimalistic-linear" /></span>
+						<strong>{size.name}</strong> :
+						<span>
+							{size.width == undefined ? 'fit' : size.width + 'px'}
+							×
+							{size.height == undefined ? 'fit' : size.height + 'px'}
+						</span>
+					</button>
+				{/each}
+			</code>
+
+			{#if sizes.length > 1}
+				<button
+					class="btn variant-outline-primary w-fit btn-sm"
+					type="button"
+					on:click={gatherCropped}
+				>
+					<span><Icon icon="ic:outline-folder-zip" /></span>
+					<span>Download ratio bundle</span>
 				</button>
-			{/each}
-		</code>
+			{/if}
 
-		{#if sizes.length > 1}
-			<button
-				class="btn variant-outline-primary w-fit btn-sm"
-				type="button"
-				on:click={gatherCropped}
-			>
-				<span><Icon icon="ic:outline-folder-zip" /></span>
-				<span>Download ratio bundle</span>
+			<button class="btn btn-sm variant-filled mt-auto" on:click={handleCropperReset}>
+				<span><Icon icon="solar:crop-minimalistic-linear" /></span>
+				<span>Reset crop zone</span>
 			</button>
-		{/if}
-
-		<button class="btn btn-sm variant-filled mt-auto" on:click={handleCropperReset}>
-			<span><Icon icon="solar:crop-minimalistic-linear" /></span>
-			<span>Reset crop zone</span>
-		</button>
+		</div>
 	</div>
-</div>
+{/if}

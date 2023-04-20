@@ -9,11 +9,11 @@
 	import type { PageData } from './$types';
 	import { slide } from 'svelte/transition';
 	import { navigating } from '$app/stores';
+	import { Svrollbar } from 'svrollbar';
+	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	// prettier-ignore
 	import { AppShell, Drawer, Toast, Modal, ProgressBar, autoModeWatcher, storePopup } from '@skeletonlabs/skeleton';
-	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
-	import { Svrollbar } from 'svrollbar';
 	import { drawerOpen, modalSettingsOpen, modalComponentRegistry, scrollToTop } from '$lib/utils';
 
 	// COMPONENTS IMPORT
@@ -36,7 +36,7 @@
 
 <svelte:window on:load={() => drawerOpen()} />
 
-<Toast />
+<Toast position="bl" />
 
 <Drawer rounded="rounded-none">
 	<ListPhotos />
