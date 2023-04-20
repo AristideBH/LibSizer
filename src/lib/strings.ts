@@ -19,7 +19,7 @@ const tAdd: ToastSettings = {
 };
 
 const tReset: ToastSettings = {
-    message: 'The library has been resetted',
+    message: 'The library has been clear',
     background: "variant-filled-surface",
 };
 

@@ -25,7 +25,7 @@
 	<div class="card p-4 w-full">
 		<header
 			class="flex flex-col gap-x-4 gap-y-2 pt-1 items-center justify-center
-				sm:flex-row sm:justify-between"
+				"
 		>
 			{#if showTitle}
 				<h2>Sizes</h2>

@@ -1,32 +1,29 @@
 <script lang="ts">
+	// STYLE SETUP
 	import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
 	import '@skeletonlabs/skeleton/styles/all.css';
 	import '../app.postcss';
 	import '$lib/css/croppr.postcss';
 
+	// LIBS IMPORT
+	import type { PageData } from './$types';
 	import { slide } from 'svelte/transition';
 	import { navigating } from '$app/stores';
-	import type { PageData } from './$types';
-	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
-	import {
-		AppShell,
-		Drawer,
-		Toast,
-		Modal,
-		ProgressBar,
-		autoModeWatcher,
-		storePopup
-	} from '@skeletonlabs/skeleton';
+	// prettier-ignore
+	import { AppShell, Drawer, Toast, Modal, ProgressBar, autoModeWatcher, storePopup } from '@skeletonlabs/skeleton';
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
+	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 	import { Svrollbar } from 'svrollbar';
-
 	import { drawerOpen, modalSettingsOpen, modalComponentRegistry, scrollToTop } from '$lib/utils';
+
+	// COMPONENTS IMPORT
 	import { loading } from '$lib/stores/imagesStore';
 	import ListPhotos from '$lib/components/ListPhotos.svelte';
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import PageTransition from '$lib/components/PageTransition.svelte';
 
+	// DATA
 	export let data: PageData;
 	$: if ($navigating) scrollToTop();
 </script>
@@ -46,11 +43,6 @@
 </Drawer>
 
 <Modal shadow="shadow-xl" components={modalComponentRegistry} />
-{#if $loading}
-	<div transition:slide|local class="z-0" style="z-index:999999;">
-		<ProgressBar rounded="rounded-none" meter="bg-primary-500" />
-	</div>
-{/if}
 
 <AppShell
 	regionPage="relative"
@@ -72,4 +64,10 @@
 	</svelte:fragment>
 </AppShell>
 
-<Svrollbar initiallyVisible />
+<!-- <Svrollbar initiallyVisible /> -->
+
+{#if $loading}
+	<div transition:slide|local class="progress-bar w-full fixed bottom-0 z-50 left-0 right-0">
+		<ProgressBar rounded="rounded-none" meter="bg-primary-500" />
+	</div>
+{/if}
