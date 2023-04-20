@@ -11,9 +11,7 @@
 		handleCogClick: svelte.JSX.MouseEventHandler<HTMLButtonElement>;
 </script>
 
-<div
-	class="container flex bg-surface-100-800-token py-4 px-4 flex-row items-center justify-between gap-4"
->
+<div class="container flex py-4 px-4 flex-row items-center justify-between gap-4">
 	<a href="/" class=" unstyled text-2xl font-black uppercase flex flex-row items-center gap-2">
 		{#if currentPhotoType !== 'undefined' || $page.data.pathName !== '/'}
 			<span class="w-9 h-9 text-primary-500/70 translate-y-[1px]" transition:fly>
