@@ -47,7 +47,7 @@
 </script>
 
 <div
-	class="bg-surface-100-800-token border-b border-surface-200-700-token z-20 shadow-sm sticky top-0 px-2"
+	class="bg-surface-100-800-token border-b border-surface-200-700-token z-20 shadow-sm sticky top-0"
 >
 	<div class="container px-4 py-3 items-center justify-between !gap-y-3 !gap-x-2 !flex-nowrap">
 		<div class="mr-auto flex items-center">
@@ -63,7 +63,7 @@
 				type="button"
 				class="btn-icon md:btn md:aspect-auto md:w-fit variant-ghost-primary ml-auto"
 				on:click={exportAll}
-				title="Download bundle"
+				title="Download zip bundle"
 			>
 				<span><Icon icon="solar:zip-file-linear" /></span>
 				<span class="hidden md:block">Download bundle</span>
@@ -72,7 +72,7 @@
 				type="button"
 				class="variant-ghost-primary btn-icon"
 				on:click={save}
-				title="Save metadata"
+				title="Save crops"
 			>
 				<span><Icon icon="ic:outline-save" /></span>
 			</button>

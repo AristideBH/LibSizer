@@ -121,15 +121,8 @@
 					on:click={() => cropImage(size)}
 					title="Download file"
 				>
-					<span><Icon icon="solar:download-minimalistic-linear" /></span>
-					<strong>{size.name}</strong> :
-					<span>
-						{size.width == undefined ? 'fit' : size.width + 'px'}
-						×
-						{size.height == undefined ? 'fit' : size.height + 'px'}
-					</span>
 					{#if currentPhoto.dimensions.width < size.width || currentPhoto.dimensions.height < size.height}
-						<div class="ml-2 flex flex-row text-error-500">
+						<div class="flex flex-row text-error-500">
 							<span use:popup={popupWarnSize}><Icon icon="ic:round-warning-amber" /> </span>
 							<div
 								class="tes bg-surface-200-700-token px-2 py-1 text-xs rounded-sm"
@@ -152,6 +145,13 @@
 							</div>
 						</div>
 					{/if}
+					<span><Icon icon="solar:download-minimalistic-linear" /></span>
+					<strong>{size.name}</strong> :
+					<span>
+						{size.width == undefined ? 'fit' : size.width + 'px'}
+						×
+						{size.height == undefined ? 'fit' : size.height + 'px'}
+					</span>
 				</button>
 			{/each}
 		</code>
