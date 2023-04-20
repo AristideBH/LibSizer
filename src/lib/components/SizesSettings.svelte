@@ -24,7 +24,7 @@
 <div class="flex flex-col gap-2 w-full max-w-[580px] shadow-sm">
 	<div class="card p-4 w-full">
 		<header
-			class="flex flex-col gap-x-4 gap-y-2 pt-1 items-center justify-center
+			class="flex flex-col gap-x-4 gap-y-2 items-center justify-center
 				"
 		>
 			{#if showTitle}

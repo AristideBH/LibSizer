@@ -54,6 +54,6 @@
 		@apply rounded-r-none;
 	}
 	.right {
-		@apply rounded-l-none -translate-x-[1px] mr-3;
+		@apply rounded-l-none -translate-x-[1px];
 	}
 </style>

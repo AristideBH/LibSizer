@@ -64,6 +64,7 @@
 		});
 		return blobsData;
 	};
+
 	function getObjectByRatioName(array: any, ratioName: number) {
 		for (const key in array) {
 			if (array.hasOwnProperty(key)) {
@@ -99,18 +100,16 @@
 	};
 </script>
 
-<!-- <pre>{JSON.stringify(currentPhoto.meta, undefined, 2)}</pre> -->
-<!-- <pre>{JSON.stringify(ratio, undefined, 2)}</pre> -->
-<!-- <pre>{JSON.stringify(getObjectByRatioName(currentPhoto.meta, ratio), undefined, 2)}</pre> -->
-
-<div class="card w-full p-4 flex flex-wrap md:flex-nowrap gap-6 justify-stretch items-stretch">
-	<div class="mx-auto bg-slate-100 w-full max-w-3xl">
+<div
+	class="card w-full p-4 flex gap-y-6 gap-x-8 justify-center items-stretch flex-wrap lg:flex-nowrap"
+>
+	<div class=" bg-slate-100 mx-auto md:mx-0 max-w-2xl w-full">
 		{#if currentPhoto}
-			<img src={currentPhoto.data} alt="" bind:this={imgRef} class="block max-w-[100%] w-full" />
+			<img src={currentPhoto.data} alt="" bind:this={imgRef} class="block w-full" />
 		{/if}
 	</div>
 
-	<div class="flex flex-col w-full gap-2 items-start">
+	<div class="flex flex-col gap-2 items-start w-full max-w-2xl xl:w-full">
 		<h2>Ratio <strong>{ratioNbtoString(parseFloat(ratio.toFixed(4)))}</strong></h2>
 		<hr />
 		<code class="flex flex-col gap-0 w-fit my-2">
@@ -121,29 +120,31 @@
 					on:click={() => cropImage(size)}
 					title="Download file"
 				>
-					{#if currentPhoto.dimensions.width < size.width || currentPhoto.dimensions.height < size.height}
-						<div class="flex flex-row text-error-500">
-							<span use:popup={popupWarnSize}><Icon icon="ic:round-warning-amber" /> </span>
-							<div
-								class="tes bg-surface-200-700-token px-2 py-1 text-xs rounded-sm"
-								data-popup="popupWarnSize"
-							>
-								<div class="arrow bg-surface-200-700-token" />
-								<div class="flex-col items-start justify-center flex">
-									{#if currentPhoto.dimensions.width < size.width}
-										<span
-											>Image is narrower then desired width: {currentPhoto.dimensions.width} px</span
-										>
-									{/if}
-									{#if currentPhoto.dimensions.height < size.height}
-										<span
-											>Image is shorter then desired height: {currentPhoto.dimensions.height} px</span
-										>
-									{/if}
-									<strong>> This might result in pixelated output</strong>
+					{#if size.height && size.width}
+						{#if currentPhoto.dimensions.width < size.width || currentPhoto.dimensions.height < size.height}
+							<div class="flex flex-row text-error-500">
+								<span use:popup={popupWarnSize}><Icon icon="ic:round-warning-amber" /> </span>
+								<div
+									class="tes bg-surface-200-700-token px-2 py-1 text-xs rounded-sm"
+									data-popup="popupWarnSize"
+								>
+									<div class="arrow bg-surface-200-700-token" />
+									<div class="flex-col items-start justify-center flex">
+										{#if currentPhoto.dimensions.width < size.width}
+											<span
+												>Image is narrower then desired width: {currentPhoto.dimensions.width} px</span
+											>
+										{/if}
+										{#if currentPhoto.dimensions.height < size.height}
+											<span
+												>Image is shorter then desired height: {currentPhoto.dimensions.height} px</span
+											>
+										{/if}
+										<strong>> This might result in pixelated output</strong>
+									</div>
 								</div>
 							</div>
-						</div>
+						{/if}
 					{/if}
 					<span><Icon icon="solar:download-minimalistic-linear" /></span>
 					<strong>{size.name}</strong> :

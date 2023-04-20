@@ -19,11 +19,6 @@
 		const data = library.getEdited($library);
 		console.log(data);
 	};
-
-	const handleLibraryClear = () => {
-		library.reset();
-		selected.reset();
-	};
 </script>
 
 <div class="flex flex-col h-full grow">
@@ -95,7 +90,7 @@
 			class="footer flex gap-2 flex-wrap sticky bottom-0 bg-surface-100-800-token p-4 mt-auto"
 			transition:slide|local
 		>
-			<button class="btn variant-ringed btn-sm" type="button" on:click={handleLibraryClear}>
+			<button class="btn variant-ringed btn-sm" type="button" on:click={library.reset}>
 				Clear all photos
 			</button>
 			<button class="btn variant-filled-primary" type="button" on:click={getEdited}>

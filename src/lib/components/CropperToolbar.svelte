@@ -11,7 +11,7 @@
 	import Arrow from '$lib/components/Arrow.svelte';
 	import type CropperEl from '$lib/components/CropperEl.svelte';
 	import { omitExt } from '$lib/utils';
-	import { slide } from 'svelte/transition';
+	import { fly, slide } from 'svelte/transition';
 
 	$: currentPhoto = library.getById($selected, $library);
 	$: ratioList = getUniqueRatios(bundleSizes($BundleSelected));
@@ -49,16 +49,14 @@
 
 <div
 	class="bg-surface-100-800-token border-b border-surface-200-700-token z-20 shadow-sm sticky top-0"
-	transition:slide
+	transition:fly={{ y: -10 }}
 >
-	<div class="container px-4 py-3 items-center justify-between !gap-y-3 !gap-x-2 !flex-nowrap">
-		<div class="mr-auto flex items-center">
+	<div class="container px-4 py-3 items-center justify-between !gap-x-2 !flex-nowrap">
+		<div class="flex items-center">
 			<Arrow direction="left" />
 			<Arrow direction="right" />
-			<span class=" line-clamp-1">
-				<strong>{currentPhoto.name}</strong>
-			</span>
 		</div>
+		<strong class=" line-clamp-1">{currentPhoto.name}</strong>
 
 		<div class="flex gap-2 ml-auto">
 			<button
