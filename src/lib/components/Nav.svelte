@@ -23,7 +23,7 @@
 		},
 		{
 			url: 'https://github.com/AristideBH/LibSizer',
-			text: 'Github project',
+			text: 'Github ',
 			newTab: true,
 			icon: 'ph:github-logo' as unknown as IconifyIcon
 		}

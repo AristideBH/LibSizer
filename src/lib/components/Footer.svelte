@@ -6,8 +6,8 @@
 	class="container py-2 px-4 flex items-center flex-col md:justify-between md:flex-row md:items-baseline text-sm border-t border-surface-200-700-token"
 >
 	<Nav />
-	<span class="flex md:ml-auto gap-2">
+	<span>
 		Made with love by
-		<a href="https://github.com/AristideBH" target="_blank">AristideBH</a>
+		<a href="https://github.com/AristideBH" target="_blank">@AristideBH</a>
 	</span>
 </div>
