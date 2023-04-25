@@ -35,16 +35,20 @@
 
 <Toast position="t" max={Number(2)} />
 
-<Modal shadow="shadow-xl" components={modalComponentRegistry} />
+<Modal
+	shadow="shadow-xl"
+	components={modalComponentRegistry}
+	regionBackdrop="bg-surface-50-900-token "
+/>
 
-<Drawer rounded="rounded-none">
+<Drawer rounded="rounded-none" bgBackdrop="bg-surface-50-900-token ">
 	<ListPhotos />
 </Drawer>
 
 <AppShell
 	regionPage="relative"
 	slotPageHeader="border-b border-surface-200-700-token bg-surface-100-800-token z-30"
-	slotSidebarRight="bg-surface-100-800-token w-0 border-l border-surface-500/50 lg:max-w-xl lg:min-w-[380px]"
+	slotSidebarRight="bg-surface-100-800-token w-0 border-l border-surface-200-700-token lg:max-w-xl lg:min-w-[380px]"
 >
 	<svelte:fragment slot="pageHeader">
 		<Header handleLibClick={drawerOpen} handleCogClick={modalSettingsOpen} />

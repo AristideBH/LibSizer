@@ -18,7 +18,7 @@
 				<Icon icon="solar:crop-minimalistic-bold-duotone" width="100%" height="100%" />
 			</span>
 		{/if}
-		LibSizer
+		<span transition:fly class="my-1">LibSizer</span>
 	</a>
 	<div class="inline-flex group">
 		<button

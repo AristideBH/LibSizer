@@ -1,7 +1,7 @@
 <script>
 	import { drawerOpen } from '$lib/utils';
 	import Icon from '@iconify/svelte';
-	import SizesSettings from '$lib/components/SizesSettings.svelte';
+	import SettingsSizes from '$lib/components/SettingsSizes.svelte';
 </script>
 
 <div class="flex flex-col items-center h-full justify-center text-center px-4 pt-16 pb-4 gap-10">
@@ -15,5 +15,7 @@
 			<span class="hidden lg:inline">library.</span>
 		</p>
 	</div>
-	<SizesSettings />
+	<div class="card p-4 w-full w-modal">
+		<SettingsSizes />
+	</div>
 </div>

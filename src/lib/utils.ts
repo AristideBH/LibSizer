@@ -1,5 +1,5 @@
 import { drawerStore, modalStore, type ModalSettings, type ModalComponent } from "@skeletonlabs/skeleton";
-import ConfigPopup from '$lib/components/SizesSettings.svelte';
+import ConfigPopup from '$lib/components/SettingsPopup.svelte';
 
 ///////////////////////////////////////////////////////////////////////////////
 // * DRAWERS & MODAL FUNCTIONS
