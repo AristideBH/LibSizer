@@ -9,12 +9,7 @@
 	}
 
 	const menu: NavItem[] = [
-		{
-			url: '/about',
-			text: 'About',
-			newTab: false,
-			icon: 'solar:info-circle-linear' as unknown as IconifyIcon
-		},
+		
 		{
 			url: '/datatable',
 			text: 'Datatable',
@@ -30,6 +25,8 @@
 	];
 
 	const target = (item: NavItem) => (item?.newTab == true ? '_blank' : '');
+
+	
 </script>
 
 <nav>
