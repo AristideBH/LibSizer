@@ -9,7 +9,7 @@
 			"sizes": "512x512"
 		}
 	],
-	"background_color": "#dcdee8",
+	"background_color": "#d9d9d9",
 	"display": "standalone ",
 	"scope": "/",
 	"shortcuts": [],
