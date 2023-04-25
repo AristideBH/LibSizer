@@ -12,6 +12,8 @@
 	$: if (selectedValue) selected.set(selectedValue);
 
 	const gotPhotos = async () => {
+		selectedValue = $selected ? 0 : 1;
+		if (!$selected) drawerClose();
 		await library.loadPhotos(files);
 	};
 
@@ -60,23 +62,29 @@
 		{#if $library.length}
 			<ListBox>
 				{#each $library as { id, name, status }}
-					<ListBoxItem
-						bind:group={selectedValue}
-						name="medium"
-						value={id}
-						on:click={() => {
-							drawerClose();
-							goto('/');
-						}}
-					>
-						<div class="flex gap-2 items-center">
-							<!-- <img src={data} alt={name} class="h-4 w-4 object-cover" /> -->
-							<span>
-								<Icon icon={statusIcon(status)} />
-							</span>
-							<span class="line-clamp-1 mr-auto">{name}</span>
-						</div>
-					</ListBoxItem>
+					<span class="flex grow gap-2 justify-between [&>label]:grow">
+						<ListBoxItem
+							class="w-full"
+							bind:group={selectedValue}
+							name="medium"
+							value={id}
+							on:click={() => {
+								drawerClose();
+								goto('/');
+							}}
+						>
+							<div class="flex gap-2 items-center">
+								<!-- <img src={data} alt={name} class="h-4 w-4 object-cover" /> -->
+								<span>
+									<Icon icon={statusIcon(status)} />
+								</span>
+								<span class="line-clamp-1 mr-auto">{name}</span>
+							</div>
+						</ListBoxItem>
+						<button on:click={() => library.deleteById(id)}>
+							<Icon icon="solar:close-circle-linear" />
+						</button>
+					</span>
 				{/each}
 			</ListBox>
 		{:else}

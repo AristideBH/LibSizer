@@ -33,7 +33,7 @@
 
 <svelte:window on:load={() => drawerOpen()} />
 
-<Toast position="tr" max={Number(2)} />
+<Toast position="br" max={Number(2)} />
 
 <Drawer rounded="rounded-none">
 	<ListPhotos />
@@ -56,7 +56,7 @@
 		<slot />
 	</PageTransition>
 
-	<svelte:fragment slot="pageFooter">
+	<svelte:fragment slot="footer">
 		<Footer />
 	</svelte:fragment>
 </AppShell>

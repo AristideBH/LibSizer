@@ -1,6 +1,7 @@
 import { writable } from 'svelte/store';
 import { toastStore } from '@skeletonlabs/skeleton';
-import { tAdd, tReset } from '$lib/strings';
+import { tAdd, tReset, tErr, tErrLibExport } from '$lib/strings';
+import { isEmpty } from '$lib/utils';
 let nextId = 1;
 
 function getImageDimensions(blob: Blob) {
@@ -73,8 +74,20 @@ function CreateImageStore() {
         // * Return all photos with status "edited"
         getEdited: (store: any) => {
             const files = store;
-            return files.filter((file: { status: string }) => file.status === "edited");
+            const EditedImages = files.filter((file: { status: string }) => file.status === "edited");
+            if (isEmpty(EditedImages)) {
+                toastStore.trigger(tErrLibExport);
+                return '';
+            } else {
+                return EditedImages
+            }
         },
+
+        // * Delete an entry by its ID
+        deleteById: (id: number) => {
+            update(images => images.filter(image => image.id !== id));
+        },
+
 
         // * Add metadatas and "edited" status to the photo with matching ID
         updatePhotoById: (id: number, meta: object) => {
