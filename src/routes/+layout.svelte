@@ -33,32 +33,33 @@
 
 <svelte:window on:load={() => drawerOpen()} />
 
-<Toast position="br" max={Number(2)} />
-
-<Drawer rounded="rounded-none">
-	<ListPhotos />
-</Drawer>
+<Toast position="t" max={Number(2)} />
 
 <Modal shadow="shadow-xl" components={modalComponentRegistry} />
 
 <AppShell
 	regionPage="relative"
 	slotPageHeader="border-b border-surface-200-700-token bg-surface-100-800-token z-30"
-	slotSidebarRight="bg-surface-100-800-token w-0 lg:w-64 border-l border-surface-500/50 lg:max-w-xl lg:min-w-[480px]"
+	slotSidebarRight="bg-surface-100-800-token w-0 border-l border-surface-500/50 lg:w-64 lg:max-w-xl lg:min-w-[480px]"
 >
 	<svelte:fragment slot="pageHeader">
 		<Header handleLibClick={drawerOpen} handleCogClick={modalSettingsOpen} />
 	</svelte:fragment>
 
-	<!-- <svelte:fragment slot="sidebarRight"><ListPhotos /></svelte:fragment> -->
+	<svelte:fragment slot="sidebarRight">
+		<ListPhotos />
+	</svelte:fragment>
 
 	<PageTransition pathname={data.pathName}>
 		<slot />
+		<Footer />
 	</PageTransition>
 
-	<svelte:fragment slot="footer">
-		<Footer />
-	</svelte:fragment>
+	<Drawer rounded="rounded-none">
+		<ListPhotos />
+	</Drawer>
+
+	<svelte:fragment slot="pageFooter" />
 </AppShell>
 
 <Svrollbar initiallyVisible />

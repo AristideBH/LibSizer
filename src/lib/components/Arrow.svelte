@@ -37,7 +37,7 @@
 
 {#if $library.length > 1}
 	<button
-		class="btn-icon btn-icon-sm h-[33px] variant-outline {direction}"
+		class="btn-icon btn-icon-sm h-[33px] bg-surface-50-900-token variant-outline {direction}"
 		on:click={handleClick}
 		disabled={disabled()}
 	>

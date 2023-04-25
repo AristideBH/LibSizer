@@ -23,7 +23,7 @@
 	<div class="inline-flex group">
 		<button
 			type="button"
-			class="btn variant-filled-primary"
+			class="btn variant-filled-primary lg:hidden"
 			on:click|preventDefault={handleLibClick}
 		>
 			<span><Icon icon="solar:album-linear" /></span>
@@ -42,6 +42,7 @@
 			<span>
 				<Icon icon="solar:settings-linear" />
 			</span>
+			<span class="hidden lg:block">Settings</span>
 		</button>
 	</div>
 </div>
@@ -57,6 +58,6 @@
 		@apply rounded-r-none pl-4 pr-3;
 	}
 	.group .btn:last-of-type {
-		@apply rounded-l-none pl-3 pr-4;
+		@apply rounded-l-none pl-3 pr-4 lg:rounded-full lg:px-4;
 	}
 </style>
