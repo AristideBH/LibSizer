@@ -19,7 +19,6 @@
 	<div class="card p-4 w-full">
 		<h2 class="pb-3">Options</h2>
 		<hr class="mb-4" />
-
 		<div class="flex gap-2">
 			<span>Theme :</span>
 			<LightSwitch />

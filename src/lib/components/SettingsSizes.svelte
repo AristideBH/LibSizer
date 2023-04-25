@@ -11,12 +11,12 @@
 </script>
 
 <header class="flex flex-col gap-x-4 gap-y-2 items-center justify-center {withTitleClass()}">
-	{#if showTitle}
-		<h2>Sizes</h2>
-	{/if}
+	{#if showTitle} <h2>Sizes</h2> {/if}
 
 	<ClientSelect />
 </header>
+
+{#if showTitle} <hr class="mt-4" /> {/if}
 {#key bundleSizes($BundleSelected)}
 	<dt class="mt-4" transition:slide|local>
 		{#each bundleSizes($BundleSelected) as size, i}
