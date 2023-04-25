@@ -1,4 +1,5 @@
 <script lang="ts">
+	import '$lib/css/croppr.postcss';
 	import { onMount } from 'svelte';
 	import Icon from '@iconify/svelte';
 	import JSZip from 'jszip';

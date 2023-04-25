@@ -3,22 +3,18 @@
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" href="%sveltekit.assets%/favicon.svg" />
-		<link rel="manifest" href="manifest.json" crossorigin="use-credentials">
+		<link rel="manifest" href="manifest.json" crossorigin="use-credentials" />
 		<meta name="viewport" content="width=device-width" />
 		<script>
 			window.onbeforeunload = function (e) {
 				e = e || window.event;
-				// For IE and Firefox prior to version 4
-				if (e) { e.returnValue = 'Sure?'; }
-				// For Safari
+				if (e) e.returnValue = 'Sure?';
 				return 'Sure?';
 			};
-			</script>
+		</script>
 		%sveltekit.head%
 	</head>
-	<body data-sveltekit-preload-data="hover" >
-		<div style="display: contents" class="h-full overflow-hidden">
-			%sveltekit.body%
-		</div>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents" class="h-full overflow-hidden">%sveltekit.body%</div>
 	</body>
 </html>

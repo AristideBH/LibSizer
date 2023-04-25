@@ -1,31 +1,25 @@
 <script lang="ts">
 	// STYLE SETUP
-	import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
+	import '$lib/css/theme.css';
 	import '@skeletonlabs/skeleton/styles/all.css';
 	import '../app.postcss';
-	import '$lib/css/croppr.postcss';
 
 	// LIBS IMPORT
 	import type { PageData } from './$types';
-	import { slide } from 'svelte/transition';
-	import { navigating } from '$app/stores';
-	import { Svrollbar } from 'svrollbar';
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
-	// prettier-ignore
-	import { AppShell, Drawer, Toast, Modal, ProgressBar, autoModeWatcher, storePopup } from '@skeletonlabs/skeleton';
+	import { drawerOpen, modalSettingsOpen, modalComponentRegistry } from '$lib/utils';
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
-	import { drawerOpen, modalSettingsOpen, modalComponentRegistry, scrollToTop } from '$lib/utils';
 
 	// COMPONENTS IMPORT
-	import { loading } from '$lib/stores/imagesStore';
+	// prettier-ignore
+	import { AppShell, Drawer, Toast, Modal, ProgressBar, autoModeWatcher, storePopup } from '@skeletonlabs/skeleton';
+	import { Svrollbar } from 'svrollbar';
 	import ListPhotos from '$lib/components/ListPhotos.svelte';
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import PageTransition from '$lib/components/PageTransition.svelte';
 
-	// DATA
 	export let data: PageData;
-	$: if ($navigating) scrollToTop();
 </script>
 
 <svelte:head>
@@ -39,7 +33,7 @@
 
 <svelte:window on:load={() => drawerOpen()} />
 
-<Toast position="bl" />
+<Toast position="tr" />
 
 <Drawer rounded="rounded-none">
 	<ListPhotos />
@@ -69,11 +63,4 @@
 
 <Svrollbar initiallyVisible />
 
-{#if $loading}
-	<div
-		transition:slide|local
-		class="progress-bar w-full fixed bottom-0 z-50 left-0 right-0 pointer-events-none"
-	>
-		<ProgressBar rounded="rounded-none" meter="bg-primary-500" class="pointer-events-none" />
-	</div>
-{/if}
+<ProgressBar />
