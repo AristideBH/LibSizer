@@ -33,7 +33,7 @@
 
 <svelte:window on:load={() => drawerOpen()} />
 
-<Toast position="tr" />
+<Toast position="tr" max={Number(2)} />
 
 <Drawer rounded="rounded-none">
 	<ListPhotos />

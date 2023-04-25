@@ -60,9 +60,6 @@
 				<li>
 					<a href="https://icon-sets.iconify.design/" target="_blank">Iconify</a> for all the used icons
 				</li>
-				<li>
-					<a href="https://noise.fr" target="_blank">Noise</a> for sponsoring the developpment
-				</li>
 			</ol>
 		</div>
 		<!-- <div class="flex flex-col w-full">

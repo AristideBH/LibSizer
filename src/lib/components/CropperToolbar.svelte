@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { fly } from 'svelte/transition';
 	import { toastStore } from '@skeletonlabs/skeleton';
 	import Icon from '@iconify/svelte';
 	import { tEdit } from '$lib/strings';
@@ -6,44 +7,29 @@
 	import { saveAs } from 'file-saver';
 
 	import { library, selected } from '$lib/stores/imagesStore';
-	import { getUniqueRatios, bundleSizes } from '$lib/stores/settingsStore';
-	import { BundleSelected } from '$lib/stores/bundleStore';
-	import Arrow from '$lib/components/Arrow.svelte';
-	import type CropperEl from '$lib/components/CropperEl.svelte';
 	import { omitExt } from '$lib/utils';
-	import { fly, slide } from 'svelte/transition';
+	import type CropperEl from '$lib/components/CropperEl.svelte';
+	import Arrow from '$lib/components/Arrow.svelte';
 
 	$: currentPhoto = library.getById($selected, $library);
-	$: ratioList = getUniqueRatios(bundleSizes($BundleSelected));
-	let cropperEls: Array<CropperEl> = [];
+	export let cropperEls: Array<CropperEl> = [];
 
 	const save = () => {
-		let allCrops: { ratioName: number; cropData: any }[] = [];
-		cropperEls.forEach((child) => {
-			const data = child.saveMetas();
-			allCrops.push(data);
-		});
+		const allCrops = cropperEls.map((child) => child.saveMetas());
 		library.updatePhotoById($selected, allCrops);
 		toastStore.trigger(tEdit);
 	};
 
 	const exportAll = async () => {
-		let allBlobs: { sizeName: string; data: Blob | undefined }[] = [];
-		cropperEls.forEach((child) => {
-			const data = child.exportAll();
-			data.forEach((item) => {
-				allBlobs.push(item);
-			});
-		});
-
+		const allBlobs = cropperEls.flatMap((child) => child.exportAll());
 		const zip = new JSZip();
-		allBlobs.forEach((blob) => {
-			if (blob.data)
-				zip.file(omitExt(currentPhoto.name) + ' - ' + blob.sizeName + '.jpg', blob.data);
+		allBlobs.forEach(({ sizeName, data }) => {
+			if (data) {
+				zip.file(`${omitExt(currentPhoto.name)} - ${sizeName}.jpg`, data);
+			}
 		});
-		let gen = await zip.generateAsync({ type: 'blob' }).then(function (blob) {
-			saveAs(blob, omitExt(currentPhoto.name));
-		});
+		const blob = await zip.generateAsync({ type: 'blob' });
+		saveAs(blob, omitExt(currentPhoto.name));
 	};
 </script>
 

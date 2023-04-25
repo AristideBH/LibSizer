@@ -4,12 +4,15 @@
 	import { BundleSelected } from '$lib/stores/bundleStore';
 	import { ratioToNb } from '$lib/utils';
 
+	import CropperToolbar from '$lib/components/CropperToolbar.svelte';
 	import CropperEl from '$lib/components/CropperEl.svelte';
 
 	$: currentPhoto = library.getById($selected, $library);
 	$: ratioList = getUniqueRatios(bundleSizes($BundleSelected));
 	let cropperEls: Array<CropperEl> = [];
 </script>
+
+<CropperToolbar {cropperEls} />
 
 <div class="container flex-col p-4 !gap-4">
 	{#each ratioList as ratio, index}
