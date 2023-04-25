@@ -34,7 +34,7 @@
 </script>
 
 <div
-	class="bg-surface-100-800-token border-b border-surface-200-700-token z-20 shadow-sm sticky top-0"
+	class="bg-surface-50-900-token border-b border-surface-200-700-token z-20 shadow-sm sticky top-0"
 	transition:fly={{ y: -10 }}
 >
 	<div class="container px-4 py-3 items-center justify-between !gap-x-2 !flex-nowrap">

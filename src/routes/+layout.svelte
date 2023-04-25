@@ -47,8 +47,8 @@
 
 <AppShell
 	regionPage="relative"
-	slotPageHeader="border-b border-surface-200-700-token bg-surface-100-800-token z-30"
-	slotSidebarRight="bg-surface-100-800-token w-0 border-l border-surface-200-700-token lg:max-w-xl lg:min-w-[380px]"
+	slotPageHeader="border-b border-surface-200-700-token bg-surface-50-900-token z-30"
+	slotSidebarRight="bg-surface-50-900-token w-0 border-l border-surface-200-700-token lg:max-w-xl lg:min-w-[380px]"
 >
 	<svelte:fragment slot="pageHeader">
 		<Header handleLibClick={drawerOpen} handleCogClick={modalSettingsOpen} />

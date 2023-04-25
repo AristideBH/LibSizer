@@ -26,7 +26,7 @@
 
 <div class="flex flex-col h-full grow">
 	<!-- HEADER -->
-	<div class="px-4 sticky top-0 bg-surface-100-800-token z-10">
+	<div class="px-4 sticky top-0 bg-surface-50-900-token z-10">
 		<h2 class="py-4 flex items-center">
 			Library
 
@@ -54,6 +54,7 @@
 			slotLead="flex items-center justify-center mb-4"
 			title="Upload your pictures"
 			placeholder=""
+			class="bg-surface-50-900-token"
 		>
 			<svelte:fragment slot="lead">
 				<span class="h-8 w-8 text-primary-500/70">
@@ -104,7 +105,7 @@
 	{#if $library.length}
 		<!-- BOTTOM ACTIONS -->
 		<div
-			class="footer flex gap-2 flex-wrap sticky bottom-0 bg-surface-100-800-token p-4 mt-auto"
+			class="footer flex gap-2 flex-wrap sticky bottom-0 bg-surface-50-900-token p-4 mt-auto"
 			transition:slide|local
 		>
 			<button
