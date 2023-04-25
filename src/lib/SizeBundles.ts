@@ -1,5 +1,4 @@
 import type { Size } from "$lib/stores/settingsStore"
-
 export interface SizesBundle {
     name: string;
     bundle: Array<Size>;
@@ -7,6 +6,12 @@ export interface SizesBundle {
 
 ///////////////////////////////////////////////////////////////////////////////
 // * CLIENTS SIZE BUNDLES SET
+///////////////////////////////////////////////////////////////////////////////
+// ! WARNING
+// When creating a new bundle and naming the different formats,
+// pleasebe sure to omit any of the following character in the 'name' key :
+// \ / : * ? " < > |
+// This will break the naming convention when exporting zip file, resulting in an inappropriate file.
 ///////////////////////////////////////////////////////////////////////////////
 const MousquetairesSizes: SizesBundle = {
     name: "Mousquetaires",

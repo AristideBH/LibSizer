@@ -7,7 +7,7 @@
 >
 	<Nav />
 	<span>
-		Made with love by
+		Made with ♡ by
 		<a href="https://github.com/AristideBH" target="_blank">@AristideBH</a>
 	</span>
 </div>
