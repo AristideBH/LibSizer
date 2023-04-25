@@ -10,5 +10,5 @@
 {#if !currentPhoto}
 	<WelcomeScreen />
 {:else}
-	<CropperCanvas />
+	<CropperCanvas {currentPhoto} />
 {/if}

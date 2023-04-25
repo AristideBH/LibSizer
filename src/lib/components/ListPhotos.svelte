@@ -5,6 +5,7 @@
 	import { library, selected } from '$lib/stores/imagesStore';
 	import { drawerClose, statusIcon } from '$lib/utils';
 	import { slide } from 'svelte/transition';
+	import { modalSettingsOpen } from '$lib/utils';
 
 	let files: FileList;
 	let selectedValue: number;
@@ -17,7 +18,7 @@
 		await library.loadPhotos(files);
 	};
 
-	const getEdited = () => {
+	const getAllEdited = () => {
 		const data = library.getEdited($library);
 		console.log(data);
 	};
@@ -26,11 +27,19 @@
 <div class="flex flex-col h-full grow">
 	<!-- HEADER -->
 	<div class="px-4 sticky top-0 bg-surface-100-800-token z-10">
-		<h2 class="py-4">
+		<h2 class="py-4 flex items-center">
 			Library
-			{#if $library.length > 0}
-				<span class="text-sm">({$library.length} photos)</span>
-			{/if}
+
+			<button
+				type="button"
+				class="btn-icon variant-filled-primary ml-auto"
+				title="Sizes settings"
+				on:click={modalSettingsOpen}
+			>
+				<span>
+					<Icon icon="solar:settings-linear" />
+				</span>
+			</button>
 		</h2>
 		<hr />
 	</div>
@@ -105,7 +114,7 @@
 			>
 				Clear all photos
 			</button>
-			<button class="btn variant-filled-primary" type="button" on:click={getEdited}>
+			<button class="btn variant-filled-primary" type="button" on:click={getAllEdited}>
 				Export all edited
 			</button>
 		</div>

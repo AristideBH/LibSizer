@@ -15,12 +15,12 @@ const tErrLibExport: ToastSettings = {
 
 const tEdit: ToastSettings = {
     message: 'Picture successfully updated.',
-    background: 'variant-filled-primary',
+    background: 'variant-filled-surface',
 };
 
 const tAdd: ToastSettings = {
     message: 'Added with success.',
-    background: "variant-filled-primary",
+    background: "variant-filled-surface",
 };
 
 const tReset: ToastSettings = {

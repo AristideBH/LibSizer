@@ -1,7 +1,6 @@
 import { drawerStore, modalStore, type ModalSettings, type ModalComponent } from "@skeletonlabs/skeleton";
 import ConfigPopup from '$lib/components/SizesSettings.svelte';
 
-
 ///////////////////////////////////////////////////////////////////////////////
 // * DRAWERS & MODAL FUNCTIONS
 ///////////////////////////////////////////////////////////////////////////////
@@ -28,7 +27,6 @@ const modalSettings: ModalSettings = {
 export const modalSettingsOpen = () => {
     modalStore.trigger(modalSettings)
 }
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // * VARIOUS FUNCTIONS

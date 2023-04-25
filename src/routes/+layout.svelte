@@ -37,10 +37,14 @@
 
 <Modal shadow="shadow-xl" components={modalComponentRegistry} />
 
+<Drawer rounded="rounded-none">
+	<ListPhotos />
+</Drawer>
+
 <AppShell
 	regionPage="relative"
 	slotPageHeader="border-b border-surface-200-700-token bg-surface-100-800-token z-30"
-	slotSidebarRight="bg-surface-100-800-token w-0 border-l border-surface-500/50 lg:w-64 lg:max-w-xl lg:min-w-[480px]"
+	slotSidebarRight="bg-surface-100-800-token w-0 border-l border-surface-500/50 lg:max-w-xl lg:min-w-[380px]"
 >
 	<svelte:fragment slot="pageHeader">
 		<Header handleLibClick={drawerOpen} handleCogClick={modalSettingsOpen} />
@@ -52,14 +56,9 @@
 
 	<PageTransition pathname={data.pathName}>
 		<slot />
-		<Footer />
 	</PageTransition>
 
-	<Drawer rounded="rounded-none">
-		<ListPhotos />
-	</Drawer>
-
-	<svelte:fragment slot="pageFooter" />
+	<svelte:fragment slot="pageFooter"><Footer /></svelte:fragment>
 </AppShell>
 
 <Svrollbar initiallyVisible />

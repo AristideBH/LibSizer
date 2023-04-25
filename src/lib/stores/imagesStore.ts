@@ -29,6 +29,7 @@ function CreateImageStore() {
         reset: () => {
             const confirmed = confirm("Are you sure you want to delete all photos ?");
             if (confirmed) {
+                nextId = 1;
                 set([])
                 selected.set(0)
                 toastStore.trigger(tReset);
@@ -87,7 +88,6 @@ function CreateImageStore() {
         deleteById: (id: number) => {
             update(images => images.filter(image => image.id !== id));
         },
-
 
         // * Add metadatas and "edited" status to the photo with matching ID
         updatePhotoById: (id: number, meta: object) => {

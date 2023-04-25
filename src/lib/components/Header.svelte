@@ -35,14 +35,13 @@
 		</button>
 		<button
 			type="button"
-			class="btn variant-filled-primary"
+			class="btn variant-filled-primary lg:hidden"
 			on:click|preventDefault={handleCogClick}
 			title="Sizes settings"
 		>
 			<span>
 				<Icon icon="solar:settings-linear" />
 			</span>
-			<span class="hidden lg:block">Settings</span>
 		</button>
 	</div>
 </div>
