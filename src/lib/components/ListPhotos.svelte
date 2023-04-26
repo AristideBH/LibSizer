@@ -44,7 +44,7 @@
 		<hr />
 	</div>
 
-	<div class=" flex flex-col px-4 gap-4 pt-4 grow">
+	<div class=" flex flex-col px-4 gap-4 pt-4 grow bg-surface-50-900-token">
 		<FileDropzone
 			on:change={gotPhotos}
 			bind:files
