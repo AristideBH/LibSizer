@@ -13,7 +13,6 @@
 	// COMPONENTS IMPORT
 	// prettier-ignore
 	import { AppShell, Drawer, Toast, Modal, ProgressBar, autoModeWatcher, storePopup } from '@skeletonlabs/skeleton';
-	import { Svrollbar } from 'svrollbar';
 	import ListPhotos from '$lib/components/ListPhotos.svelte';
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
@@ -46,7 +45,7 @@
 </Drawer>
 
 <AppShell
-	regionPage="relative"
+	regionPage="relative "
 	slotPageHeader="border-b border-surface-200-700-token bg-surface-50-900-token z-30"
 	slotSidebarRight="bg-surface-50-900-token w-0 border-l border-surface-200-700-token lg:max-w-xl lg:min-w-[380px]"
 >
@@ -64,7 +63,5 @@
 
 	<svelte:fragment slot="pageFooter"><Footer /></svelte:fragment>
 </AppShell>
-
-<Svrollbar initiallyVisible />
 
 <ProgressBar />
