@@ -93,8 +93,8 @@ interface StatusIcons {
 
 export const statusIcon = (status: string): IconifyIcon => {
     const icons: StatusIcons = {
-        edited: 'solar:file-check-linear' as unknown as IconifyIcon,
-        exported: 'solar:file-download-linear' as unknown as IconifyIcon,
+        edited: 'solar:crop-linear' as unknown as IconifyIcon,
+        exported: 'solar:export-outline' as unknown as IconifyIcon,
         original: 'solar:file-linear' as unknown as IconifyIcon,
     };
 

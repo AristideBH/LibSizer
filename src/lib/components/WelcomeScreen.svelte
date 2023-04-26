@@ -16,6 +16,6 @@
 		</p>
 	</div>
 	<div class="card p-4 w-full w-modal">
-		<SettingsSizes showTitle={false} />
+		<SettingsSizes />
 	</div>
 </div>

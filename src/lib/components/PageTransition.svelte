@@ -9,8 +9,8 @@
 {#key pathname}
 	<div
 		class="flex-auto h-full"
-		in:fly={{ duration: speed, delay: speed, y: distance, easing: quadInOut }}
-		out:fly={{ duration: speed, y: -distance }}
+		in:fly|local={{ duration: speed, delay: speed, y: distance, easing: quadInOut }}
+		out:fly|local={{ duration: speed, y: -distance }}
 	>
 		<slot />
 	</div>

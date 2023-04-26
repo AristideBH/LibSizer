@@ -12,24 +12,36 @@
 	import Arrow from '$lib/components/Arrow.svelte';
 
 	$: currentPhoto = library.getById($selected, $library);
-	export let cropperEls: Array<CropperEl> = [];
+	export let cropperEls: Array<CropperEl>;
 
 	const save = () => {
-		const allCrops = cropperEls.map((child) => child.saveMetas());
+		let allCrops: { ratioName: number; cropData: any }[] = [];
+		cropperEls.forEach((child) => {
+			const data = child.saveMetas();
+			allCrops.push(data);
+		});
 		library.updatePhotoById($selected, allCrops);
 		toastStore.trigger(tEdit);
+		console.log('save');
 	};
 
 	const exportAll = async () => {
-		const allBlobs = cropperEls.flatMap((child) => child.exportAll());
-		const zip = new JSZip();
-		allBlobs.forEach(({ sizeName, data }) => {
-			if (data) {
-				zip.file(`${omitExt(currentPhoto.name)} - ${sizeName}.jpg`, data);
-			}
+		let allBlobs: { sizeName: string; data: Blob | undefined }[] = [];
+		cropperEls.forEach((child) => {
+			const data = child.exportAll();
+			data.forEach((item) => {
+				allBlobs.push(item);
+			});
 		});
-		const blob = await zip.generateAsync({ type: 'blob' });
-		saveAs(blob, omitExt(currentPhoto.name));
+		const zip = new JSZip();
+		allBlobs.forEach((blob) => {
+			if (blob.data)
+				zip.file(omitExt(currentPhoto.name) + ' - ' + blob.sizeName + '.jpg', blob.data);
+		});
+		let gen = await zip.generateAsync({ type: 'blob' }).then(function (blob) {
+			saveAs(blob, omitExt(currentPhoto.name));
+		});
+		console.log('export');
 	};
 </script>
 
