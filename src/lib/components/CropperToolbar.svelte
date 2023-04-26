@@ -22,7 +22,7 @@
 		});
 		library.updatePhotoById($selected, allCrops);
 		toastStore.trigger(tEdit);
-		console.log('save');
+		// console.log('save');
 	};
 
 	const exportAll = async () => {
@@ -41,7 +41,7 @@
 		let gen = await zip.generateAsync({ type: 'blob' }).then(function (blob) {
 			saveAs(blob, omitExt(currentPhoto.name));
 		});
-		console.log('export');
+		// console.log('export');
 	};
 </script>
 
