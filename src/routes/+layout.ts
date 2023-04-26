@@ -1,8 +1,9 @@
 import type { LayoutLoad } from './$types';
+import { version } from '$app/environment';
 
 export const load = (async ({ url }) => {
     return {
-        appVersion: "0.2.8",
+        appVersion: version,
         pathName: url.pathname,
     };
 }) satisfies LayoutLoad;
