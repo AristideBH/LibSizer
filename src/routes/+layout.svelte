@@ -24,8 +24,8 @@
 <svelte:head>
 	<title>Crop your library easily</title>
 	{@html `<script>${autoModeWatcher.toString()} autoModeWatcher();</script>`}
-	<meta name="theme-color" content="#d9d9d9" media="(prefers-color-scheme: light)" />
-	<meta name="theme-color" content="#282828" media="(prefers-color-scheme: dark)" />
+	<meta name="theme-color" content="#e3e3e3" media="(prefers-color-scheme: light)" />
+	<meta name="theme-color" content="#202020" media="(prefers-color-scheme: dark)" />
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
 </svelte:head>
