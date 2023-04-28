@@ -18,7 +18,7 @@ const MousquetairesSizes: SizesBundle = {
     bundle: [
         { id: 1, name: "Vignette Portail Groupement", width: 195, height: 195 },
         { id: 2, name: "Vignette Document Groupement", width: 150, height: 120 },
-        { id: 3, name: "Vignette Fil", width: 195, height: 195 },
+        { id: 3, name: "Vignette Fil", width: 150, height: 150 },
         { id: 4, name: "Corps Documents Intranet", width: 500 },
         { id: 5, name: "Yammer", width: 2083, height: 2083 },
         { id: 6, name: "Bannière Fil", width: 195, height: 195 }
