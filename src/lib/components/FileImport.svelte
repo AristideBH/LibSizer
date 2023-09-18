@@ -1,30 +1,26 @@
 <script lang="ts">
 	import Dropzone from 'svelte-file-dropzone/Dropzone.svelte';
-	import { X, ImagePlus } from 'lucide-svelte';
+	import { ImagePlus } from 'lucide-svelte';
+	import { addImage } from '$lib/db';
 
-	let files = {
-		accepted: [],
-		rejected: []
+	const handleAccepted = (event: CustomEvent) => {
+		const acceptedFiles = event.detail.acceptedFiles;
+
+		for (const file of acceptedFiles) {
+			const reader = new FileReader();
+			reader.onload = async (e) => {
+				if (e.target && e.target.result) {
+					const imageBlob = e.target.result as Blob | ArrayBuffer;
+					await addImage(file, imageBlob);
+				}
+			};
+			reader.readAsArrayBuffer(file);
+		}
 	};
-
-	function handleFilesSelect(e: CustomEvent) {
-		const { acceptedFiles, fileRejections } = e.detail;
-
-		files.accepted = [...files.accepted, ...acceptedFiles];
-		files.rejected = [...files.rejected, ...fileRejections];
-	}
-
-	function handleRemoveFile(e: PointerEvent | MouseEvent, index: number) {
-		files.accepted.splice(index, 1);
-		files.accepted = [...files.accepted];
-	}
-	function handleRemoveAll() {
-		files.accepted = [];
-	}
 </script>
 
 <Dropzone
-	on:drop={handleFilesSelect}
+	on:dropaccepted={handleAccepted}
 	accept={['image/*']}
 	inputElement=""
 	disableDefaultStyles={true}
@@ -35,22 +31,6 @@
 	<span class="text-center">
 		or
 		<br />
-		Drag and drop them here
+		Drag & drop them here
 	</span>
 </Dropzone>
-
-<div class="m-5">
-	{#if files.accepted.length > 0}
-		<button on:click={handleRemoveAll}>Remove All</button>
-	{/if}
-	{#each files.accepted as item, index}
-		<ul>
-			<li>
-				<span>{item.name}</span>
-				<button on:click={(e) => handleRemoveFile(e, index)} title="Remove file">
-					<X />
-				</button>
-			</li>
-		</ul>
-	{/each}
-</div>
