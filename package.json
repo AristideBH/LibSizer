@@ -37,6 +37,7 @@
 	"dependencies": {
 		"bits-ui": "^0.5.7",
 		"clsx": "^2.0.0",
+		"dexie": "^3.2.4",
 		"lucide-svelte": "^0.279.0",
 		"svelte-easy-crop": "^2.0.1",
 		"svelte-file-dropzone": "^2.0.2",

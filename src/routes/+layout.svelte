@@ -4,10 +4,9 @@
 	import * as Sheet from '$lib/components/ui/sheet';
 	import { Button } from '$lib/components/ui/button';
 	import { Menu } from 'lucide-svelte';
-	import SheetFooter from '$lib/components/ui/sheet/sheet-footer.svelte';
 </script>
 
-<SvelteTheme enableColorScheme={false} attribute="class" />
+<SvelteTheme attribute="class" />
 
 <header class="py-5 mb-5">
 	<div class="container flex justify-between">
@@ -33,6 +32,7 @@
 		</Sheet.Root>
 	</div>
 </header>
+
 <main class="container">
 	<slot />
 </main>
