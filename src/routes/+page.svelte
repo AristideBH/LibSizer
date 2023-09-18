@@ -5,31 +5,55 @@
 	import { Trash2 } from 'lucide-svelte';
 	import FileImport from '$lib/components/FileImport.svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
+	import * as Avatar from '$lib/components/ui/avatar';
+	import { selected } from '$lib';
+
+	const handleSelect = (index: number) => {
+		console.log(index);
+		$selected = index;
+	};
 
 	$: images = liveQuery(() => (browser ? db.images.toArray() : []));
 </script>
 
 <FileImport />
 
-<section class="text-slate-500">
-	<div class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-4">
-		{#if $images}
-			{#if $images.length < 1}
-				<p>No images are loaded</p>
-			{:else if $images.length > 1}
-				<Button variant="destructive" class="col-span-full" on:click={() => clearDB()}>
-					Remove all
-				</Button>
-			{/if}
+<aside class="lg:col-span-4 xl:col-span-3 gap-2 flex flex-col">
+	{#if $images}
+		<ul class="bg-slate-100 rounded-sm p-4 m-0">
 			{#each $images as image}
-				<div class="bg-slate-100 rounded-sm p-4 flex flex-col gap-x-4 gap-y-2">
-					<!-- <pre>{JSON.stringify(image, undefined, 2)}</pre> -->
-					<img src={createDataUrl(image.blob, image.type)} alt={image.name} />
-					<button title="Delete image" on:click={() => deleteImage(image.id)}>
+				{@const { id, blob, name, type } = image}
+				<li class="flex flex-row gap-3 items-center">
+					<Button
+						variant="outline"
+						class="w-full justify-start flex pl-2 gap-2"
+						on:click={() => handleSelect(id)}
+					>
+						<Avatar.Root class="h-6 w-6">
+							<Avatar.Image class="object-cover " src={createDataUrl(blob, type)} alt={name} />
+							<Avatar.Fallback>T</Avatar.Fallback>
+						</Avatar.Root>
+						<span>{name}</span>
+					</Button>
+					<button title="Delete image" on:click={() => deleteImage(id)}>
 						<Trash2 class="h-4 w-4" />
 					</button>
-				</div>
+				</li>
 			{/each}
+		</ul>
+
+		{#if $images.length < 1}
+			<p>No images are loaded</p>
+		{:else if $images.length > 1}
+			<Button variant="destructive" class="self-start" on:click={() => clearDB()}>
+				Remove all
+			</Button>
 		{/if}
-	</div>
+	{/if}
+</aside>
+
+<section class="lg:col-span-8 xl:col-span-9 gap-2 flex flex-col">
+	<h2>selected</h2>
+
+	{$selected}
 </section>

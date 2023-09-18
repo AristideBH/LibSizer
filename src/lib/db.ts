@@ -36,7 +36,6 @@ const addImage = (file: File, blob: Blob | ArrayBuffer) => {
     return db.images.add({ blob, name, type, size });
 };
 
-
 const deleteImage = (id: number | undefined) => {
     if (id !== undefined) return db.images.delete(id);
 };
@@ -44,7 +43,6 @@ const deleteImage = (id: number | undefined) => {
 const clearDB = () => {
     return db.images.clear();
 }
-
 
 const createDataUrl = (blob: Blob | ArrayBuffer, type: string): string => {
     const arrayBufferView = new Uint8Array(blob as ArrayBuffer);
@@ -55,7 +53,6 @@ const createDataUrl = (blob: Blob | ArrayBuffer, type: string): string => {
 
 const getPictureById = (id: number): Promise<Picture | undefined> =>
     db.images.get(id);
-
 
 
 db.open();

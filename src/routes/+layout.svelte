@@ -8,16 +8,14 @@
 
 <SvelteTheme attribute="class" />
 
-<header class="py-5 mb-5">
+<header class="py-5 mb-5 sticky top-0 bg-white border-b">
 	<div class="container flex justify-between">
 		<a href="/">
 			<h1>LibSizer</h1>
 		</a>
 		<Sheet.Root>
 			<Sheet.Trigger>
-				<Button variant="outline" size="icon">
-					<Menu className="h-4 w-4" />
-				</Button>
+				<Menu className="h-4 w-4" />
 			</Sheet.Trigger>
 			<Sheet.Content>
 				<Sheet.Header>
@@ -33,6 +31,6 @@
 	</div>
 </header>
 
-<main class="container">
+<main class="container grid lg:grid-cols-12 gap-x-8 gap-y-5">
 	<slot />
 </main>
