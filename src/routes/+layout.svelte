@@ -2,30 +2,37 @@
 	import '../app.postcss';
 	import SvelteTheme from 'svelte-themes/SvelteTheme.svelte';
 	import * as Sheet from '$lib/components/ui/sheet';
-	import FileImport from '$lib/components/FileImport.svelte';
+	import { Button } from '$lib/components/ui/button';
+	import { Menu } from 'lucide-svelte';
+	import SheetFooter from '$lib/components/ui/sheet/sheet-footer.svelte';
 </script>
 
 <SvelteTheme enableColorScheme={false} attribute="class" />
 
-<!-- <button on:click={() => setTheme('dark')}> Dark mode </button> -->
-
-<header class="py-5">
-	<h1 class="container">LibSizer</h1>
+<header class="py-5 mb-5">
+	<div class="container flex justify-between">
+		<a href="/">
+			<h1>LibSizer</h1>
+		</a>
+		<Sheet.Root>
+			<Sheet.Trigger>
+				<Button variant="outline" size="icon">
+					<Menu className="h-4 w-4" />
+				</Button>
+			</Sheet.Trigger>
+			<Sheet.Content>
+				<Sheet.Header>
+					<Sheet.Title>Are you sure absolutely sure?</Sheet.Title>
+					<Sheet.Description>
+						This action cannot be undone. This will permanently delete your account and remove your
+						data from our servers.
+					</Sheet.Description>
+				</Sheet.Header>
+				<Sheet.Footer>footer</Sheet.Footer>
+			</Sheet.Content>
+		</Sheet.Root>
+	</div>
 </header>
 <main class="container">
 	<slot />
 </main>
-
-<!-- <Sheet.Root>
-	<Sheet.Trigger>Open</Sheet.Trigger>
-	<Sheet.Content side="left">
-		<Sheet.Header>
-			<Sheet.Title>Are you sure absolutely sure?</Sheet.Title>
-			<Sheet.Description>
-				This action cannot be undone. This will permanently delete your account and remove your data
-				from our servers.
-			</Sheet.Description>
-			<FileImport />
-		</Sheet.Header>
-	</Sheet.Content>
-</Sheet.Root> -->

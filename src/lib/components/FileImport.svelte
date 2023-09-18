@@ -1,10 +1,11 @@
 <script lang="ts">
 	import Dropzone from 'svelte-file-dropzone/Dropzone.svelte';
+	import { X, ImagePlus } from 'lucide-svelte';
 	import { imagesStore } from '$lib';
 
 	let files = {
 		accepted: [],
-		rejected: [File]
+		rejected: []
 	};
 
 	function handleFilesSelect(e: CustomEvent) {
@@ -31,7 +32,8 @@
 	disableDefaultStyles={true}
 	containerClasses="cn-dropzone"
 >
-	<button type="button">Choose images to upload</button>
+	<ImagePlus class="mb-5 w-12 h-12 stroke-primary stroke-1" />
+	<button type="button" tabindex="-1">Choose images to upload</button>
 	<span>or</span>
 	<span>Drag and drop them here</span>
 </Dropzone>
@@ -43,7 +45,9 @@
 		<ul>
 			<li>
 				<span>{item.name}</span>
-				<button on:click={(e) => handleRemoveFile(e, index)}>Remove</button>
+				<button on:click={(e) => handleRemoveFile(e, index)} title="Remove file">
+					<X />
+				</button>
 			</li>
 		</ul>
 	{/each}
