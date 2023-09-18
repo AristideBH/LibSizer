@@ -1,2 +1,8 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script lang="ts">
+	import { imagesStore } from '$lib';
+	import FileImport from '$lib/components/FileImport.svelte';
+</script>
+
+<FileImport />
+
+<pre>{JSON.stringify($imagesStore, undefined, 2)}</pre>
