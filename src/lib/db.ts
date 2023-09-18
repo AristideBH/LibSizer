@@ -1,5 +1,5 @@
 import Dexie from 'dexie';
-type Picture = {
+export type Picture = {
     id?: number;
     blob: Blob | ArrayBuffer;
     name: string;
@@ -51,10 +51,23 @@ const createDataUrl = (blob: Blob | ArrayBuffer, type: string): string => {
     return urlCreator.createObjectURL(blobData);
 };
 
-const getPictureById = (id: number): Promise<Picture | undefined> =>
-    db.images.get(id);
+const getImageById = async (id: number | undefined): Promise<Picture | undefined> => {
+    if (id !== undefined) {
+        try {
+            const image = await db.images.get(id);
+            return image;
+        } catch (error) {
+            console.error('Error retrieving image by ID:', error);
+        }
+    }
+    return undefined;
+};
+
+const getSrc = (image: Picture) => {
+    return createDataUrl(image.blob, image.type);
+};
 
 
 db.open();
 
-export { addImage, getPictureById, deleteImage, clearDB, createDataUrl }
+export { addImage, getImageById, deleteImage, clearDB, createDataUrl, getSrc }

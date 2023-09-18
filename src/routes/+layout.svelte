@@ -31,6 +31,9 @@
 	</div>
 </header>
 
-<main class="container grid lg:grid-cols-12 gap-x-8 gap-y-5">
+<main
+	class="container grid lg:grid-cols-12 gap-x-8 gap-y-5 pb-6 grow
+	grid-rows-layout"
+>
 	<slot />
 </main>

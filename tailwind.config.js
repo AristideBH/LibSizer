@@ -55,6 +55,12 @@ const config = {
 			},
 			fontFamily: {
 				sans: [...fontFamily.sans]
+			},
+			gridTemplateRows: {
+				// Simple 8 row grid
+
+				// Complex site-specific row configuration
+				'layout': 'auto 1fr',
 			}
 		}
 	},
