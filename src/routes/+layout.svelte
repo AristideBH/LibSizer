@@ -1,8 +1,7 @@
 <script lang="ts">
 	import '../app.postcss';
-	import * as Sheet from '$lib/components/ui/sheet';
 	import { Button } from '$lib/components/ui/button';
-	import { Menu, Github } from 'lucide-svelte';
+	import { Github } from 'lucide-svelte';
 
 	import ThemeSwitcher from '$lib/components/ThemeSwitcher.svelte';
 	import { autoModeWatcher } from '$lib/theme';
