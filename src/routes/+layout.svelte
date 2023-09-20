@@ -4,11 +4,17 @@
 	import * as Sheet from '$lib/components/ui/sheet';
 	import { Button } from '$lib/components/ui/button';
 	import { Menu } from 'lucide-svelte';
+
+	import ThemeSwitcher from '$lib/components/ThemeSwitcher.svelte';
+	import { autoModeWatcher } from '$lib/theme';
 </script>
 
-<SvelteTheme attribute="class" />
+<svelte:head>
+	<title>LibSizer</title>
+	{@html `<script>${autoModeWatcher.toString()} autoModeWatcher();</script>`}
+</svelte:head>
 
-<header class="py-5 mb-5 sticky top-0 bg-white border-b">
+<header class="py-5 mb-5 sticky top-0 bg-surface border-b">
 	<div class="container flex justify-between">
 		<a href="/">
 			<h1>LibSizer</h1>
@@ -17,7 +23,7 @@
 			<Sheet.Trigger>
 				<Menu className="h-4 w-4" />
 			</Sheet.Trigger>
-			<Sheet.Content>
+			<Sheet.Content class="flex flex-col justify-between">
 				<Sheet.Header>
 					<Sheet.Title>Are you sure absolutely sure?</Sheet.Title>
 					<Sheet.Description>
@@ -25,7 +31,10 @@
 						data from our servers.
 					</Sheet.Description>
 				</Sheet.Header>
-				<Sheet.Footer>footer</Sheet.Footer>
+
+				<Sheet.Footer>
+					<ThemeSwitcher />
+				</Sheet.Footer>
 			</Sheet.Content>
 		</Sheet.Root>
 	</div>
