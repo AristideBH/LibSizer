@@ -16,7 +16,7 @@
 
 <Card.Root>
 	<Card.Header>
-		<Card.Title class="mt-0">Library</Card.Title>
+		<Card.Title class="mt-0 ">Library</Card.Title>
 		<Card.Description>Find your uploaded picture here</Card.Description>
 	</Card.Header>
 	<Card.Content>

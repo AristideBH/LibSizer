@@ -4,7 +4,7 @@
 
 @layer base {
 	:root {
-		--background: 0 0% 100%;
+		--background: 0 0% 98%;
 		--foreground: 240 10% 3.9%;
 		--card: 0 0% 100%;
 		--card-foreground: 240 10% 3.9%;
@@ -27,7 +27,7 @@
 		--max-width: 1280px;
 	}
 	.dark {
-		--background: 20 14.3% 4.1%;
+		--background: 20 14.3% 8.1%;
 		--foreground: 0 0% 95%;
 		--card: 24 9.8% 10%;
 		--card-foreground: 0 0% 95%;
@@ -56,48 +56,48 @@
 	body {
 		@apply bg-background text-foreground;
 	}
-}
 
-/* TYPOGRAPHY */
-h1 {
-	@apply scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-5xl;
-}
+	/* TYPOGRAPHY */
+	h1 {
+		@apply scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-4xl;
+	}
 
-h2 {
-	@apply mt-10 scroll-m-20 border-b pb-2 text-2xl font-semibold tracking-tight transition-colors first:mt-0;
-}
+	h2 {
+		@apply mt-10 scroll-m-20 border-b pb-2 text-2xl font-semibold tracking-tight transition-colors first:mt-0;
+	}
 
-h3 {
-	@apply mt-8 scroll-m-20 text-xl font-semibold tracking-tight;
-}
+	h3 {
+		@apply mt-8 scroll-m-20 text-xl font-semibold tracking-tight;
+	}
 
-h4 {
-	@apply scroll-m-20 text-xl font-semibold tracking-tight;
-}
+	h4 {
+		@apply scroll-m-20 text-xl font-semibold tracking-tight;
+	}
 
-p {
-	@apply leading-7 [&:not(:first-child)]:mt-6;
-}
+	p {
+		@apply leading-7 [&:not(:first-child)]:mt-6;
+	}
 
-a {
-	@apply font-medium text-primary underline underline-offset-4;
-}
+	a {
+		@apply font-medium text-primary underline underline-offset-4;
+	}
 
-ul {
-	@apply my-6 ml-6 list-disc flex flex-col gap-2;
-}
+	ul {
+		@apply my-6 ml-6 list-disc flex flex-col gap-2;
+	}
 
-blockquote {
-	@apply mt-6 border-l-2 pl-6 italic;
-}
+	blockquote {
+		@apply mt-6 border-l-2 pl-6 italic;
+	}
 
-code,
-pre {
-	@apply relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold;
-}
+	code,
+	pre {
+		@apply relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold;
+	}
 
-.lead {
-	@apply text-xl text-muted-foreground;
+	.lead {
+		@apply text-xl text-muted-foreground;
+	}
 }
 
 /* CUSTOM STYLES */
@@ -112,7 +112,7 @@ main {
 }
 
 .cn-dropzone {
-	@apply h-min flex flex-col items-center w-full rounded-md border border-dashed border-input  bg-background text-foreground px-3 py-10 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+	@apply h-min flex flex-col items-center w-full rounded-md border-2 border-dashed border-input bg-background text-foreground hover:bg-card px-3 py-10 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
 }
 
 .cropper > .container {

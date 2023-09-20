@@ -27,7 +27,7 @@
 </script>
 
 {#if imageData}
-	<div class="relative w-full h-full cropper">
+	<div class="relative w-full h-full cropper min-h-[550px]">
 		<Cropper
 			showGrid={true}
 			image={getSrc(imageData)}
