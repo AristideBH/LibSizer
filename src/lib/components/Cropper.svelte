@@ -4,7 +4,7 @@
 	import getCroppedImg from '$lib/canvasUtils';
 	import Button from './ui/button/button.svelte';
 
-	export let id: number;
+	export let id: number | undefined;
 	let crop = { x: 0, y: 0 };
 	let zoom = 1;
 	let imageData: Picture | undefined;

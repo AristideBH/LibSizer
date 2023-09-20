@@ -3,6 +3,9 @@
 	import { ImagePlus } from 'lucide-svelte';
 	import { addImage } from '$lib/db';
 
+	let className = '';
+	export { className as class };
+
 	const handleAccepted = (event: CustomEvent) => {
 		const acceptedFiles = event.detail.acceptedFiles;
 
@@ -16,6 +19,8 @@
 			};
 			reader.readAsArrayBuffer(file);
 		}
+
+		window.location.href = '/test';
 	};
 </script>
 
@@ -24,13 +29,10 @@
 	accept={['image/*']}
 	inputElement=""
 	disableDefaultStyles={true}
-	containerClasses="cn-dropzone"
+	containerClasses="cn-dropzone {className}"
 >
 	<ImagePlus class="mb-5 w-12 h-12 stroke-primary stroke-1" />
-	<button type="button" tabindex="-1">Choose images to upload</button>
-	<span class="text-center">
-		or
-		<br />
-		Drag & drop them here
-	</span>
+	<button type="button" tabindex="-1">Click to upload images</button>
+	<span class="text-center"> or drag & drop them here </span>
+	<small class="mt-1">(jpg, png, ico and tiff are accepted)</small>
 </Dropzone>

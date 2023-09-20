@@ -1,4 +1,5 @@
 import Dexie from 'dexie';
+
 export type Picture = {
     id?: number;
     blob: Blob | ArrayBuffer;

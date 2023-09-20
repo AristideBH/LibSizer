@@ -1,4 +1,4 @@
-
+// TYPES
 export interface Size {
     id: number;
     name: string;
@@ -7,9 +7,15 @@ export interface Size {
 }
 
 export interface SizesBundle {
-    name: string;
+    value: string;
+    label: string;
     bundle: Array<Size>;
 }
+
+
+import { writable } from "svelte/store";
+import { persistBrowserSession } from "@macfja/svelte-persistent-store"
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // * CLIENTS SIZE BUNDLES SET
@@ -18,10 +24,11 @@ export interface SizesBundle {
 // When creating a new bundle and naming the different formats,
 // pleasebe sure to omit any of the following character in the 'name' key :
 // \ / : * ? " < > |
-// This will break the naming convention when exporting zip file, resulting in an inappropriate file.
+// This will break the naming convention when exporting zip file, resulting in an inappropriate file name.
 ///////////////////////////////////////////////////////////////////////////////
 const MousquetairesSizes: SizesBundle = {
-    name: "Mousquetaires",
+    value: "mousquetaires",
+    label: "Mousquetaires",
     bundle: [
         { id: 1, name: "Vignette Portail Groupement", width: 195, height: 195 },
         { id: 2, name: "Vignette Document Groupement", width: 150, height: 120 },
@@ -33,7 +40,8 @@ const MousquetairesSizes: SizesBundle = {
 }
 
 const VisaSizes: SizesBundle = {
-    name: "Visa",
+    value: "visa",
+    label: "Visa",
     bundle: [
         { id: 1, name: "Homepage", width: 1024, height: 600 },
         { id: 2, name: "Landing", width: 1024, height: 385 },
@@ -47,7 +55,8 @@ const VisaSizes: SizesBundle = {
 }
 
 const StandardSizes: SizesBundle = {
-    name: "Standard",
+    value: "standard",
+    label: "Standard",
     bundle: [
         { id: 1, name: "Portrait 3:4", width: 900, height: 1200 },
         { id: 2, name: "Landscape 4:3", width: 1200, height: 900 },
@@ -58,17 +67,26 @@ const StandardSizes: SizesBundle = {
 }
 
 const InstagramSizes: SizesBundle = {
-    name: "Instagram",
+    value: "instagram",
+    label: "Instagram",
     bundle: [
         { id: 1, name: "Square", width: 1080, height: 1080 },
         { id: 2, name: "Portrait 4:5", width: 1080, height: 1350 },
         { id: 3, name: "Landscape 16:9", width: 1080, height: 608 },
     ]
 }
+
 // * AGREGATE ALL BUNDLES
-export const AllBundles: SizesBundle[] = [
+const AllBundles: SizesBundle[] = [
     InstagramSizes,
     StandardSizes,
     MousquetairesSizes,
     VisaSizes
 ]
+
+
+export const bundles = persistBrowserSession(writable(AllBundles), "bundles")
+export const selectedBundle = persistBrowserSession<undefined | SizesBundle>(writable(AllBundles[0]), "selectedBundle")
+export function findBundleByValue(value: string, bundles: SizesBundle[]): SizesBundle | undefined {
+    return bundles.find((bundle) => bundle.value === value);
+}
