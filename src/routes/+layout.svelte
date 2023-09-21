@@ -1,10 +1,10 @@
 <script lang="ts">
 	import '../app.postcss';
-	import { Button } from '$lib/components/ui/button';
-	import ThemeSwitcher from '$lib/components/ThemeSwitcher.svelte';
 	import { Toaster } from 'svelte-sonner';
-
+	import { Button } from '$lib/components/ui/button';
 	import { Github } from 'lucide-svelte';
+
+	import ThemeSwitcher from '$lib/components/ThemeSwitcher.svelte';
 	import { autoModeWatcher } from '$lib/theme';
 </script>
 
@@ -36,7 +36,7 @@
 </header>
 
 <div
-	class="container main my-5 grid lg:grid-cols-12 gap-x-8 gap-y-5 grow max-h-screen overflow-auto"
+	class="container main my-5 flex flex-col lg:grid lg:grid-cols-12 gap-x-8 gap-y-5 grow max-h-screen overflow-auto"
 >
 	<slot />
 </div>

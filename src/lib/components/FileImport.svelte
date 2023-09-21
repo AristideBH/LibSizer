@@ -49,6 +49,6 @@
 	{:else}
 		<button type="button" tabindex="-1">Click to upload images</button>
 		<span class="text-center"> or drag & drop them here </span>
-		<small class="mt-1">(jpg, png, ico and tiff are accepted)</small>
+		<small class="mt-1">(jpg, png, gif, webp, ico and tif are accepted)</small>
 	{/if}
 </Dropzone>

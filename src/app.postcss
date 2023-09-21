@@ -105,16 +105,25 @@
 	}
 }
 
-/* CUSTOM STYLES */
+/* STRUCTURE STYLES */
 .container {
 	width: min(var(--max-width), calc(100% - 2rem));
 }
 
-.main {
+aside {
+	@apply lg:col-span-4 xl:col-span-3 gap-2 flex flex-col lg:sticky lg:top-6 max-h-screen overflow-y-auto overflow-x-hidden;
+}
+
+main {
+	@applylg:col-span-8 xl:col-span-9 flex flex-col grow sticky top-24 gap-16;
+}
+
+/*.main {
 	& > * {
 		@apply col-span-full;
 	}
 }
+*/
 
 /* DROPZONE */
 .cn-dropzone {

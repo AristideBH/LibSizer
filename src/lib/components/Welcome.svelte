@@ -5,7 +5,8 @@
 		format.
 	</p>
 	<p>
-		Start by selecting a bundle size in the sidebar on the right, <br />and upload your pictures
-		bellow
+		Start by selecting a bundle size in the sidebar on the right,
+		<br />
+		and upload your pictures below !
 	</p>
 </section>
