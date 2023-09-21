@@ -2,7 +2,7 @@
 	import '../app.postcss';
 	import { Toaster } from 'svelte-sonner';
 	import { Button } from '$lib/components/ui/button';
-	import { Github } from 'lucide-svelte';
+	import { Github, Info } from 'lucide-svelte';
 
 	import ThemeSwitcher from '$lib/components/ThemeSwitcher.svelte';
 	import { autoModeWatcher } from '$lib/theme';
@@ -22,15 +22,20 @@
 		<div class="flex gap-5">
 			<ThemeSwitcher />
 
-			<Button
-				variant="outline"
-				size="icon"
-				href="https://github.com/AristideBH/LibSizer"
-				target="_blank"
-				title="Visit the github repo"
-			>
-				<Github />
-			</Button>
+			<div class="flex gap-1">
+				<Button
+					variant="outline"
+					size="icon"
+					href="https://github.com/AristideBH/LibSizer"
+					target="_blank"
+					title="Github repo"
+				>
+					<Github />
+				</Button>
+				<Button variant="outline" size="icon" href="/about" title="About LibSizer">
+					<Info />
+				</Button>
+			</div>
 		</div>
 	</div>
 </header>

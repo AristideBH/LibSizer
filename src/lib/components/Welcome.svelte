@@ -1,4 +1,9 @@
+<script lang="ts">
+	import Logo from './Logo.svelte';
+</script>
+
 <section class="flex flex-col text-center max-w-lg mx-auto">
+	<Logo class="mx-auto" />
 	<h1>Welcome to Libsizer</h1>
 	<p class="lead">
 		Libsizer is a tool allowing you to quickly crop and resize your picture library to multiple
