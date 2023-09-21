@@ -27,9 +27,9 @@
 </svelte:head>
 
 <div class="flex items-center space-x-2">
-	<Label class="cursor-pointer" for="theme-switch"
+	<!-- <Label class="cursor-pointer" for="theme-switch"
 		>{$modeCurrent === true ? 'Light' : 'Dark'} mode</Label
-	>
+	> -->
 	<Switch
 		on:click={onToggleHandler}
 		role="switch"

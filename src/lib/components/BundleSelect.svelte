@@ -47,7 +47,7 @@
 		</Select.Root>
 
 		{#if $selectedBundle && $page.route.id == '/'}
-			<pre class="flex flex-col gap-3 p-3 mt-2 overflow-x-auto">
+			<pre class="flex flex-col gap-3 p-3 mt-2 overflow-x-auto bg-background border">
 					<Label for="formats" class="sticky left-0 ">Formats :</Label>
 					<ul id="formats" class="gap-2 my-0 ml-0" transition:slide>
 						{#each $selectedBundle.bundle as size}
