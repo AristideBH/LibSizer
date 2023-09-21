@@ -27,7 +27,7 @@
 					<Select.Value placeholder="Choose" />
 				</Select.Trigger>
 				<!-- Todo: implement action -->
-				<Button variant="outline" size="icon" title="Edit bundles" class="">
+				<Button variant="outline" size="icon" title="Edit bundles" class="" href="/bundles">
 					<Settings2 class=" h-4 w-4" />
 				</Button>
 			</div>

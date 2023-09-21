@@ -45,7 +45,7 @@
 </header>
 
 <div
-	class="container main my-5 flex flex-col lg:grid lg:grid-cols-12 gap-x-8 gap-y-5 grow max-h-screen overflow-auto"
+	class="container main my-5 flex flex-col lg:grid lg:grid-cols-12 gap-x-8 gap-y-5 grow lg:max-h-screen overflow-auto"
 >
 	<slot />
 </div>

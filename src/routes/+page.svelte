@@ -14,12 +14,12 @@
 	/>
 </head>
 
+<main class="lg:col-span-8 xl:col-span-9 flex flex-col grow sticky top-24 gap-16 my-10">
+	<Welcome />
+	<FileImport class="max-w-2xl mx-auto mb-20" />
+</main>
+
 <aside>
-	<Listing />
+	<!-- <Listing /> -->
 	<BundleSelect />
 </aside>
-
-<main class="lg:col-span-8 xl:col-span-9 flex flex-col grow sticky top-24 gap-16 my-10">
-	<!-- <Welcome />-->
-	<FileImport class="max-w-2xl mx-auto" />
-</main>
