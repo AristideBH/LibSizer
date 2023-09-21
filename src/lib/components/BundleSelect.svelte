@@ -6,6 +6,7 @@
 	import * as Select from '$lib/components/ui/select';
 	import { Button } from '$lib/components/ui/button';
 	import Label from './ui/label/label.svelte';
+	import { page } from '$app/stores';
 
 	let selected = $selectedBundle;
 	$: $selectedBundle = selected ? findBundleByValue(selected.value, $bundles) : undefined;
@@ -19,22 +20,24 @@
 	<Card.Content>
 		<Select.Root bind:selected>
 			<div class="flex gap-1 items-center justify-center">
-				<Select.Trigger>
+				<Select.Trigger class="bg-background">
 					<Select.Value placeholder="Choose" />
 				</Select.Trigger>
 				<!-- Todo: implement action -->
-				<Button variant="outline" size="icon" title="Edit bundles" class="bg-card">
+				<Button variant="outline" size="icon" title="Edit bundles" class="">
 					<Settings2 class=" h-4 w-4" />
 				</Button>
 			</div>
 			<Select.Content>
 				{#each $bundles as bundle}
-					<Select.Item value={bundle.value}>{bundle.label}</Select.Item>
+					<Select.Item value={bundle.value}>
+						{bundle.label}
+					</Select.Item>
 				{/each}
 			</Select.Content>
 		</Select.Root>
 
-		{#if $selectedBundle}
+		{#if $selectedBundle && $page.route.id == '/'}
 			<pre class="flex flex-col gap-3 p-3 mt-2 overflow-x-auto">
 					<Label for="formats" class="sticky left-0 ">Formats :</Label>
 					<ul id="formats" class="gap-2 my-0 ml-0" transition:slide>

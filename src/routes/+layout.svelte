@@ -1,9 +1,10 @@
 <script lang="ts">
 	import '../app.postcss';
 	import { Button } from '$lib/components/ui/button';
-	import { Github } from 'lucide-svelte';
-
 	import ThemeSwitcher from '$lib/components/ThemeSwitcher.svelte';
+	import { Toaster } from 'svelte-sonner';
+
+	import { Github } from 'lucide-svelte';
 	import { autoModeWatcher } from '$lib/theme';
 </script>
 
@@ -34,6 +35,10 @@
 	</div>
 </header>
 
-<main class="container my-5 grid lg:grid-cols-12 gap-x-8 gap-y-5 grow max-h-screen overflow-auto">
+<div
+	class="container main my-5 grid lg:grid-cols-12 gap-x-8 gap-y-5 grow max-h-screen overflow-auto"
+>
 	<slot />
-</main>
+</div>
+
+<Toaster position="bottom-center" theme="system" richColors />

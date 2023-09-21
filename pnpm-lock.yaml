@@ -26,6 +26,9 @@ dependencies:
   svelte-file-dropzone:
     specifier: ^2.0.2
     version: 2.0.2(svelte@4.2.1)
+  svelte-sonner:
+    specifier: ^0.3.0
+    version: 0.3.0(svelte@4.2.1)
   tailwind-merge:
     specifier: ^1.14.0
     version: 1.14.0
@@ -2126,6 +2129,14 @@ packages:
       svelte: 4.2.1
       typescript: 5.2.2
     dev: true
+
+  /svelte-sonner@0.3.0(svelte@4.2.1):
+    resolution: {integrity: sha512-AbRxxqQJb0cc2wEbluc+HVbHukYcnXUZtfSCAcxCHjV3JxB7qrBK4s4XUDSBsVT4Lboqk/0Qv7THIghkEl665A==}
+    peerDependencies:
+      svelte: '>=3 <5'
+    dependencies:
+      svelte: 4.2.1
+    dev: false
 
   /svelte@4.2.1:
     resolution: {integrity: sha512-LpLqY2Jr7cRxkrTc796/AaaoMLF/1ax7cto8Ot76wrvKQhrPmZ0JgajiWPmg9mTSDqO16SSLiD17r9MsvAPTmw==}

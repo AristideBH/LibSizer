@@ -3,22 +3,29 @@
 	import { ImagePlus, Loader2 } from 'lucide-svelte';
 	import { addImage, imageAddLoading } from '$lib/db';
 	import Button from './ui/button/button.svelte';
+	import { toast } from 'svelte-sonner';
 
 	let className = '';
 	export { className as class };
 
-	const handleAccepted = (event: CustomEvent) => {
+	const handleAccepted = async (event: CustomEvent) => {
 		const acceptedFiles = event.detail.acceptedFiles;
 
-		for (const file of acceptedFiles) {
-			const reader = new FileReader();
-			reader.onload = async (e) => {
-				if (e.target && e.target.result) {
-					const imageBlob = e.target.result as Blob | ArrayBuffer;
-					await addImage(file, imageBlob);
-				}
-			};
-			reader.readAsArrayBuffer(file);
+		try {
+			for (const file of acceptedFiles) {
+				const reader = new FileReader();
+				reader.onload = async (e) => {
+					if (e.target && e.target.result) {
+						const imageBlob = e.target.result as Blob | ArrayBuffer;
+						await addImage(file, imageBlob);
+					}
+				};
+				reader.readAsArrayBuffer(file);
+			}
+			toast.success('Imported successfully !');
+		} catch (error) {
+			console.error('Error importing file(s):', error);
+			toast.error('Something wrong happened during the import');
 		}
 
 		// window.location.href = '/test';

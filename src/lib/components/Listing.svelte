@@ -1,15 +1,16 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
-	import { Trash2, Loader2 } from 'lucide-svelte';
-	import Button from '$lib/components/ui/button/button.svelte';
-	import * as Avatar from '$lib/components/ui/avatar';
-	import * as Card from '$lib/components/ui/card';
-	import * as Dialog from '$lib/components/ui/dialog';
-	import { db, deleteImage, clearDB2, createDataUrl, imageClearLoading } from '$lib/db';
 	import { liveQuery } from 'dexie';
-
 	import { selected } from '$lib';
 	import { slide } from 'svelte/transition';
+	import { browser } from '$app/environment';
+
+	import { db, deleteImage, clearDB, imageClearLoading } from '$lib/db';
+
+	import { Trash2, Loader2 } from 'lucide-svelte';
+	import Button from '$lib/components/ui/button/button.svelte';
+	import * as Card from '$lib/components/ui/card';
+	import * as Dialog from '$lib/components/ui/dialog';
+
 	const handleSelect = (index: number | undefined) => {
 		if (index) $selected = index;
 	};
@@ -29,14 +30,10 @@
 					<li class="flex flex-row gap-1 items-center" transition:slide|local>
 						<Button
 							variant="outline"
-							class="w-full justify-start flex gap-2"
+							class="w-full justify-start flex gap-2 "
 							on:click={() => handleSelect(id)}
 						>
-							<!-- <Avatar.Root class="h-6 w-6">
-								<Avatar.Image class="object-cover " src={createDataUrl(blob, type)} alt={name} />
-								<Avatar.Fallback>{id}</Avatar.Fallback>
-							</Avatar.Root> -->
-							<span>{name}</span>
+							{name}
 						</Button>
 						<Button
 							variant="outline"
@@ -55,12 +52,13 @@
 			{/if}
 		{/if}
 	</Card.Content>
+
 	{#if $images && $images.length > 1}
 		<Card.Footer>
 			<Dialog.Root>
 				<Dialog.Trigger>
-					<Button variant="destructive">Remove all</Button></Dialog.Trigger
-				>
+					<Button variant="destructive">Remove all</Button>
+				</Dialog.Trigger>
 				<Dialog.Content>
 					<Dialog.Header>
 						<Dialog.Title>Remove all image ?</Dialog.Title>
@@ -72,13 +70,13 @@
 						<Button
 							disabled={$imageClearLoading ? true : false}
 							variant="destructive"
-							on:click={() => clearDB2()}
+							on:click={() => clearDB()}
 						>
 							{#if $imageClearLoading}
 								<Loader2 class="mr-2 h-4 w-4 animate-spin" />
 								Deleting
 							{:else}
-								Yes, delete them all
+								Yes, remove them all !
 							{/if}
 						</Button>
 					</Dialog.Footer>

@@ -1,5 +1,6 @@
 import Dexie from 'dexie';
 import { writable } from 'svelte/store';
+import { toast } from 'svelte-sonner';
 
 export const imageAddLoading = writable(false);
 export const imageClearLoading = writable(false);
@@ -46,6 +47,7 @@ export const addImage = async (file: File, blob: Blob | ArrayBuffer) => {
         // Set imageAddLoading back to false when the image is added successfully
         await new Promise((resolve) => setTimeout(resolve, 500));
         imageAddLoading.set(false);
+
     } catch (error) {
         // Handle errors here
         console.error('Error adding image:', error);
@@ -58,20 +60,17 @@ const deleteImage = (id: number | undefined) => {
     if (id !== undefined) return db.images.delete(id);
 };
 
-const clearDB = async () => {
-
-    return db.images.clear();
-}
-
-export const clearDB2 = async () => {
+export const clearDB = async () => {
     imageClearLoading.set(true);
 
     try {
         await db.images.clear();
         imageClearLoading.set(false);
+        toast.success('Library cleared successfully !');
     } catch (error) {
         console.error('Error clearing the database:', error);
         imageClearLoading.set(false);
+        toast.error('Something wrong happened clearing clearing the library');
         throw error;
     }
     // return db.images.clear();
@@ -103,4 +102,4 @@ const getSrc = (image: Picture) => {
 // 
 db.open();
 
-export { getImageById, deleteImage, clearDB, createDataUrl, getSrc }
+export { getImageById, deleteImage, createDataUrl, getSrc }

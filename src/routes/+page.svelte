@@ -13,9 +13,9 @@
 	<BundleSelect />
 </aside>
 
-<section class="lg:col-span-8 xl:col-span-9 flex flex-col grow sticky top-24 gap-16 my-10">
+<main class="lg:col-span-8 xl:col-span-9 flex flex-col grow sticky top-24 gap-16 my-10">
 	<Welcome />
 	<FileImport class="max-w-2xl mx-auto" />
 	<!-- <h2>selectedImage : {$selected}</h2> -->
 	<!-- <Cropper id={$selected}></Cropper> -->
-</section>
+</main>
