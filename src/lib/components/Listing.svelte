@@ -30,8 +30,9 @@
 					<li class="flex flex-row gap-1 items-center" transition:slide|local>
 						<Button
 							variant="outline"
-							class="w-full justify-start flex gap-2 "
+							class="w-full justify-start flex gap-2 no-underline !text-foreground "
 							on:click={() => handleSelect(id)}
+							href="/{id}"
 						>
 							{name}
 						</Button>

@@ -67,6 +67,8 @@ export const clearDB = async () => {
         await db.images.clear();
         imageClearLoading.set(false);
         toast.success('Library cleared successfully !');
+        window.location.href = '/';
+        // throw redirect(301, '/')
     } catch (error) {
         console.error('Error clearing the database:', error);
         imageClearLoading.set(false);
@@ -90,6 +92,7 @@ const getImageById = async (id: number | undefined): Promise<Picture | undefined
             return image;
         } catch (error) {
             console.error('Error retrieving image by ID:', error);
+            throw error;
         }
     }
     return undefined;

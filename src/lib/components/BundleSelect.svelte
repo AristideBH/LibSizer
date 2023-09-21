@@ -8,11 +8,14 @@
 	import Label from './ui/label/label.svelte';
 	import { page } from '$app/stores';
 
+	let className = '';
+	export { className as class };
+
 	let selected = $selectedBundle;
 	$: $selectedBundle = selected ? findBundleByValue(selected.value, $bundles) : undefined;
 </script>
 
-<Card.Root>
+<Card.Root class={className}>
 	<Card.Header>
 		<Card.Title class="mt-0 ">Bundle selector</Card.Title>
 		<Card.Description>Choose the bundle you which to export</Card.Description>
