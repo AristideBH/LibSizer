@@ -10,7 +10,7 @@
 </script>
 
 <svelte:head>
-	<title>LibSizer</title>
+	<title>LibSizer - Crop your library</title>
 	{@html `<script>${autoModeWatcher.toString()} autoModeWatcher();</script>`}
 </svelte:head>
 

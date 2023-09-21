@@ -6,6 +6,13 @@
 	import Cropper from '$lib/components/Cropper.svelte';
 </script>
 
+<head>
+	<meta
+		name="description"
+		content="Libsizer is a tool allowing you to quickly crop and resize your picture library to multiple format."
+	/>
+</head>
+
 <aside>
 	<!-- <Listing /> -->
 	<BundleSelect />
