@@ -9,8 +9,8 @@
 <aside
 	class="lg:col-span-4 xl:col-span-3 gap-2 flex flex-col sticky top-6 max-h-screen overflow-y-auto overflow-x-hidden"
 >
+	<Listing />
 	<BundleSelect />
-	<!-- <Listing /> -->
 </aside>
 
 <section class="lg:col-span-8 xl:col-span-9 flex flex-col grow sticky top-24 gap-16 my-10">

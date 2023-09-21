@@ -1,3 +1,6 @@
+import { writable } from "svelte/store";
+import { persistBrowserSession } from "@macfja/svelte-persistent-store"
+
 // TYPES
 export interface Size {
     id: number;
@@ -11,11 +14,6 @@ export interface SizesBundle {
     label: string;
     bundle: Array<Size>;
 }
-
-
-import { writable } from "svelte/store";
-import { persistBrowserSession } from "@macfja/svelte-persistent-store"
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // * CLIENTS SIZE BUNDLES SET
@@ -87,6 +85,7 @@ const AllBundles: SizesBundle[] = [
 
 export const bundles = persistBrowserSession(writable(AllBundles), "bundles")
 export const selectedBundle = persistBrowserSession<undefined | SizesBundle>(writable(AllBundles[0]), "selectedBundle")
+
 export function findBundleByValue(value: string, bundles: SizesBundle[]): SizesBundle | undefined {
     return bundles.find((bundle) => bundle.value === value);
 }

@@ -1,5 +1,9 @@
 import Dexie from 'dexie';
+import { writable } from 'svelte/store';
 
+export const imageLoading = writable(false);
+
+// TYPES
 export type Picture = {
     id?: number;
     blob: Blob | ArrayBuffer;
@@ -8,33 +12,45 @@ export type Picture = {
     size: number
 };
 
+
+// Init IndexedDB
 export const db = new Dexie('imageDB') as Dexie & {
     images: Dexie.Table<Picture, number>;
 };
-
+// Create image store with adequat table columns
 db.version(1).stores({
     images: '++id, blob, path, name, type, size',
 });
 
-//DUMMY TEST    
-// const dummyData: Array<Picture> = [
-//     {
+// Initial populate    
+// db.on('populate', function (transaction) {
+//     transaction.images.bulkAdd({
 //         blob: "testBlob",
 //         name: "test",
 //         size: 0,
 //         type: 'image/test'
-//     }
-// ];
-
-// db.on('populate', function (transaction) {
-//     transaction.images.bulkAdd(dummyData);
+//     });
 // });
 
 
 //API Functions
-const addImage = (file: File, blob: Blob | ArrayBuffer) => {
+export const addImage = async (file: File, blob: Blob | ArrayBuffer) => {
     const { name, type, size } = file;
-    return db.images.add({ blob, name, type, size });
+    // Set loading to true
+    imageLoading.set(true);
+
+    try {
+        // Add the image to the database
+        await db.images.add({ blob, name, type, size });
+        // Set imageLoading back to false when the image is added successfully
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        imageLoading.set(false);
+    } catch (error) {
+        // Handle errors here
+        console.error('Error adding image:', error);
+        imageLoading.set(false);
+        throw error; // Re-throw the error to handle it in the component if needed
+    }
 };
 
 const deleteImage = (id: number | undefined) => {
@@ -68,7 +84,7 @@ const getSrc = (image: Picture) => {
     return createDataUrl(image.blob, image.type);
 };
 
-
+// 
 db.open();
 
-export { addImage, getImageById, deleteImage, clearDB, createDataUrl, getSrc }
+export { getImageById, deleteImage, clearDB, createDataUrl, getSrc }

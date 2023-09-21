@@ -21,8 +21,14 @@
 		<div class="flex gap-5">
 			<ThemeSwitcher />
 
-			<Button variant="outline" size="icon" href="https://github.com/AristideBH" target="_blank">
-				<Github></Github>
+			<Button
+				variant="outline"
+				size="icon"
+				href="https://github.com/AristideBH/LibSizer"
+				target="_blank"
+				title="Visit the github repo"
+			>
+				<Github />
 			</Button>
 		</div>
 	</div>
