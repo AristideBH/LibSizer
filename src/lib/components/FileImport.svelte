@@ -1,7 +1,8 @@
 <script lang="ts">
 	import Dropzone from 'svelte-file-dropzone/Dropzone.svelte';
 	import { ImagePlus, Loader2 } from 'lucide-svelte';
-	import { addImage, imageLoading } from '$lib/db';
+	import { addImage, imageAddLoading } from '$lib/db';
+	import Button from './ui/button/button.svelte';
 
 	let className = '';
 	export { className as class };
@@ -33,8 +34,11 @@
 >
 	<ImagePlus class="mb-5 w-12 h-12 stroke-primary stroke-1" />
 
-	{#if $imageLoading}
-		<Loader2 class="h-6 w-6 animate-spin" />
+	{#if $imageAddLoading}
+		<Button disabled variant="ghost">
+			<Loader2 class="mr-2 h-4 w-4 animate-spin" />
+			Importing
+		</Button>
 	{:else}
 		<button type="button" tabindex="-1">Click to upload images</button>
 		<span class="text-center"> or drag & drop them here </span>

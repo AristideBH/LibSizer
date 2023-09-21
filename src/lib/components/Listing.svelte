@@ -1,13 +1,15 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import { Trash2 } from 'lucide-svelte';
+	import { Trash2, Loader2 } from 'lucide-svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import * as Avatar from '$lib/components/ui/avatar';
 	import * as Card from '$lib/components/ui/card';
-	import { db, deleteImage, clearDB, createDataUrl } from '$lib/db';
+	import * as Dialog from '$lib/components/ui/dialog';
+	import { db, deleteImage, clearDB2, createDataUrl, imageClearLoading } from '$lib/db';
 	import { liveQuery } from 'dexie';
 
 	import { selected } from '$lib';
+	import { slide } from 'svelte/transition';
 	const handleSelect = (index: number | undefined) => {
 		if (index) $selected = index;
 	};
@@ -21,19 +23,19 @@
 	</Card.Header>
 	<Card.Content>
 		{#if $images}
-			<ul class="m-0">
+			<ul class="m-0" transition:slide>
 				{#each $images as image}
 					{@const { id, blob, name, type } = image}
-					<li class="flex flex-row gap-1 items-center">
+					<li class="flex flex-row gap-1 items-center" transition:slide|local>
 						<Button
 							variant="outline"
-							class="w-full justify-start flex pl-2 gap-2"
+							class="w-full justify-start flex gap-2"
 							on:click={() => handleSelect(id)}
 						>
-							<Avatar.Root class="h-6 w-6">
+							<!-- <Avatar.Root class="h-6 w-6">
 								<Avatar.Image class="object-cover " src={createDataUrl(blob, type)} alt={name} />
 								<Avatar.Fallback>{id}</Avatar.Fallback>
-							</Avatar.Root>
+							</Avatar.Root> -->
 							<span>{name}</span>
 						</Button>
 						<Button
@@ -55,9 +57,33 @@
 	</Card.Content>
 	{#if $images && $images.length > 1}
 		<Card.Footer>
-			<Button variant="destructive" class="self-start" on:click={() => clearDB()}>
-				Remove all
-			</Button>
+			<Dialog.Root>
+				<Dialog.Trigger>
+					<Button variant="destructive">Remove all</Button></Dialog.Trigger
+				>
+				<Dialog.Content>
+					<Dialog.Header>
+						<Dialog.Title>Remove all image ?</Dialog.Title>
+						<Dialog.Description>
+							This action is not reversible. Be sure you want to delete all uploaded images.
+						</Dialog.Description>
+					</Dialog.Header>
+					<Dialog.Footer>
+						<Button
+							disabled={$imageClearLoading ? true : false}
+							variant="destructive"
+							on:click={() => clearDB2()}
+						>
+							{#if $imageClearLoading}
+								<Loader2 class="mr-2 h-4 w-4 animate-spin" />
+								Deleting
+							{:else}
+								Yes, delete them all
+							{/if}
+						</Button>
+					</Dialog.Footer>
+				</Dialog.Content>
+			</Dialog.Root>
 		</Card.Footer>
 	{/if}
 </Card.Root>

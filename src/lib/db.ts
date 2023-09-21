@@ -1,7 +1,8 @@
 import Dexie from 'dexie';
 import { writable } from 'svelte/store';
 
-export const imageLoading = writable(false);
+export const imageAddLoading = writable(false);
+export const imageClearLoading = writable(false);
 
 // TYPES
 export type Picture = {
@@ -37,18 +38,18 @@ db.version(1).stores({
 export const addImage = async (file: File, blob: Blob | ArrayBuffer) => {
     const { name, type, size } = file;
     // Set loading to true
-    imageLoading.set(true);
+    imageAddLoading.set(true);
 
     try {
         // Add the image to the database
         await db.images.add({ blob, name, type, size });
-        // Set imageLoading back to false when the image is added successfully
+        // Set imageAddLoading back to false when the image is added successfully
         await new Promise((resolve) => setTimeout(resolve, 500));
-        imageLoading.set(false);
+        imageAddLoading.set(false);
     } catch (error) {
         // Handle errors here
         console.error('Error adding image:', error);
-        imageLoading.set(false);
+        imageAddLoading.set(false);
         throw error; // Re-throw the error to handle it in the component if needed
     }
 };
@@ -57,8 +58,23 @@ const deleteImage = (id: number | undefined) => {
     if (id !== undefined) return db.images.delete(id);
 };
 
-const clearDB = () => {
+const clearDB = async () => {
+
     return db.images.clear();
+}
+
+export const clearDB2 = async () => {
+    imageClearLoading.set(true);
+
+    try {
+        await db.images.clear();
+        imageClearLoading.set(false);
+    } catch (error) {
+        console.error('Error clearing the database:', error);
+        imageClearLoading.set(false);
+        throw error;
+    }
+    // return db.images.clear();
 }
 
 const createDataUrl = (blob: Blob | ArrayBuffer, type: string): string => {

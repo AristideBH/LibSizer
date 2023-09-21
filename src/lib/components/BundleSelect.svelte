@@ -35,9 +35,9 @@
 		</Select.Root>
 
 		{#if $selectedBundle}
-			<pre class="flex flex-col gap-3 p-3 mt-2">
-					<Label for="formats">Formats :</Label>
-					<ul id="formats" class="gap-2 my-0" transition:slide>
+			<pre class="flex flex-col gap-3 p-3 mt-2 overflow-x-auto">
+					<Label for="formats" class="sticky left-0 ">Formats :</Label>
+					<ul id="formats" class="gap-2 my-0 ml-0" transition:slide>
 						{#each $selectedBundle.bundle as size}
 						{@const { name, width, height } = size}
 							<li class="flex flex-col" transition:slide|local>
