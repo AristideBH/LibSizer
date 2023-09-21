@@ -6,6 +6,7 @@
 
 	import ThemeSwitcher from '$lib/components/ThemeSwitcher.svelte';
 	import { autoModeWatcher } from '$lib/theme';
+	import Logo from '$lib/components/Logo.svelte';
 </script>
 
 <svelte:head>
@@ -15,8 +16,11 @@
 
 <header class="py-5 sticky top-0 bg-background border-b z-50">
 	<div class="container flex justify-between items-center">
-		<a href="/">
-			<h1>LibSizer</h1>
+		<a href="/" class="no-underline">
+			<h1 class="flex gap-2">
+				<Logo class="!h-10 !w-10 !stroke-[1.35] stroke-foreground translate-y-1" />
+				LibSizer
+			</h1>
 		</a>
 
 		<div class="flex gap-5">

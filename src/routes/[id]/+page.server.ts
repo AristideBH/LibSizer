@@ -3,7 +3,7 @@ import { getImageById } from '$lib/db';
 
 export const load = (async ({ params }) => {
     const id = params.id as unknown as number
-    const queriedImage = getImageById(id)
+    const queriedImage = await getImageById(id)
     return {
         id,
         queriedImage
