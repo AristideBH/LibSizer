@@ -4,6 +4,7 @@
 	import getCroppedImg, { omitExt } from '$lib/canvasUtils';
 	import { saveAs } from 'file-saver';
 	import Button from './ui/button/button.svelte';
+	import { fly, slide } from 'svelte/transition';
 
 	export let image: Picture;
 	export let aspect: number = 4 / 3;
@@ -23,9 +24,11 @@
 	};
 </script>
 
-<div class="relative w-full h-full cropper min-h-[550px]">
-	<Cropper image={imageData} {aspect} bind:crop bind:zoom on:cropcomplete={previewCrop} />
-</div>
+{#key aspect}
+	<div class="relative w-full h-full cropper min-h-[550px]" transition:slide>
+		<Cropper image={imageData} {aspect} bind:crop bind:zoom on:cropcomplete={previewCrop} />
+	</div>
+{/key}
 
 <Button
 	type="button"
