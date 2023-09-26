@@ -82,10 +82,61 @@ const AllBundles: SizesBundle[] = [
     VisaSizes
 ]
 
-
+// * STORES
 export const bundles = persistBrowserSession(writable(AllBundles), "bundles")
 export const selectedBundle = persistBrowserSession<undefined | SizesBundle>(writable(AllBundles[0]), "selectedBundle")
 
+// * FUNCTIONS
 export function findBundleByValue(value: string, bundles: SizesBundle[]): SizesBundle | undefined {
     return bundles.find((bundle) => bundle.value === value);
 }
+
+export function getUniqueRatios(sizes: Array<Size> | undefined): Array<{
+    ratio: number | string, sizes: Array<Size>
+}> | null {
+
+    if (!sizes) return null
+
+    const ratioMap = new Map<number | string, Array<{ id: number, name: string, width: number | undefined, height: number | undefined }>>();
+    for (let i = 0; i < sizes.length; i++) {
+        const { id, width, height, name } = sizes[i];
+        if (height !== undefined && width !== undefined) {
+            const ratio = width / height;
+            if (ratioMap.has(ratio)) {
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                const names = ratioMap.get(ratio)!;
+                names.push({ id, name, width, height });
+                ratioMap.set(ratio, names);
+            } else {
+                ratioMap.set(ratio, [{ id, name, width, height }]);
+            }
+        } else {
+            const manualRatio = "fit";
+            if (ratioMap.has(manualRatio)) {
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                const names = ratioMap.get(manualRatio)!;
+                names.push({ id, name, width, height });
+                ratioMap.set(manualRatio, names);
+            } else {
+                ratioMap.set(manualRatio, [{ id, name, width, height }]);
+            }
+        }
+    }
+    const ratioList: Array<{ ratio: number | string, sizes: Array<{ id: number, name: string, width: number | undefined, height: number | undefined }> }> = [];
+    for (const [ratio, names] of ratioMap.entries()) {
+        ratioList.push({ ratio, sizes: names });
+    }
+    return ratioList;
+}
+
+export const bundleSizes = (selectedBundle: SizesBundle | undefined) => {
+    if (!selectedBundle) return
+
+    const bundle = AllBundles.find((bundle) => bundle.value === selectedBundle.value);
+    if (bundle) {
+        return bundle.bundle;
+
+    } else {
+        return AllBundles[0].bundle;
+    }
+};

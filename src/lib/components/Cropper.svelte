@@ -1,41 +1,38 @@
 <script lang="ts">
 	import Cropper from 'svelte-easy-crop';
-	import { getImageById, type Picture, getSrc } from '$lib/db';
-	import getCroppedImg from '$lib/canvasUtils';
+	import { createDataUrl, type Picture } from '$lib/db';
+	import getCroppedImg, { omitExt } from '$lib/canvasUtils';
+	import { saveAs } from 'file-saver';
 	import Button from './ui/button/button.svelte';
 
-	export let id: number | undefined;
+	export let image: Picture;
+	export let aspect: number = 4 / 3;
 	let crop = { x: 0, y: 0 };
 	let zoom = 1;
-	let imageData: Picture | undefined;
-	let croppedImage, pixelCrop;
+	let croppedImage: string | null,
+		pixelCrop: { x: number; y: number; width: number; height: number };
 
-	// Fetch the image data based on the id prop
-	$: {
-		getImageById(id)
-			.then((image) => {
-				imageData = image;
-			})
-			.catch((error) => {
-				console.error('Error fetching image:', error);
-			});
+	$: imageData = createDataUrl(image.blob, image.type);
+
+	function previewCrop(e: CustomEvent) {
+		pixelCrop = e.detail.pixels;
 	}
 
-	async function cropImage() {
-		// croppedImage = await getCroppedImg(getSrc(imageData), pixelCrop);
-	}
+	const downloadFile = (imageData: Blob | string, fileName: string) => {
+		saveAs(imageData, omitExt(image.name));
+	};
 </script>
 
-{#if imageData}
-	<div class="relative w-full h-full cropper min-h-[550px]">
-		<Cropper
-			showGrid={true}
-			image={getSrc(imageData)}
-			bind:crop
-			bind:zoom
-			on:cropcomplete={(e) => (pixelCrop = e.detail.percent)}
-		/>
-	</div>
+<div class="relative w-full h-full cropper min-h-[550px]">
+	<Cropper image={imageData} {aspect} bind:crop bind:zoom on:cropcomplete={previewCrop} />
+</div>
 
-	<Button>Action</Button>
-{/if}
+<Button
+	type="button"
+	on:click={async () => {
+		croppedImage = await getCroppedImg(imageData, pixelCrop);
+		if (croppedImage) downloadFile(croppedImage, image.name);
+	}}
+>
+	Download this crop
+</Button>

@@ -23,6 +23,14 @@ export function rotateSize(width: number, height: number, rotation: number): { w
     };
 }
 
+
+export const omitExt = (fileName: string): string => {
+    if (/\.(jpe?g|png)$/i.test(fileName)) {
+        return fileName.replace(/\.(jpe?g|png)$/i, '');
+    }
+    return fileName;
+};
+
 /**
  * This function was adapted from the one in the ReadMe of https://github.com/DominicTobias/react-image-crop
  */

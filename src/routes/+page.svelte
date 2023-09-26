@@ -3,8 +3,6 @@
 	import Welcome from '$lib/components/Welcome.svelte';
 	import BundleSelect from '$lib/components/BundleSelect.svelte';
 	import Listing from '$lib/components/Listing.svelte';
-
-	import { getImageById, type Picture } from '$lib/db';
 </script>
 
 <head>
@@ -20,6 +18,6 @@
 </main>
 
 <aside>
-	<!-- <Listing /> -->
+	<Listing />
 	<BundleSelect />
 </aside>
