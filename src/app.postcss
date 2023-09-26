@@ -103,6 +103,20 @@
 	.small {
 		@apply text-sm font-medium leading-none;
 	}
+
+	::-webkit-scrollbar {
+		width: 0.5rem;
+		height: 0.5rem;
+	}
+
+	::-webkit-scrollbar-track {
+		background-color: hsl(var(--muted)) !important;
+	}
+
+	::-webkit-scrollbar-thumb {
+		border-radius: calc(var(--radius) - 4px);
+		background-color: hsl(var(--muted-foreground) / 0.3) !important;
+	}
 }
 
 /* STRUCTURE STYLES */
