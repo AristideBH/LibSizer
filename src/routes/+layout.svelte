@@ -7,8 +7,8 @@
 	import ThemeSwitcher from '$lib/components/ThemeSwitcher.svelte';
 	import { autoModeWatcher } from '$lib/theme';
 	import Logo from '$lib/components/Logo.svelte';
-	import { db } from '$lib/db';
-	db.open();
+	import { page } from '$app/stores';
+	import { flyAndScale } from '$lib/utils';
 </script>
 
 <svelte:head>
@@ -18,10 +18,10 @@
 <header class="py-5 sticky top-0 bg-background border-b z-50">
 	<div class="container flex justify-between items-center">
 		<a href="/" class="no-underline">
-			<h1 class="flex gap-2">
-				<Logo class="!h-10 !w-10 !stroke-[1.35] stroke-foreground translate-y-1" />
+			<div class="flex gap-2 text-3xl font-extrabold tracking-tight">
+				<Logo class="!h-10 !w-10 !stroke-[1.35] stroke-foreground " />
 				LibSizer
-			</h1>
+			</div>
 		</a>
 
 		<div class="flex gap-5">
@@ -45,8 +45,13 @@
 	</div>
 </header>
 
-<div class="container main my-5 flex flex-col lg:grid lg:grid-cols-12 gap-x-8 gap-y-5 grow">
-	<slot />
-</div>
+{#key $page.route.id}
+	<div
+		class="container main my-5 flex flex-col lg:grid lg:grid-cols-12 gap-x-8 gap-y-5 grow"
+		in:flyAndScale={{ start: 0.99 }}
+	>
+		<slot />
+	</div>
+{/key}
 
 <Toaster position="top-center" theme="system" richColors />

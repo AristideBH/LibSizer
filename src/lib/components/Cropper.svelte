@@ -35,7 +35,7 @@
 	}
 </script>
 
-<div class="flex flex-col gap-2">
+<section class="flex flex-col gap-2">
 	<h2 class="">Format {decimalToFraction(ratio)}</h2>
 
 	<div class="flex gap-2 overflow-x-auto overflow-y-hidden pb-2 pt-1">
@@ -98,4 +98,4 @@
 			/>
 		</div>
 	{/key}
-</div>
+</section>
