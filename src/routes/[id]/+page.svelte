@@ -17,8 +17,8 @@
 </aside>
 
 <main class="lg:col-span-8 xl:col-span-9 flex flex-col grow sticky top-24 gap-12">
-	<div class="flex flex-col gap-2">
-		<h1>id: {data.id} / {image.name}</h1>
+	<div class="flex flex-col gap-3">
+		<h1>{image.name}</h1>
 		<code class="w-fit">Original size: {image.width}px × {image.height}px</code>
 	</div>
 	{#if ratioList}

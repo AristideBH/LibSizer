@@ -13,10 +13,9 @@
 	export let ratio: number;
 	export let sizes: Size[];
 
-	let errorClass = 'border-destructive';
-	let crop = { x: 0, y: 0 };
-	let zoom = 1;
-	let croppedImage: string | null,
+	let crop = { x: 0, y: 0 },
+		zoom = 1,
+		croppedImage: string | null,
 		pixelCrop: { x: number; y: number; width: number; height: number };
 
 	$: imageData = createDataUrl(image.blob, image.type);
@@ -71,6 +70,7 @@
 		{#if sizes.length > 1}
 			<Button
 				type="button"
+				disabled
 				class="w-fit ms-auto sticky right-0"
 				on:click={async () => {
 					console.log('to implement');

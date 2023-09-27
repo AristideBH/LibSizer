@@ -78,8 +78,10 @@ const Test: SizesBundle = {
     value: "test",
     label: "Test",
     bundle: [
-        { id: 1, name: "Square1", width: 1920, height: 1920 },
+        { id: 1, name: "Square1", width: 1080, height: 1080 },
         { id: 2, name: "Square2", width: 720, height: 720 },
+        { id: 3, name: "Portrait 4:5", width: 1080, height: 1350 },
+
     ]
 }
 
