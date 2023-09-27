@@ -3,6 +3,7 @@
 	import { selected } from '$lib';
 	import { slide } from 'svelte/transition';
 	import { browser } from '$app/environment';
+	import { page } from '$app/stores';
 
 	import { db, deleteImage, clearDB, imageClearLoading } from '$lib/db';
 
@@ -27,10 +28,11 @@
 			<ul class="m-0" transition:slide>
 				{#each $images as image}
 					{@const { id, blob, name, type } = image}
+					{@const active = Number($page.params?.id) == id ? 'border-e-primary border-e-2' : ''}
 					<li class="flex flex-row gap-1 items-center" transition:slide|local>
 						<Button
 							variant="outline"
-							class="w-full justify-start flex gap-2 no-underline !text-foreground "
+							class="w-full justify-start flex gap-2 no-underline !text-foreground {active} overflow-x-auto overflow-y-hidden"
 							on:click={() => handleSelect(id)}
 							href="/{id}"
 						>

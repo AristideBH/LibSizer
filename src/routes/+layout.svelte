@@ -7,6 +7,8 @@
 	import ThemeSwitcher from '$lib/components/ThemeSwitcher.svelte';
 	import { autoModeWatcher } from '$lib/theme';
 	import Logo from '$lib/components/Logo.svelte';
+	import { db } from '$lib/db';
+	db.open();
 </script>
 
 <svelte:head>

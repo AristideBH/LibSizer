@@ -15,7 +15,7 @@ export type Picture = {
 };
 
 
-// Init IndexedDB
+//* Init IndexedDB
 export const db = new Dexie('imageDB') as Dexie & {
     images: Dexie.Table<Picture, number>;
 };
@@ -34,8 +34,11 @@ db.version(1).stores({
 //     });
 // });
 
+db.open();
 
-//API Functions
+
+
+// * API Functions
 export const addImage = async (file: File, blob: Blob | ArrayBuffer) => {
     const { name, type, size } = file;
     // Set loading to true
@@ -102,7 +105,5 @@ const getSrc = (image: Picture) => {
     return createDataUrl(image.blob, image.type);
 };
 
-// 
-db.open();
 
 export { getImageById, deleteImage, createDataUrl, getSrc }

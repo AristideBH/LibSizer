@@ -107,7 +107,7 @@
 	/* ? SCROLLBARS */
 	::-webkit-scrollbar {
 		width: 0.5rem;
-		height: 0.5rem;
+		height: 0.2rem;
 	}
 
 	::-webkit-scrollbar-track {
@@ -141,7 +141,7 @@ aside {
 }
 
 main {
-	@apply lg:col-span-8 xl:col-span-9 flex flex-col grow  gap-16;
+	@apply lg:col-span-8 xl:col-span-9 flex flex-col grow sticky top-24 gap-16;
 }
 
 /*.main {
