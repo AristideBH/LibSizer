@@ -8,6 +8,7 @@
 	$: ratioList = getUniqueRatios(bundleSizes($selectedBundle));
 
 	export let data: PageData;
+	$: ({ image } = data);
 </script>
 
 <aside>
@@ -15,13 +16,15 @@
 	<Listing />
 </aside>
 
-<main class="lg:col-span-8 xl:col-span-9 flex flex-col grow sticky top-24 gap-16">
-	<h1>{data.id} / {data.image.name}</h1>
-
+<main class="lg:col-span-8 xl:col-span-9 flex flex-col grow sticky top-24 gap-12">
+	<div class="flex flex-col gap-2">
+		<h1>id: {data.id} / {image.name}</h1>
+		<code class="w-fit">Original size: {image.width}px × {image.height}px</code>
+	</div>
 	{#if ratioList}
-		{#each ratioList as aspect, index}
-			<!-- <pre>{JSON.stringify(aspect, undefined, 2)}</pre> -->
-			<Cropper image={data.image} aspect={aspect.ratio} />
+		{#each ratioList as { ratio, sizes }, index}
+			<!-- <pre>{JSON.stringify(ratio, undefined, 2)}</pre> -->
+			<Cropper {image} {ratio} {sizes} />
 		{/each}
 	{/if}
 </main>

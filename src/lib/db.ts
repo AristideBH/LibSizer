@@ -11,7 +11,9 @@ export type Picture = {
     blob: Blob | ArrayBuffer;
     name: string;
     type: string;
-    size: number
+    size: number;
+    width?: number;
+    height?: number;
 };
 
 
@@ -21,7 +23,7 @@ export const db = new Dexie('imageDB') as Dexie & {
 };
 // Create image store with adequat table columns
 db.version(1).stores({
-    images: '++id, blob, path, name, type, size',
+    images: '++id, blob, path, name, type, size, width, height',
 });
 
 // Initial populate    
@@ -39,14 +41,14 @@ db.open();
 
 
 // * API Functions
-export const addImage = async (file: File, blob: Blob | ArrayBuffer) => {
+export const addImage = async (file: File, blob: Blob | ArrayBuffer, width: number, height: number) => {
     const { name, type, size } = file;
     // Set loading to true
     imageAddLoading.set(true);
 
     try {
         // Add the image to the database
-        await db.images.add({ blob, name, type, size });
+        await db.images.add({ blob, name, type, size, width, height });
         // Set imageAddLoading back to false when the image is added successfully
         await new Promise((resolve) => setTimeout(resolve, 500));
         imageAddLoading.set(false);

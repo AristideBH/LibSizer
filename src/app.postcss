@@ -137,19 +137,12 @@
 }
 
 aside {
-	@apply lg:col-span-4 xl:col-span-3 gap-2 flex flex-col lg:sticky lg:top-6 max-h-screen overflow-y-auto overflow-x-hidden;
+	@apply lg:col-span-4 xl:col-span-3 gap-2 flex flex-col lg:sticky lg:top-28 max-h-screen overflow-y-auto overflow-x-hidden;
 }
 
 main {
 	@apply lg:col-span-8 xl:col-span-9 flex flex-col grow sticky top-24 gap-16;
 }
-
-/*.main {
-	& > * {
-		@apply col-span-full;
-	}
-}
-*/
 
 /* ? DROPZONE */
 .cn-dropzone {
@@ -157,7 +150,7 @@ main {
 }
 
 .cropper > .container {
-	@apply !p-0 !w-full;
+	@apply !p-0 !w-full rounded-md border;
 }
 
 /* ? TOASTER */

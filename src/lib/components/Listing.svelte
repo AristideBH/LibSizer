@@ -28,11 +28,11 @@
 			<ul class="m-0" transition:slide>
 				{#each $images as image}
 					{@const { id, blob, name, type } = image}
-					{@const active = Number($page.params?.id) == id ? 'border-e-primary border-e-2' : ''}
-					<li class="flex flex-row gap-1 items-center" transition:slide|local>
+					{@const active = Number($page.params?.id) == id ? 'border-s-primary border-s-[3px]' : ''}
+					<li class="flex flex-row gap-1 items-center group relative" transition:slide|local>
 						<Button
 							variant="outline"
-							class="w-full justify-start flex gap-2 no-underline !text-foreground {active} overflow-x-auto overflow-y-hidden"
+							class="w-full justify-start flex gap-2 no-underline !text-foreground {active} overflow-x-auto overflow-y-hidden group-hover:pr-14"
 							on:click={() => handleSelect(id)}
 							href="/{id}"
 						>
@@ -43,6 +43,7 @@
 							size="icon"
 							title="Delete image"
 							on:click={() => deleteImage(id)}
+							class="absolute right-0 hidden group-hover:flex "
 						>
 							<Trash2 class="h-4 w-4" />
 						</Button>

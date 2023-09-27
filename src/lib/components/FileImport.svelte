@@ -8,7 +8,7 @@
 	let className = '';
 	export { className as class };
 	let hovering = false;
-	$: hoveringClass = hovering ? '!border-primary' : '';
+	$: hoveringClass = hovering ? '!border-primary !bg-card' : '';
 
 	const handleAccepted = async (event: CustomEvent) => {
 		const acceptedFiles = event.detail.acceptedFiles;
@@ -19,17 +19,26 @@
 				reader.onload = async (e) => {
 					if (e.target && e.target.result) {
 						const imageBlob = e.target.result as Blob | ArrayBuffer;
-						await addImage(file, imageBlob);
+						const image = new Image();
+						let width, height;
+
+						image.onload = () => {
+							width = image.width;
+							height = image.height;
+							addImage(file, imageBlob, width, height);
+						};
+
+						// Set the src attribute of the Image object to the data URL
+						image.src = URL.createObjectURL(new Blob([imageBlob]));
 					}
 				};
 				reader.readAsArrayBuffer(file);
 			}
 			hovering = false;
 			toast.success('Imported successfully !');
-			// window.location.href = '/test';
 		} catch (error) {
 			console.error('Error importing file(s):', error);
-			toast.error('Something wrong happened during the import');
+			toast.error('Something went wrong during the import');
 		}
 	};
 </script>
