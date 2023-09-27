@@ -13,7 +13,7 @@
 </head>
 
 <main
-	class="lg:col-span-8 xl:col-span-9 flex flex-col grow sticky top-24 gap-16 my-10 lg:max-h-screen overflow-auto"
+	class="lg:col-span-8 xl:col-span-9 flex flex-col grow gap-16 my-10 lg:max-h-screen overflow-auto"
 >
 	<Welcome />
 	<FileImport class="max-w-2xl mx-auto mb-20" />
