@@ -8,6 +8,7 @@
 	import * as Tooltip from '$lib/components/ui/tooltip';
 	import { Download, FolderDown, AlertTriangle } from 'lucide-svelte';
 	import type { Size } from '$lib/bundles';
+	import type { ButtonEventHandler } from 'bits-ui/dist/bits/button';
 
 	export let image: Picture;
 	export let ratio: number;
@@ -28,6 +29,10 @@
 	const downloadFile = (imageData: Blob | string, sizeName: string) => {
 		saveAs(imageData, omitExt(image.name) + ' - ' + sizeName);
 	};
+
+	function handleAspectDownload(e: ButtonEventHandler<MouseEvent>): void {
+		throw new Error('Function not implemented.');
+	}
 </script>
 
 <div class="flex flex-col gap-2">
@@ -43,7 +48,7 @@
 			<Button
 				type="button"
 				class="w-fit"
-				variant="outline"
+				variant="secondary"
 				title={width + 'px × ' + height + 'px'}
 				on:click={async () => {
 					croppedImage = await getCroppedImg(imageData, pixelCrop, { width, height });
@@ -72,9 +77,7 @@
 				type="button"
 				disabled
 				class="w-fit ms-auto sticky right-0"
-				on:click={async () => {
-					console.log('to implement');
-				}}
+				on:click={handleAspectDownload}
 			>
 				<FolderDown class="mr-2 h-4 w-4" />
 				Download all sizes

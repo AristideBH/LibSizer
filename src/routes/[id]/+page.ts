@@ -3,6 +3,8 @@ import { db } from '$lib/db';
 import { error } from '@sveltejs/kit';
 
 export const load = (async ({ params }) => {
+    console.log(db);
+
     const image = await db.images
         .where({
             id: Number(params.id)

@@ -76,7 +76,7 @@
 	}
 
 	p {
-		@apply leading-7 [&:not(:first-child)]:mt-6;
+		@apply leading-7;
 	}
 
 	a {
@@ -129,6 +129,10 @@
 		background: hsl(var(--primary));
 		color: hsl(var(--muted));
 	}
+
+	.text-balance {
+		text-wrap: balance;
+	}
 }
 
 /* ? STRUCTURE STYLES */
@@ -141,7 +145,7 @@ aside {
 }
 
 main {
-	@apply lg:col-span-8 xl:col-span-9 flex flex-col grow sticky top-24 gap-16;
+	@apply lg:col-span-8 xl:col-span-9 flex flex-col grow  gap-16;
 }
 
 /* ? DROPZONE */

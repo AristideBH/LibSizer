@@ -5,12 +5,13 @@
 	import Listing from '$lib/components/Listing.svelte';
 </script>
 
-<head>
+<svelte:head>
+	<title>LibSizer - Crop your library</title>
 	<meta
 		name="description"
 		content="Libsizer is a tool allowing you to quickly crop and resize your picture library to multiple format."
 	/>
-</head>
+</svelte:head>
 
 <main
 	class="lg:col-span-8 xl:col-span-9 flex flex-col grow gap-16 my-10 lg:max-h-screen overflow-auto"

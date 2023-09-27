@@ -8,6 +8,10 @@
 	import { Label } from '$lib/components/ui/label';
 </script>
 
+<svelte:head>
+	<title>Edit bundles - LibSizer</title>
+</svelte:head>
+
 <aside>
 	<Card.Root>
 		<Card.Header>
