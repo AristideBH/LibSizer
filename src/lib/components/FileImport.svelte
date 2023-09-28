@@ -37,7 +37,7 @@
 			}
 			hover = false;
 			toast.success('Imported successfully !');
-			toggleHighlight(2500);
+			toggleHighlight(2000);
 		} catch (error) {
 			console.error('Error importing file(s):', error);
 			toast.error('Something went wrong during the import');

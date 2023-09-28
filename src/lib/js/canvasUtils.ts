@@ -1,3 +1,10 @@
+export type PixelCrop = {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+};
+
 export const createImage = (url: string): Promise<HTMLImageElement> =>
     new Promise((resolve, reject) => {
         const image = new Image();
@@ -96,6 +103,7 @@ export function decimalToFraction(decimal: number): string {
 
 
 import { saveAs } from 'file-saver';
+import type { Size } from './bundles';
 
 /**
  * Returns the file name without the extension
@@ -110,4 +118,33 @@ export const omitExt = (fileName: string): string => {
 
 export const downloadFile = (imageData: Blob | string, sizeName: string, imageName: string) => {
     saveAs(imageData, omitExt(imageName) + ' - ' + sizeName);
+};
+
+import JSZip from 'jszip';
+
+// Function to fetch Blob data from a Blob URL
+async function fetchBlobFromUrl(blobUrl: string): Promise<Blob> {
+    const response = await fetch(blobUrl);
+    return await response.blob();
+}
+
+export const handleAspectDownload = async (
+    sizes: Size[],
+    croppedImage: string | null,
+    imageData: string,
+    pixelCrop: PixelCrop, imageName: string
+) => {
+    const zip = new JSZip();
+
+    for (const size of sizes) {
+        const width = size.width ? size.width : pixelCrop.width;
+        const height = size.height ? size.height : pixelCrop.height;
+        croppedImage = await getCroppedImg(imageData, pixelCrop, { width, height });
+        if (croppedImage) {
+            const croppedImageBlob = await fetchBlobFromUrl(croppedImage);
+            zip.file(omitExt(imageName) + ' - ' + size.name + '.jpg', croppedImageBlob);
+        }
+    }
+    const blob = await zip.generateAsync({ type: 'blob' });
+    saveAs(blob, omitExt(imageName));
 };

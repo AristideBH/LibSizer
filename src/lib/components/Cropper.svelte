@@ -1,11 +1,10 @@
 <script lang="ts">
-	import type { ButtonEventHandler } from 'bits-ui/dist/bits/button';
 	import type { Size } from '$lib/js/bundles';
 	import { slide } from 'svelte/transition';
 	import Cropper from 'svelte-easy-crop';
-
+	// prettier-ignore
+	import getCroppedImg, { decimalToFraction, downloadFile, handleAspectDownload, type PixelCrop } from '$lib/js/canvasUtils';
 	import { createDataUrl, type Picture } from '$lib/js/db';
-	import getCroppedImg, { decimalToFraction, downloadFile } from '$lib/js/canvasUtils';
 
 	import { FolderDown, AlertTriangle, FileDown } from 'lucide-svelte';
 	import Button from './ui/button/button.svelte';
@@ -17,22 +16,17 @@
 	let crop = { x: 0, y: 0 },
 		zoom = 1,
 		croppedImage: string | null,
-		pixelCrop: { x: number; y: number; width: number; height: number };
+		pixelCrop: PixelCrop;
 
 	$: imageData = createDataUrl(image.blob, image.type);
 
 	const previewCrop = (e: CustomEvent) => (pixelCrop = e.detail.pixels);
-
-	function handleAspectDownload(e: ButtonEventHandler<MouseEvent>): void {
-		// Todo
-		throw new Error('Function not implemented.');
-	}
 </script>
 
 <section class="flex flex-col gap-2">
 	<h2 class="capitalize">{decimalToFraction(ratio)} format</h2>
 
-	<div class="flex gap-2 overflow-x-auto overflow-y-hidden pb-2 pt-1">
+	<div class="flex gap-2 overflow-x-auto overflow-y-hidden pb-2 pt-1 items-baseline">
 		<!-- * Download each sizes -->
 		{#each sizes as size}
 			{@const width = size.width ? size.width : pixelCrop.width}
@@ -50,7 +44,7 @@
 					: formatSize}
 				on:click={async () => {
 					croppedImage = await getCroppedImg(imageData, pixelCrop, { width, height });
-					if (croppedImage) downloadFile(croppedImage, image.name, size.name);
+					if (croppedImage) downloadFile(croppedImage, size.name, image.name);
 				}}
 			>
 				{#if sizeAlert}
@@ -64,13 +58,11 @@
 
 		<!-- * Download multiple sizes -->
 		{#if sizes.length > 1}
-			<!-- Todo -->
 			<Button
 				type="button"
 				variant="secondary"
-				disabled
 				class="w-fit ms-auto sticky right-0"
-				on:click={handleAspectDownload}
+				on:click={() => handleAspectDownload(sizes, croppedImage, imageData, pixelCrop, image.name)}
 			>
 				<FolderDown class="mr-2 h-4 w-4" />
 				Download all sizes
