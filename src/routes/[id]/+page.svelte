@@ -5,7 +5,7 @@
 	import { db, type Picture } from '$lib/js/db';
 	import { getUniqueRatios, bundleSizes, selectedBundle } from '$lib/js/bundles';
 
-	import { Loader2 } from 'lucide-svelte';
+	import { Loader2, MonitorDown } from 'lucide-svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import Cropper from '$lib/components/Cropper.svelte';
 	import Listing from '$lib/components/Listing.svelte';
@@ -31,6 +31,10 @@
 	$query;
 </script>
 
+<svelte:head>
+	<title>Cropping - LibSizer</title>
+</svelte:head>
+
 <aside>
 	<BundleSelect class="sticky top-0" />
 	<Listing />
@@ -43,9 +47,13 @@
 	</Button>
 {:else if image}
 	<main class="lg:col-span-8 xl:col-span-9 flex flex-col grow sticky top-24 gap-12">
-		<div class="flex flex-col gap-3">
+		<div class="flex flex-col gap-3 sticky top-0 z-50">
 			<h1>{image.name}</h1>
 			<code class="w-fit">Original size: {image.width}px × {image.height}px</code>
+			<Button size="lg">
+				<MonitorDown class="mr-2 h-4 w-4" />
+				Download the whole bundle
+			</Button>
 		</div>
 		{#if ratioList}
 			{#each ratioList as { ratio, sizes }}

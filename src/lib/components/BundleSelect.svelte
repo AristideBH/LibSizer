@@ -53,10 +53,10 @@
 					<ul id="formats" class="gap-2 my-0 ml-0" transition:slide>
 						{#each $selectedBundle.bundle as size}
 						{@const { name, width, height } = size}
-							<li class="flex flex-col" transition:slide|local>
-								<span class="font-bold capitalize">{name}</span>
-								<span>{width}px × {height}px</span>
-							</li>
+								<li class="flex flex-col" transition:slide|local>
+									<span class="font-bold capitalize">{name}</span>
+									<span>{width}px × {height}px</span>
+								</li>
 					{/each}
 					</ul>
 			</pre>

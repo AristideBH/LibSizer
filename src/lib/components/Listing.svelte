@@ -43,6 +43,7 @@
 							title="Delete image"
 							on:click={() => deleteImage(id)}
 							class="absolute right-0 hidden group-hover:flex "
+							type="button"
 						>
 							<Trash2 class="h-4 w-4" />
 						</Button>

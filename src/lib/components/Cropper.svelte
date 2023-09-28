@@ -8,9 +8,8 @@
 	import { createDataUrl, type Picture } from '$lib/js/db';
 	import getCroppedImg, { omitExt, decimalToFraction } from '$lib/js/canvasUtils';
 
-	import { Download, FolderDown, AlertTriangle } from 'lucide-svelte';
+	import { FolderDown, AlertTriangle, FileDown } from 'lucide-svelte';
 	import Button from './ui/button/button.svelte';
-	import * as Tooltip from '$lib/components/ui/tooltip';
 
 	export let image: Picture;
 	export let ratio: number;
@@ -25,7 +24,6 @@
 
 	function previewCrop(e: CustomEvent) {
 		pixelCrop = e.detail.pixels;
-		// console.log(pixelCrop);
 	}
 
 	const downloadFile = (imageData: Blob | string, sizeName: string) => {
@@ -33,18 +31,19 @@
 	};
 
 	function handleAspectDownload(e: ButtonEventHandler<MouseEvent>): void {
+		// Todo
 		throw new Error('Function not implemented.');
 	}
 </script>
 
 <section class="flex flex-col gap-2">
-	<h2 class="">Format {decimalToFraction(ratio)}</h2>
+	<h2 class="capitalize">{decimalToFraction(ratio)} format</h2>
 
 	<div class="flex gap-2 overflow-x-auto overflow-y-hidden pb-2 pt-1">
 		{#each sizes as size}
 			{@const width = size.width ? size.width : pixelCrop.width}
 			{@const height = size.height ? size.height : pixelCrop.height}
-			{@const originalSize = width + 'px × ' + height + 'px'}
+			{@const formatSize = width + 'px × ' + height + 'px'}
 			{@const sizeAlert =
 				(image.width && width > image.width) || (image.height && height > image.height)}
 
@@ -53,25 +52,27 @@
 				class="w-fit"
 				variant={sizeAlert ? 'warn' : 'outline'}
 				title={sizeAlert
-					? 'The loaded image is smaller than this format. This will result in pixelated cropping.'
-					: originalSize}
+					? 'The loaded image is smaller than this format.\nThis will result in pixelated cropping.'
+					: formatSize}
 				on:click={async () => {
 					croppedImage = await getCroppedImg(imageData, pixelCrop, { width, height });
 					if (croppedImage) downloadFile(croppedImage, size.name);
 				}}
 			>
 				{#if sizeAlert}
-					<AlertTriangle class="mr-2 h-4 w-4 stroke-destructive" />
+					<AlertTriangle class="mr-2 h-4 w-4 stroke-warn" />
 				{:else}
-					<Download class="mr-2 h-4 w-4" />
+					<FileDown class="mr-2 h-4 w-4" />
 				{/if}
 				{size.name}
 			</Button>
 		{/each}
 
 		{#if sizes.length > 1}
+			<!-- todo -->
 			<Button
 				type="button"
+				variant="secondary"
 				disabled
 				class="w-fit ms-auto sticky right-0"
 				on:click={handleAspectDownload}
