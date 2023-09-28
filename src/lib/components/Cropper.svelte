@@ -44,29 +44,24 @@
 		{#each sizes as size}
 			{@const width = size.width ? size.width : pixelCrop.width}
 			{@const height = size.height ? size.height : pixelCrop.height}
+			{@const originalSize = width + 'px × ' + height + 'px'}
 			{@const sizeAlert =
 				(image.width && width > image.width) || (image.height && height > image.height)}
 
 			<Button
 				type="button"
 				class="w-fit"
-				variant="secondary"
-				title={width + 'px × ' + height + 'px'}
+				variant={sizeAlert ? 'warn' : 'outline'}
+				title={sizeAlert
+					? 'The loaded image is smaller than this format. This will result in pixelated cropping.'
+					: originalSize}
 				on:click={async () => {
 					croppedImage = await getCroppedImg(imageData, pixelCrop, { width, height });
 					if (croppedImage) downloadFile(croppedImage, size.name);
 				}}
 			>
 				{#if sizeAlert}
-					<Tooltip.Root>
-						<Tooltip.Trigger>
-							<AlertTriangle class="mr-2 h-4 w-4 stroke-destructive" />
-						</Tooltip.Trigger>
-						<Tooltip.Content class="bg-destructive">
-							The loaded image is smaller than this format.
-							<br />This will result in pixelated cropping.
-						</Tooltip.Content>
-					</Tooltip.Root>
+					<AlertTriangle class="mr-2 h-4 w-4 stroke-destructive" />
 				{:else}
 					<Download class="mr-2 h-4 w-4" />
 				{/if}

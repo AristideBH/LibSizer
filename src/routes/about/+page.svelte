@@ -41,17 +41,13 @@
 	<section class=" flex flex-col gap-6">
 		<h2>Roadmap</h2>
 		<p class="text-balance">
-			LibSizer is my first big hosted project. I maintain it on my free time as a hobby and
-			exercise, and chose not to include ads in the app.
+			I'm currently building the tool as I go, and have a lot of work still needed. Adding new
+			features isn't a goal for now, as I mainly try to get everything workign from the start.
 		</p>
 		<p class="text-balance">
-			If you find any bugs, translation issue or have ideas for improvements, please open a issue on
-			the <a href="https://github.com/AristideBH/LibSizer" target="_blank">
-				Github project page
-			</a>.
-			<br /> I'll try to find time, but nothing is guaranted ;)
+			If you wish to submit a feature request, feel free to do so on the Github page, I'll try to
+			keep this updated.
 		</p>
-		<p>Feel free to clone and submit pull requests if you do find ways to improve the tool !</p>
 	</section>
 	<section class=" flex flex-col gap-6">
 		<h2>Issue reporting</h2>

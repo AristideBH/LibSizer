@@ -33,7 +33,7 @@
 					size="icon"
 					href="https://github.com/AristideBH/LibSizer"
 					target="_blank"
-					title="Github repo"
+					title="Github project page"
 				>
 					<Github />
 				</Button>
