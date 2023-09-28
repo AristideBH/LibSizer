@@ -2,13 +2,14 @@
 	import Dropzone from 'svelte-file-dropzone/Dropzone.svelte';
 	import { ImagePlus, Loader2 } from 'lucide-svelte';
 	import { addImage, imageAddLoading } from '$lib/js/db';
+	import { toggleHighlight } from '$lib/js/bundles';
 	import Button from './ui/button/button.svelte';
 	import { toast } from 'svelte-sonner';
 
 	let className = '';
 	export { className as class };
-	let hovering = false;
-	$: hoveringClass = hovering ? '!border-primary !bg-card' : '';
+	let hover = false;
+	$: hoverClass = hover ? '!border-primary !bg-card' : '';
 
 	const handleAccepted = async (event: CustomEvent) => {
 		const acceptedFiles = event.detail.acceptedFiles;
@@ -34,8 +35,9 @@
 				};
 				reader.readAsArrayBuffer(file);
 			}
-			hovering = false;
+			hover = false;
 			toast.success('Imported successfully !');
+			toggleHighlight(2500);
 		} catch (error) {
 			console.error('Error importing file(s):', error);
 			toast.error('Something went wrong during the import');
@@ -45,25 +47,21 @@
 
 <Dropzone
 	on:dropaccepted={handleAccepted}
-	on:dragover={() => {
-		hovering = true;
-	}}
-	on:dragleave={() => {
-		hovering = false;
-	}}
+	on:dragover={() => (hover = true)}
+	on:dragleave={() => (hover = false)}
 	accept={['image/*']}
 	inputElement=""
 	disableDefaultStyles={true}
-	containerClasses="cn-dropzone {className} {hoveringClass}"
+	containerClasses="cn-dropzone {className} {hoverClass}"
 >
 	<ImagePlus class="mb-5 w-12 h-12 stroke-primary stroke-1" />
 
 	{#if $imageAddLoading}
-		<Button disabled variant="ghost">
+		<Button disabled variant="ghost" type="button">
 			<Loader2 class="mr-2 h-4 w-4 animate-spin" />
 			Loading
 		</Button>
-	{:else if hovering}
+	{:else if hover}
 		<p>Drop your files</p>
 	{:else}
 		<button type="button" tabindex="-1">Click to upload images</button>

@@ -98,6 +98,16 @@ const AllBundles: SizesBundle[] = [
 export const bundles = persistBrowserSession(writable(AllBundles), "bundles")
 export const selectedBundle = persistBrowserSession<undefined | SizesBundle>(writable(AllBundles[0]), "selectedBundle")
 
+export const highlightLibrary = writable(false);
+export const toggleHighlight = (durationInMilliseconds: number) => {
+    highlightLibrary.set(true);
+
+    setTimeout(() => {
+        highlightLibrary.set(false);
+    }, durationInMilliseconds);
+};
+
+
 // * FUNCTIONS
 export function findBundleByValue(value: string, bundles: SizesBundle[]): SizesBundle | undefined {
     return bundles.find((bundle) => bundle.value === value);

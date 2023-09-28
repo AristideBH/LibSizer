@@ -3,17 +3,16 @@
 	import type { Size } from '$lib/js/bundles';
 	import { slide } from 'svelte/transition';
 	import Cropper from 'svelte-easy-crop';
-	import { saveAs } from 'file-saver';
 
 	import { createDataUrl, type Picture } from '$lib/js/db';
-	import getCroppedImg, { omitExt, decimalToFraction } from '$lib/js/canvasUtils';
+	import getCroppedImg, { decimalToFraction, downloadFile } from '$lib/js/canvasUtils';
 
 	import { FolderDown, AlertTriangle, FileDown } from 'lucide-svelte';
 	import Button from './ui/button/button.svelte';
 
 	export let image: Picture;
-	export let ratio: number;
 	export let sizes: Size[];
+	export let ratio: number;
 
 	let crop = { x: 0, y: 0 },
 		zoom = 1,
@@ -22,13 +21,7 @@
 
 	$: imageData = createDataUrl(image.blob, image.type);
 
-	function previewCrop(e: CustomEvent) {
-		pixelCrop = e.detail.pixels;
-	}
-
-	const downloadFile = (imageData: Blob | string, sizeName: string) => {
-		saveAs(imageData, omitExt(image.name) + ' - ' + sizeName);
-	};
+	const previewCrop = (e: CustomEvent) => (pixelCrop = e.detail.pixels);
 
 	function handleAspectDownload(e: ButtonEventHandler<MouseEvent>): void {
 		// Todo
@@ -40,6 +33,7 @@
 	<h2 class="capitalize">{decimalToFraction(ratio)} format</h2>
 
 	<div class="flex gap-2 overflow-x-auto overflow-y-hidden pb-2 pt-1">
+		<!-- * Download each sizes -->
 		{#each sizes as size}
 			{@const width = size.width ? size.width : pixelCrop.width}
 			{@const height = size.height ? size.height : pixelCrop.height}
@@ -56,7 +50,7 @@
 					: formatSize}
 				on:click={async () => {
 					croppedImage = await getCroppedImg(imageData, pixelCrop, { width, height });
-					if (croppedImage) downloadFile(croppedImage, size.name);
+					if (croppedImage) downloadFile(croppedImage, image.name, size.name);
 				}}
 			>
 				{#if sizeAlert}
@@ -68,8 +62,9 @@
 			</Button>
 		{/each}
 
+		<!-- * Download multiple sizes -->
 		{#if sizes.length > 1}
-			<!-- todo -->
+			<!-- Todo -->
 			<Button
 				type="button"
 				variant="secondary"
@@ -83,8 +78,9 @@
 		{/if}
 	</div>
 
+	<!-- * Cropper interface -->
 	{#key ratio}
-		<div class="relative w-full h-full cropper min-h-[650px]" transition:slide>
+		<div class="relative w-full h-full cropper min-h-[500px]" transition:slide>
 			<Cropper
 				image={imageData}
 				aspect={ratio}

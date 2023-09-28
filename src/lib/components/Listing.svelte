@@ -10,23 +10,30 @@
 	import Button from '$lib/components/ui/button/button.svelte';
 	import * as Card from '$lib/components/ui/card';
 	import * as Dialog from '$lib/components/ui/dialog';
+	import { highlightLibrary } from '$lib/js/bundles';
+
+	$: highlightClass = $highlightLibrary ? 'border-primary' : '';
 
 	const handleSelect = (index: number | undefined) => {
 		if (index) $selected = index;
 	};
+
+	const isNotEmpty = (obj: Record<string, any>) => Object.keys(obj).length !== 0;
+
 	$: images = liveQuery(() => (browser ? db.images.toArray() : []));
 </script>
 
-<Card.Root>
+<Card.Root class="{highlightClass} transition-[border] max-h-[500px] overflow-auto">
 	<Card.Header>
 		<Card.Title class="mt-0 ">Library</Card.Title>
 		<Card.Description>Find your uploaded picture here</Card.Description>
 	</Card.Header>
+
 	<Card.Content>
 		{#if $images}
-			<ul class="m-0" transition:slide>
+			<ul class="m-0">
 				{#each $images as image}
-					{@const { id, blob, name, type } = image}
+					{@const { id, name } = image}
 					{@const active = Number($page.params?.id) == id ? 'border-s-primary border-s-[3px]' : ''}
 					<li class="flex flex-row gap-1 items-center group relative" transition:slide|local>
 						<Button
@@ -58,7 +65,11 @@
 	</Card.Content>
 
 	{#if $images && $images.length > 1}
-		<Card.Footer>
+		<Card.Footer class="flex gap-2 sticky bottom-0 bg-card pt-4 ">
+			{#if $page.route.id != '/'}
+				<Button href="/" class="no-underline">Add more</Button>
+			{/if}
+			<!-- * Remove all images -->
 			<Dialog.Root>
 				<Dialog.Trigger>
 					<Button variant="destructive">Remove all</Button>

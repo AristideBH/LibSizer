@@ -27,7 +27,7 @@
 				<Select.Trigger class="bg-background">
 					<Select.Value placeholder="Choose" />
 				</Select.Trigger>
-				<!-- Todo: implement action -->
+
 				<Button
 					variant="outline"
 					size="icon"

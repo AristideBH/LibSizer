@@ -23,15 +23,6 @@ export function rotateSize(width: number, height: number, rotation: number): { w
     };
 }
 
-/**
- * Returns the file name without the extension
- */
-export const omitExt = (fileName: string): string => {
-    if (/\.(jpe?g|png|webp|gif|ico|tif?f)$/i.test(fileName)) {
-        return fileName.replace(/\.(jpe?g|png|webp|gif|ico|tif?f)$/i, '');
-    }
-    return fileName;
-};
 
 /**
  * This function was adapted from the one in the ReadMe of https://github.com/DominicTobias/react-image-crop
@@ -102,3 +93,21 @@ export function decimalToFraction(decimal: number): string {
     }
     return fraction.toFraction();
 }
+
+
+import { saveAs } from 'file-saver';
+
+/**
+ * Returns the file name without the extension
+ */
+export const omitExt = (fileName: string): string => {
+    if (/\.(jpe?g|png|webp|gif|ico|tif?f)$/i.test(fileName)) {
+        return fileName.replace(/\.(jpe?g|png|webp|gif|ico|tif?f)$/i, '');
+    }
+    return fileName;
+};
+
+
+export const downloadFile = (imageData: Blob | string, sizeName: string, imageName: string) => {
+    saveAs(imageData, omitExt(imageName) + ' - ' + sizeName);
+};

@@ -2,11 +2,7 @@ import Dexie from 'dexie';
 import { toast } from 'svelte-sonner';
 import { writable } from 'svelte/store';
 
-export const imageAddLoading = writable(false);
-export const imageClearLoading = writable(false);
-export const selected = writable<number | undefined>(undefined)
-
-// TYPES
+// * Types
 export type Picture = {
     id?: number;
     blob: Blob | ArrayBuffer;
@@ -16,6 +12,11 @@ export type Picture = {
     width?: number;
     height?: number;
 };
+
+// * Stores
+export const imageAddLoading = writable(false);
+export const imageClearLoading = writable(false);
+export const selected = writable<number | undefined>(undefined)
 
 
 //* Init IndexedDB
@@ -40,8 +41,11 @@ db.version(1).stores({
 db.open();
 
 
+////////////////////////////////////////////////////////////////////////////////////////////////
+////// * API
+////////////////////////////////////////////////////////////////////////////////////////////////
 
-// * API Functions
+// * Add a new image
 export const addImage = async (file: File, blob: Blob | ArrayBuffer, width: number, height: number) => {
     const { name, type, size } = file;
     // Set loading to true
@@ -62,10 +66,13 @@ export const addImage = async (file: File, blob: Blob | ArrayBuffer, width: numb
     }
 };
 
+// * Delete an image by its ID
 const deleteImage = (id: number | undefined) => {
     if (id !== undefined) return db.images.delete(id);
 };
 
+// * Clear the database from every upload
+// todo : reset id to one
 export const clearDB = async () => {
     imageClearLoading.set(true);
 
@@ -81,16 +88,9 @@ export const clearDB = async () => {
         toast.error('Something wrong happened clearing clearing the library');
         throw error;
     }
-    // return db.images.clear();
 }
 
-const createDataUrl = (blob: Blob | ArrayBuffer, type: string): string => {
-    const arrayBufferView = new Uint8Array(blob as ArrayBuffer);
-    const blobData = new Blob([arrayBufferView], { type });
-    const urlCreator = window.URL || window.webkitURL;
-    return urlCreator.createObjectURL(blobData);
-};
-
+// * Get the image object by its ID
 const getImageById = async (id: number | undefined): Promise<Picture | undefined> => {
     if (id !== undefined) {
         try {
@@ -104,6 +104,15 @@ const getImageById = async (id: number | undefined): Promise<Picture | undefined
     return undefined;
 };
 
+// * Generate an src url from the file's blob and type
+const createDataUrl = (blob: Blob | ArrayBuffer, type: string): string => {
+    const arrayBufferView = new Uint8Array(blob as ArrayBuffer);
+    const blobData = new Blob([arrayBufferView], { type });
+    const urlCreator = window.URL || window.webkitURL;
+    return urlCreator.createObjectURL(blobData);
+};
+
+// * Generate an src url from the file
 const getSrc = (image: Picture) => {
     return createDataUrl(image.blob, image.type);
 };

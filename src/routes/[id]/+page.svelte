@@ -5,8 +5,9 @@
 	import { db, type Picture } from '$lib/js/db';
 	import { getUniqueRatios, bundleSizes, selectedBundle } from '$lib/js/bundles';
 
-	import { Loader2, MonitorDown } from 'lucide-svelte';
+	import { Loader2, MonitorDown, ImageOff } from 'lucide-svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
+	import * as Alert from '$lib/components/ui/alert';
 	import Cropper from '$lib/components/Cropper.svelte';
 	import Listing from '$lib/components/Listing.svelte';
 	import BundleSelect from '$lib/components/BundleSelect.svelte';
@@ -40,13 +41,13 @@
 	<Listing />
 </aside>
 
-{#if isLoading}
-	<Button disabled variant="ghost">
-		<Loader2 class="mr-2 h-4 w-4 animate-spin" />
-		Loading
-	</Button>
-{:else if image}
-	<main class="lg:col-span-8 xl:col-span-9 flex flex-col grow sticky top-24 gap-12">
+<main class="lg:col-span-8 xl:col-span-9 flex flex-col grow sticky top-24 gap-12">
+	{#if isLoading}
+		<Button disabled variant="ghost">
+			<Loader2 class="mr-2 h-4 w-4 animate-spin" />
+			Loading
+		</Button>
+	{:else if image}
 		<div class="flex flex-col gap-3 sticky top-0 z-50">
 			<h1>{image.name}</h1>
 			<code class="w-fit">Original size: {image.width}px × {image.height}px</code>
@@ -60,7 +61,13 @@
 				<Cropper {image} {ratio} {sizes} />
 			{/each}
 		{/if}
-	</main>
-{:else}
-	<p>This image doesn't exist.</p>
-{/if}
+	{:else}
+		<Alert.Root>
+			<ImageOff class="h-4 w-4" />
+			<Alert.Title>Image is missing</Alert.Title>
+			<Alert.Description>
+				Please go back to the <a href="/">homescreen</a> and load up your images.
+			</Alert.Description>
+		</Alert.Root>
+	{/if}
+</main>
