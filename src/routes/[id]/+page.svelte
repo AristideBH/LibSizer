@@ -4,6 +4,7 @@
 	import { liveQuery } from 'dexie';
 	import { db, type Picture } from '$lib/js/db';
 	import { getUniqueRatios, bundleSizes, selectedBundle } from '$lib/js/bundles';
+
 	import { Loader2 } from 'lucide-svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import Cropper from '$lib/components/Cropper.svelte';
