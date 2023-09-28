@@ -4,6 +4,8 @@
 	import { page } from '$app/stores';
 	import { liveQuery } from 'dexie';
 
+	import { Dialog as SheetPrimitive } from 'bits-ui';
+
 	import { db, deleteImage, clearDB, imageClearLoading, selected } from '$lib/js/db';
 
 	import { Trash2, Loader2 } from 'lucide-svelte';

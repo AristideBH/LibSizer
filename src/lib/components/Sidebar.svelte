@@ -1,19 +1,32 @@
 <script lang="ts">
 	import * as Sheet from '$lib/components/ui/sheet';
-	import { Library } from 'lucide-svelte';
+	import { X, Menu } from 'lucide-svelte';
 	import BundleSelect from './BundleSelect.svelte';
 	import Listing from './Listing.svelte';
 	import Button from './ui/button/button.svelte';
+	import Logo from './Logo.svelte';
 </script>
 
 <Sheet.Root>
 	<Sheet.Trigger asChild let:builder>
 		<Button builders={[builder]} variant="outline" size="icon" class="lg:hidden">
-			<Library />
+			<!-- <Logo class="h-7 w-7 stroke-[1.5px]" /> -->
+			<Menu />
 		</Button>
 	</Sheet.Trigger>
-	<Sheet.Content side="left" class=" flex flex-col gap-2">
-		<BundleSelect />
-		<Listing />
+	<Sheet.Content side="left" class="p-4">
+		<Sheet.Header class="flex flex-row gap-2 justify-between items-baseline">
+			<div class="font-bold ms-2">Menu</div>
+			<Sheet.Close asChild let:builder>
+				<Button builders={[builder]} type="button" size="icon" variant="outline" class="!mt-0">
+					<X class="h-4 w-4" />
+				</Button>
+			</Sheet.Close>
+		</Sheet.Header>
+
+		<div class="grid gap-4 py-4">
+			<BundleSelect />
+			<Listing />
+		</div>
 	</Sheet.Content>
 </Sheet.Root>
