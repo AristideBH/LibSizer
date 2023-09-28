@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Dropzone from 'svelte-file-dropzone/Dropzone.svelte';
 	import { ImagePlus, Loader2 } from 'lucide-svelte';
-	import { addImage, imageAddLoading } from '$lib/db';
+	import { addImage, imageAddLoading } from '$lib/js/db';
 	import Button from './ui/button/button.svelte';
 	import { toast } from 'svelte-sonner';
 

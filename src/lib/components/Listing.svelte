@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { liveQuery } from 'dexie';
-	import { selected } from '$lib';
 	import { slide } from 'svelte/transition';
 	import { browser } from '$app/environment';
 	import { page } from '$app/stores';
+	import { liveQuery } from 'dexie';
 
-	import { db, deleteImage, clearDB, imageClearLoading } from '$lib/db';
+	import { selected } from '$lib/js';
+	import { db, deleteImage, clearDB, imageClearLoading } from '$lib/js/db';
 
 	import { Trash2, Loader2 } from 'lucide-svelte';
 	import Button from '$lib/components/ui/button/button.svelte';

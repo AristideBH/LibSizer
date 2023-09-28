@@ -1,9 +1,10 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+
+	import { getUniqueRatios, bundleSizes, selectedBundle } from '$lib/js/bundles';
 	import Cropper from '$lib/components/Cropper.svelte';
 	import Listing from '$lib/components/Listing.svelte';
 	import BundleSelect from '$lib/components/BundleSelect.svelte';
-	import { getUniqueRatios, bundleSizes, selectedBundle } from '$lib/bundles';
 
 	$: ratioList = getUniqueRatios(bundleSizes($selectedBundle));
 

@@ -1,12 +1,13 @@
 <script lang="ts">
-	import { bundles, selectedBundle, findBundleByValue } from '$lib/bundles';
 	import { slide } from 'svelte/transition';
+	import { page } from '$app/stores';
+
+	import { bundles, selectedBundle, findBundleByValue } from '$lib/js/bundles';
 	import { Settings2 } from 'lucide-svelte';
 	import * as Card from '$lib/components/ui/card';
 	import * as Select from '$lib/components/ui/select';
 	import { Button } from '$lib/components/ui/button';
 	import Label from './ui/label/label.svelte';
-	import { page } from '$app/stores';
 
 	let className = '';
 	export { className as class };

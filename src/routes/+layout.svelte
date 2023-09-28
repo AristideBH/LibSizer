@@ -1,14 +1,14 @@
 <script lang="ts">
 	import '../app.postcss';
-	import { Toaster } from 'svelte-sonner';
-	import { Button } from '$lib/components/ui/button';
-	import { Github, Info } from 'lucide-svelte';
-
-	import ThemeSwitcher from '$lib/components/ThemeSwitcher.svelte';
-	import { autoModeWatcher } from '$lib/theme';
-	import Logo from '$lib/components/Logo.svelte';
 	import { page } from '$app/stores';
+	import { autoModeWatcher } from '$lib/js/theme';
 	import { flyAndScale } from '$lib/utils';
+	import { Toaster } from 'svelte-sonner';
+
+	import { Github, Info } from 'lucide-svelte';
+	import { Button } from '$lib/components/ui/button';
+	import ThemeSwitcher from '$lib/components/ThemeSwitcher.svelte';
+	import Logo from '$lib/components/Logo.svelte';
 </script>
 
 <svelte:head>
@@ -24,7 +24,7 @@
 			</div>
 		</a>
 
-		<div class="flex gap-5">
+		<div class="flex gap-5 items-center">
 			<ThemeSwitcher />
 
 			<div class="flex gap-1">

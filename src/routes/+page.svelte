@@ -1,8 +1,8 @@
 <script lang="ts">
-	import FileImport from '$lib/components/FileImport.svelte';
 	import Welcome from '$lib/components/Welcome.svelte';
-	import BundleSelect from '$lib/components/BundleSelect.svelte';
+	import FileImport from '$lib/components/FileImport.svelte';
 	import Listing from '$lib/components/Listing.svelte';
+	import BundleSelect from '$lib/components/BundleSelect.svelte';
 </script>
 
 <svelte:head>

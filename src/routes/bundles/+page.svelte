@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { bundles } from '$lib/bundles';
+	import { bundles } from '$lib/js/bundles';
+
 	import { Button, buttonVariants } from '$lib/components/ui/button';
 	import * as Table from '$lib/components/ui/table';
 	import * as Card from '$lib/components/ui/card';

@@ -1,14 +1,16 @@
 <script lang="ts">
-	import Cropper from 'svelte-easy-crop';
-	import { createDataUrl, type Picture } from '$lib/db';
-	import getCroppedImg, { omitExt, decimalToFraction } from '$lib/canvasUtils';
-	import { saveAs } from 'file-saver';
+	import type { ButtonEventHandler } from 'bits-ui/dist/bits/button';
+	import type { Size } from '$lib/js/bundles';
 	import { slide } from 'svelte/transition';
+	import Cropper from 'svelte-easy-crop';
+	import { saveAs } from 'file-saver';
+
+	import { createDataUrl, type Picture } from '$lib/js/db';
+	import getCroppedImg, { omitExt, decimalToFraction } from '$lib/js/canvasUtils';
+
+	import { Download, FolderDown, AlertTriangle } from 'lucide-svelte';
 	import Button from './ui/button/button.svelte';
 	import * as Tooltip from '$lib/components/ui/tooltip';
-	import { Download, FolderDown, AlertTriangle } from 'lucide-svelte';
-	import type { Size } from '$lib/bundles';
-	import type { ButtonEventHandler } from 'bits-ui/dist/bits/button';
 
 	export let image: Picture;
 	export let ratio: number;

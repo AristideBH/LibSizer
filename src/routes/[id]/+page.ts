@@ -1,9 +1,9 @@
 import type { PageLoad } from './$types';
-import { db } from '$lib/db';
 import { error } from '@sveltejs/kit';
+import { db } from '$lib/js/db';
 
 export const load = (async ({ params }) => {
-    console.log(db);
+    // console.log(db);
 
     const image = await db.images
         .where({

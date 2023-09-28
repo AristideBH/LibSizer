@@ -27,7 +27,7 @@ export function rotateSize(width: number, height: number, rotation: number): { w
  * Returns the file name without the extension
  */
 export const omitExt = (fileName: string): string => {
-    if (/\.(jpe?g|png)$/i.test(fileName)) {
+    if (/\.(jpe?g|png|webp|gif|ico|tif?f)$/i.test(fileName)) {
         return fileName.replace(/\.(jpe?g|png|webp|gif|ico|tif?f)$/i, '');
     }
     return fileName;
