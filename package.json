@@ -38,6 +38,7 @@
 	"type": "module",
 	"dependencies": {
 		"@macfja/svelte-persistent-store": "^2.4.0",
+		"@sveltejs/adapter-vercel": "^3.0.3",
 		"bits-ui": "^0.5.7",
 		"clsx": "^2.0.0",
 		"dexie": "^3.2.4",
