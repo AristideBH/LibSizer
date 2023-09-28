@@ -24,7 +24,6 @@
 	</div>
 	{#if ratioList}
 		{#each ratioList as { ratio, sizes }, index}
-			<!-- <pre>{JSON.stringify(ratio, undefined, 2)}</pre> -->
 			<Cropper {image} {ratio} {sizes} />
 		{/each}
 	{/if}

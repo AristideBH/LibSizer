@@ -1,9 +1,10 @@
 import Dexie from 'dexie';
-import { writable } from 'svelte/store';
 import { toast } from 'svelte-sonner';
+import { writable } from 'svelte/store';
 
 export const imageAddLoading = writable(false);
 export const imageClearLoading = writable(false);
+export const selected = writable<number | undefined>(undefined)
 
 // TYPES
 export type Picture = {
@@ -108,4 +109,4 @@ const getSrc = (image: Picture) => {
 };
 
 
-export { getImageById, deleteImage, createDataUrl, getSrc }
+export { createDataUrl, deleteImage, getImageById, getSrc };
