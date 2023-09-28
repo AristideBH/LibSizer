@@ -36,7 +36,7 @@
 	<title>Cropping - LibSizer</title>
 </svelte:head>
 
-<aside>
+<aside class="hidden lg:flex">
 	<BundleSelect class="sticky top-0" />
 	<Listing />
 </aside>

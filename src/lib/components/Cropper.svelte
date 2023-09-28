@@ -79,7 +79,7 @@
 				bind:crop
 				bind:zoom
 				maxZoom={2.5}
-				zoomSpeed={0.35}
+				zoomSpeed={0.3}
 				on:cropcomplete={previewCrop}
 			/>
 		</div>

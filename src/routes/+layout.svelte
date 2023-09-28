@@ -9,6 +9,7 @@
 	import { Button } from '$lib/components/ui/button';
 	import ThemeSwitcher from '$lib/components/ThemeSwitcher.svelte';
 	import Logo from '$lib/components/Logo.svelte';
+	import Sidebar from '$lib/components/Sidebar.svelte';
 </script>
 
 <svelte:head>
@@ -17,15 +18,18 @@
 
 <header class="py-5 sticky top-0 bg-background border-b z-50">
 	<div class="container flex justify-between items-center">
-		<a href="/" class="no-underline">
-			<div class="flex gap-2 text-3xl font-extrabold tracking-tight">
-				<Logo class="!h-10 !w-10 !stroke-[1.35] stroke-foreground " />
-				LibSizer
-			</div>
-		</a>
+		<div class="flex gap-3">
+			<Sidebar />
+			<a href="/" class="no-underline">
+				<div class="flex gap-2 text-3xl font-extrabold tracking-tight">
+					<Logo class="!h-10 !w-10 !stroke-[1.35] stroke-foreground " />
+					LibSizer
+				</div>
+			</a>
+		</div>
 
 		<div class="flex gap-5 items-center">
-			<ThemeSwitcher />
+			<!-- <ThemeSwitcher /> -->
 
 			<div class="flex gap-1">
 				<Button

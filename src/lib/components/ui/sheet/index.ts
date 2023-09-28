@@ -43,8 +43,8 @@ export const sheetVariants = tv({
 		side: {
 			top: "inset-x-0 top-0 border-b",
 			bottom: "inset-x-0 bottom-0 border-t",
-			left: "inset-y-0 left-0 h-full w-3/4 border-r md:max-w-md sm:max-w-none sm:w-7/8",
-			right: "inset-y-0 right-0 h-full w-3/4 border-l md:max-w-md sm:max-w-none sm:w-7/8 "
+			left: "inset-y-0 left-0 h-full w-[85vw] border-r md:max-w-md sm:max-w-none sm:w-7/8",
+			right: "inset-y-0 right-0 h-full w-[85vw] border-l md:max-w-md sm:max-w-none sm:w-7/8 "
 		}
 	},
 	defaultVariants: {
@@ -80,12 +80,12 @@ export const sheetTransitions = {
 	left: {
 		in: {
 			x: "-100%",
-			duration: 500,
+			duration: 150,
 			opacity: 1
 		},
 		out: {
 			x: "-100%",
-			duration: 300,
+			duration: 100,
 			opacity: 1
 		}
 	},

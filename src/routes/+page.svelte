@@ -13,7 +13,7 @@
 	/>
 </svelte:head>
 
-<aside>
+<aside class="hidden lg:flex">
 	<BundleSelect />
 	<Listing />
 </aside>
