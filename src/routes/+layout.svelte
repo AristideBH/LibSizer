@@ -41,9 +41,11 @@
 				>
 					<Github />
 				</Button>
+
 				<Button variant="outline" size="icon" href="/about" title="About LibSizer">
 					<Info />
 				</Button>
+				<Button variant="outline" href="/newBundles" title="About LibSizer">newBundles</Button>
 			</div>
 		</div>
 	</div>
