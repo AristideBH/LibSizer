@@ -1,15 +1,24 @@
 <script lang="ts">
+	import { writable, type Writable } from 'svelte/store';
 	import { addBundle, type Format, type NullableKeys } from '$lib/js/bundleDB';
 	import { toast } from 'svelte-sonner';
-	import { writable, type Writable } from 'svelte/store';
+
+	import * as Dialog from '$lib/components/ui/dialog';
+	import { Input } from '$lib/components/ui/input';
+	import { Label } from '$lib/components/ui/label';
+	import { Button, buttonVariants } from '$lib/components/ui/button';
+	import { Plus, Minus } from 'lucide-svelte';
 
 	type FieldName = keyof Format;
 
 	let bundleName = '';
 	let formatNumber = writable(2);
-
-	// Create a writable store for the format list
 	let formatList: Writable<Array<NullableKeys<Format>>>;
+	let closeButton: Button;
+	let dialogOpen = false;
+
+	let className = '';
+	export { className as class };
 
 	// Function to update format information when inputs change
 	function updateFormat(index: number, field: FieldName, value: any) {
@@ -51,7 +60,7 @@
 	}
 
 	// Click handler for the "Add Bundle" button
-	function handleAddBundleClick() {
+	function handleAddBundle() {
 		if (!areFormatNamesUnique($formatList)) {
 			// Handle the case where format names are not unique
 			toast.warning('Format names must be unique.');
@@ -68,11 +77,17 @@
 
 		// All checks passed, add the bundle
 		addBundle(bundleName, $formatList);
-
+		handleSuccess();
 		// Reset form
 		$formatNumber = 2; // Reset format number
 		bundleName = '';
 	}
+
+	const handleSuccess = () => {
+		// Your code for handling success here
+		console.log('Handle success function called');
+		dialogOpen = false;
+	};
 
 	// Subscribe to formatNumber changes and update the formatList accordingly
 	$: {
@@ -87,78 +102,120 @@
 	}
 </script>
 
-<fieldset class="border p-2 space-y-2">
-	<legend>Add new bundle</legend>
+<Dialog.Root
+	open={dialogOpen}
+	closeOnEscape={false}
+	closeOnOutsideClick={false}
+	onOpenChange={(open) => {
+		dialogOpen = open === true;
+	}}
+>
+	<Dialog.Trigger class={buttonVariants({ variant: 'outline' })}>Add a new bundle</Dialog.Trigger>
+	<Dialog.Content>
+		<Dialog.Header>
+			<Dialog.Title>New bundle</Dialog.Title>
+			<Dialog.Description>Add your new custom bundle here.</Dialog.Description>
+		</Dialog.Header>
 
-	<label class="mx-2">
-		Bundle name :
-		<input required type="text" bind:value={bundleName} />
-	</label>
-
-	<fieldset class="border p-2 flex flex-col gap-1">
-		<legend>
-			Format list
-			{#if $formatNumber < 10}
-				<button on:click={() => $formatNumber++}> + </button>
-			{/if}
-			{#if $formatNumber > 1}
-				<button on:click={() => $formatNumber--}> - </button>
-			{/if}
-		</legend>
-
-		{#each $formatList as format, index (format.id)}
-			<div class="flex gap-5">
-				<label>
-					Format name :
-					<input
-						type="text"
-						required
-						bind:value={format.name}
-						on:input={() => updateFormat(index, 'name', format.name)}
-					/>
-				</label>
-				<label>
-					Width :
-					<input
-						type="number"
-						required
-						min="10"
-						max="2500"
-						step="1"
-						inputmode="numeric"
-						bind:value={format.width}
-						on:input={() =>
-							updateFormat(index, 'width', format.width === null ? null : Number(format.width))}
-					/>
-					<span>px</span>
-				</label>
-				<label>
-					Height :
-					<input
-						type="number"
-						required
-						min="10"
-						max="2500"
-						step="1"
-						inputmode="numeric"
-						bind:value={format.height}
-						on:input={() =>
-							updateFormat(index, 'height', format.height === null ? null : Number(format.height))}
-					/>
-					<span>px</span>
-				</label>
-				<label>
-					<input type="number" hidden required value={format.id} disabled />
-				</label>
+		<fieldset class="flex flex-col gap-6 {className}">
+			<div class="inputWrapper">
+				<Label for="bundleName">Bundle name</Label>
+				<Input id="bundleName" class="" required type="text" bind:value={bundleName} />
 			</div>
-		{/each}
-	</fieldset>
 
-	<button class="border p-1" on:click={handleAddBundleClick}> Add Bundle </button>
-</fieldset>
+			<fieldset class=" flex flex-col gap-3">
+				<legend class="flex gap-1 w-full mb-2">
+					<span class="mr-auto">Formats</span>
+					<Button
+						variant="outline"
+						size="icon"
+						class="h-6 w-6"
+						title="Add a new format line"
+						on:click={() => $formatNumber++}
+						disabled={$formatNumber > 10 ?? false}
+					>
+						<Plus class="h-4 w-4" />
+					</Button>
+					<Button
+						variant="outline"
+						size="icon"
+						class="h-6 w-6"
+						title="Remove a format line"
+						on:click={() => $formatNumber--}
+						disabled={$formatNumber < 2 ?? true}
+					>
+						<Minus class="h-4 w-4" />
+					</Button>
+				</legend>
 
-<style>
-	input {
-		@apply p-1;
+				{#each $formatList as format, index (format.id)}
+					<div class="flex gap-2">
+						<!-- * Name -->
+						<div class="inputWrapper">
+							<Label for={`formatName-${index}`}>Name</Label>
+							<Input
+								id={`formatName-${index}`}
+								type="text"
+								required
+								bind:value={format.name}
+								on:input={() => updateFormat(index, 'name', format.name)}
+							/>
+						</div>
+						<!-- * Width -->
+						<div class="inputWrapper">
+							<Label for={`formatWidth-${index}`}>Width</Label>
+							<Input
+								id={`formatWidth-${index}`}
+								type="number"
+								required
+								min="10"
+								max="2500"
+								step="1"
+								inputmode="numeric"
+								bind:value={format.width}
+								on:input={() =>
+									updateFormat(index, 'width', format.width === null ? null : Number(format.width))}
+							/>
+						</div>
+						<!-- * Height -->
+						<div class="inputWrapper">
+							<Label for={`formatHeight-${index}`}>Height</Label>
+							<Input
+								id={`formatHeight-${index}`}
+								type="number"
+								required
+								min="10"
+								max="2500"
+								step="1"
+								inputmode="numeric"
+								bind:value={format.height}
+								on:input={() =>
+									updateFormat(
+										index,
+										'height',
+										format.height === null ? null : Number(format.height)
+									)}
+							/>
+						</div>
+
+						<Input type="number" hidden required disabled value={format.id} class="hidden" />
+					</div>
+				{/each}
+			</fieldset>
+		</fieldset>
+		<Dialog.Footer>
+			<Button type="button" on:click={handleAddBundle}>Add bundle</Button>
+			<Dialog.Close asChild let:builder>
+				<Button builders={[builder]} type="button" variant="outline" bind:this={closeButton}>
+					Close
+				</Button>
+			</Dialog.Close>
+		</Dialog.Footer>
+	</Dialog.Content>
+</Dialog.Root>
+
+<style lang="postcss">
+	.inputWrapper {
+		@apply flex flex-col w-full max-w-lg gap-1.5;
 	}
 </style>

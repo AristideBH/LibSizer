@@ -60,4 +60,4 @@
 	</div>
 {/key}
 
-<Toaster position="top-center" theme="system" richColors />
+<Toaster position="bottom-center" theme="system" richColors />

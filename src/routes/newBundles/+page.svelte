@@ -3,6 +3,8 @@
 	import { bDB, deleteBundle } from '$lib/js/bundleDB';
 	import { liveQuery } from 'dexie';
 
+	import * as Dialog from '$lib/components/ui/dialog';
+	import { Button, buttonVariants } from '$lib/components/ui/button';
 	import BundleAdder from '$lib/components/bundle/BundleAdder.svelte';
 	import { flyAndScale } from '$lib/utils';
 
@@ -10,7 +12,9 @@
 </script>
 
 <main class="container col-span-full space-y-4">
-	<BundleAdder />
+	<!-- <BundleAdder /> -->
+
+	<BundleAdder class="mt-4" />
 </main>
 
 {#if $bundles}
