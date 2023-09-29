@@ -2,7 +2,7 @@
 	import type { PageData } from './$types';
 
 	import { liveQuery } from 'dexie';
-	import { db, type Picture } from '$lib/js/db';
+	import { db, type Picture } from '$lib/js/imageDB';
 	import { getUniqueRatios, bundleSizes, selectedBundle } from '$lib/js/bundles';
 
 	import { Loader2, MonitorDown, ImageOff } from 'lucide-svelte';

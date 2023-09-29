@@ -6,7 +6,7 @@
 
 	import { Dialog as SheetPrimitive } from 'bits-ui';
 
-	import { db, deleteImage, clearDB, imageClearLoading, selected } from '$lib/js/db';
+	import { db, deleteImage, clearDB, imageClearLoading, selected } from '$lib/js/imageDB';
 
 	import { Trash2, Loader2 } from 'lucide-svelte';
 	import Button from '$lib/components/ui/button/button.svelte';

@@ -4,7 +4,7 @@
 	import Cropper from 'svelte-easy-crop';
 	// prettier-ignore
 	import getCroppedImg, { decimalToFraction, downloadFile, handleAspectDownload, type PixelCrop } from '$lib/js/canvasUtils';
-	import { createDataUrl, type Picture } from '$lib/js/db';
+	import { createDataUrl, type Picture } from '$lib/js/imageDB';
 
 	import { FolderDown, AlertTriangle, FileDown } from 'lucide-svelte';
 	import Button from './ui/button/button.svelte';
