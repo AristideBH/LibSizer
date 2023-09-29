@@ -1,6 +1,7 @@
 import Dexie from 'dexie'
 import slugify from '@sindresorhus/slugify'
 import { toast } from 'svelte-sonner';
+import { writable } from '@macfja/svelte-persistent-store';
 
 // * TYPES
 export type Format = {
@@ -9,7 +10,6 @@ export type Format = {
     width: number;
     height: number;
 }
-
 
 export type NullableKeys<T> = {
     [K in keyof T]: K extends "width" | "height" | 'name' ? T[K] | null : T[K];
@@ -35,8 +35,10 @@ const initialData: Bundle[] = [
             { id: 5, name: "Square", width: 1080, height: 1080 },
         ]
     }
-
 ];
+
+// * Selected Bundle Store
+export const selectedB = writable<Bundle | undefined>('selectedB', initialData[0]);
 
 // * Custom Dexie store 
 class CustomDexie extends Dexie {
@@ -136,3 +138,9 @@ export const deleteBundle = async (id: number | undefined) => {
         throw error; // Re-throw the error to propagate it to the caller if needed
     }
 };
+
+
+
+export function findBundleByValue(value: string, bundles: Bundle[]): Bundle | undefined {
+    return bundles.find((bundle) => bundle.value === value);
+}

@@ -12,6 +12,7 @@
 
 	import BundleAdder from '$lib/components/bundle/BundleAdder.svelte';
 	import Loading from '$lib/components/Loading.svelte';
+	import BundleSelector from '$lib/components/bundle/BundleSelector.svelte';
 
 	$: bundles = liveQuery(() => (browser ? bDB.bundles.toArray() : []));
 </script>
@@ -31,6 +32,7 @@
 			<BundleAdder class="mt-4" />
 		</Card.Content>
 	</Card.Root>
+	<BundleSelector></BundleSelector>
 </aside>
 
 <main class="flex flex-col gap-6 overflow-auto">
