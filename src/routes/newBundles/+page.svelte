@@ -2,7 +2,7 @@
 	import { browser } from '$app/environment';
 	import { flyAndScale } from '$lib/utils';
 	import { liveQuery } from 'dexie';
-	import { bDB, deleteBundle } from '$lib/js/bundleDB';
+	import { bDB, deleteBundle } from '$lib/components/bundles/bundleDB';
 
 	import * as Card from '$lib/components/ui/card';
 	import * as Table from '$lib/components/ui/table';
@@ -10,9 +10,9 @@
 	import { Button } from '$lib/components/ui/button';
 	import { Trash, ImageOff } from 'lucide-svelte';
 
-	import BundleAdder from '$lib/components/bundle/BundleAdder.svelte';
+	import BundleAdder from '$lib/components/bundles/BundleAdder.svelte';
+	import BundleSelector from '$lib/components/bundles/BundleSelector.svelte';
 	import Loading from '$lib/components/Loading.svelte';
-	import BundleSelector from '$lib/components/bundle/BundleSelector.svelte';
 
 	$: bundles = liveQuery(() => (browser ? bDB.bundles.toArray() : []));
 </script>

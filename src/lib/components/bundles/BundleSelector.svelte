@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { liveQuery } from 'dexie';
 	import { browser } from '$app/environment';
-	import { bDB, selectedB, type Bundle, findBundleByValue } from '$lib/js/bundleDB';
+	import { bDB, selectedB, type Bundle, findBundleByValue } from '$lib/components/bundles/bundleDB';
 
 	import * as Card from '$lib/components/ui/card';
 	import * as Select from '$lib/components/ui/select';
@@ -50,7 +50,7 @@
 			</Select.Root>
 
 			{#if selectedBundleDetail}
-				<Collapsible.Root class="mt-2  bg-background border rounded-md">
+				<Collapsible.Root class="mt-2 bg-background border rounded-md">
 					<Collapsible.Trigger asChild let:builder>
 						<Button
 							builders={[builder]}
@@ -74,7 +74,7 @@
 							{#each selectedBundleDetail.formats as format}
 								{@const { name, width, height } = format}
 								<li class="text-sm">
-									<span class="capitalize font-semibold mb-1">{name}</span>
+									<span class="capitalize font-semibold">{name}</span>
 									<br />
 									<span>{width}px × {height}px</span>
 								</li>

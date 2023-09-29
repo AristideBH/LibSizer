@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { writable, type Writable } from 'svelte/store';
-	import { addBundle, type Format, type NullableKeys } from '$lib/js/bundleDB';
+	import { addBundle, type Format, type NullableKeys } from '$lib/components/bundles/bundleDB';
 	import { toast } from 'svelte-sonner';
 
 	import * as Dialog from '$lib/components/ui/dialog';
@@ -77,17 +77,11 @@
 
 		// All checks passed, add the bundle
 		addBundle(bundleName, $formatList);
-		handleSuccess();
+		dialogOpen = false;
 		// Reset form
 		$formatNumber = 2; // Reset format number
 		bundleName = '';
 	}
-
-	const handleSuccess = () => {
-		// Your code for handling success here
-		console.log('Handle success function called');
-		dialogOpen = false;
-	};
 
 	// Subscribe to formatNumber changes and update the formatList accordingly
 	$: {
@@ -123,6 +117,7 @@
 				<Input id="bundleName" class="" required type="text" bind:value={bundleName} />
 			</div>
 
+			<!-- * Formats listing -->
 			<fieldset class=" flex flex-col gap-3">
 				<legend class="flex gap-1 w-full mb-2">
 					<span class="mr-auto">Formats</span>
@@ -203,6 +198,7 @@
 				{/each}
 			</fieldset>
 		</fieldset>
+
 		<Dialog.Footer>
 			<Button type="button" on:click={handleAddBundle}>Add bundle</Button>
 			<Dialog.Close asChild let:builder>
