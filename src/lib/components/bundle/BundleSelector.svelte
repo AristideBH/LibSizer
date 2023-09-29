@@ -50,17 +50,17 @@
 			</Select.Root>
 
 			{#if selectedBundleDetail}
-				<Collapsible.Root class="mt-3">
+				<Collapsible.Root class="mt-2  bg-background border rounded-md">
 					<Collapsible.Trigger asChild let:builder>
 						<Button
 							builders={[builder]}
 							variant="ghost"
-							class="w-full justify-start items-center p-2 "
+							class="w-full justify-start items-center p-3 "
 						>
 							<Info class="h-4 w-4 mr-2" />
-							<h4 class="text-sm font-semibold">
-								Formats in {selectedBundleDetail.label}
-							</h4>
+							<p class="text-xs">
+								{selectedBundleDetail.label} formats
+							</p>
 							<span class="sr-only">Toggle</span>
 							<ChevronsUpDown class="h-4 w-4 ml-auto" />
 						</Button>
@@ -69,14 +69,14 @@
 					<Collapsible.Content class="space-y-2">
 						<ul
 							id="formats"
-							class="gap-2 my-0 ml-0 mt-1 flex flex-col p-3 pl-7 overflow-x-auto bg-muted border rounded font-mono"
+							class="gap-3 my-0 ml-0 mt-1 flex flex-col p-3 pt-1 pl-7 overflow-x-auto font-mono"
 						>
 							{#each selectedBundleDetail.formats as format}
 								{@const { name, width, height } = format}
-								<li>
-									<span class="capitalize font-semibold">{name}</span>
+								<li class="text-sm">
+									<span class="capitalize font-semibold mb-1">{name}</span>
 									<br />
-									<span class="small">{width}px × {height}px</span>
+									<span>{width}px × {height}px</span>
 								</li>
 							{/each}
 						</ul>
