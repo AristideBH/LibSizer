@@ -110,7 +110,7 @@
 		dialogOpen = open === true;
 	}}
 >
-	<Dialog.Trigger class={buttonVariants({ variant: 'outline' })}>Add a new bundle</Dialog.Trigger>
+	<Dialog.Trigger class="{buttonVariants()} w-fit ">Add a new bundle</Dialog.Trigger>
 	<Dialog.Content>
 		<Dialog.Header>
 			<Dialog.Title>New bundle</Dialog.Title>
