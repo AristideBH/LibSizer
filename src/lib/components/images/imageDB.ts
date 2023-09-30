@@ -1,17 +1,7 @@
 import Dexie from 'dexie';
 import { toast } from 'svelte-sonner';
 import { writable } from 'svelte/store';
-
-// * Types
-export type Picture = {
-    id?: number;
-    blob: Blob | ArrayBuffer;
-    name: string;
-    type: string;
-    size: number;
-    width?: number;
-    height?: number;
-};
+import type { Picture } from '$lib/types';
 
 // * Stores
 export const imageAddLoading = writable(false);

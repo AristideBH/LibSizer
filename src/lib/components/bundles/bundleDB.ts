@@ -2,6 +2,7 @@ import Dexie from 'dexie'
 import slugify from '@sindresorhus/slugify'
 import { toast } from 'svelte-sonner';
 import { writable } from '@macfja/svelte-persistent-store';
+import type { Bundle, Format, NullableKeys, Picture } from '$lib/types';
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 // ! WARNING
@@ -10,27 +11,8 @@ import { writable } from '@macfja/svelte-persistent-store';
 // \ / : * ? " < > |
 // This will break the naming convention when exporting zip file, resulting in an inappropriate file name.
 
-// * TYPES
-export type Format = {
-    id: number;
-    name: string; // !
-    width: number;
-    height: number;
-}
-
-export type NullableKeys<T> = {
-    [K in keyof T]: K extends "width" | "height" | 'name' ? T[K] | null : T[K];
-}
-
-export type Bundle = {
-    id?: number;
-    label: string; // !
-    value: string;
-    formats: Array<Format>;
-}
-
 // * Prepolulate data
-const initialData: Bundle[] = [
+const initialBundles: Bundle[] = [
     {
         value: "standard",
         label: "Standard",
@@ -45,27 +27,35 @@ const initialData: Bundle[] = [
 ];
 
 // * Selected Bundle Store
-export const selectedB = writable<Bundle | undefined>('selectedB', initialData[0]);
+export const selectedB = writable<Bundle | undefined>('selectedB', initialBundles[0]);
 
 // * Custom Dexie store 
 class CustomDexie extends Dexie {
     bundles: Dexie.Table<Bundle, number>;
+    images: Dexie.Table<Picture, number>;
 
     constructor(databaseName: string) {
         super(databaseName);
         // Define the 'bundles' table
-        this.version(1).stores({ bundles: '++id, value, label, formats' });
+        this.version(1).stores({
+            bundles: '++id, value, label, formats'
+        });
         this.bundles = this.table('bundles');
+        // Define the 'images' table
+        this.version(1).stores({
+            images: '++id, blob, path, name, type, size, width, height'
+        })
+        this.images = this.table('images')
     }
 
-    async populateInitialData() {
+    async populateInitialBundles() {
         try {
             // Check if data has already been added
             const dataExists = await this.bundles.toArray();
             if (dataExists.length === 0) {
-                // Use a transaction to bulkAdd initialData to the 'bundles' table
+                // Use a transaction to bulkAdd initialBundles to the 'bundles' table
                 await this.transaction('rw', this.bundles, async () => {
-                    await this.bundles.bulkAdd(initialData);
+                    await this.bundles.bulkAdd(initialBundles);
                 });
                 console.log('Default bundles added successfully.');
             } else {
@@ -79,7 +69,7 @@ class CustomDexie extends Dexie {
 
 // * Init DB
 export const bDB = new CustomDexie('bundleDB');
-bDB.populateInitialData();
+bDB.populateInitialBundles();
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////

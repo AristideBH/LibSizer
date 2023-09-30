@@ -1,14 +1,9 @@
 import type { Size } from '../../js/bundles';
+import type { PixelCrop } from '$lib/types';
 import Fraction from 'fraction.js';
 import { saveAs } from 'file-saver';
 import JSZip from 'jszip';
 
-export type PixelCrop = {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-};
 
 export const createImage = (url: string): Promise<HTMLImageElement> =>
     new Promise((resolve, reject) => {
