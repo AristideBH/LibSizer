@@ -3,10 +3,17 @@ import slugify from '@sindresorhus/slugify'
 import { toast } from 'svelte-sonner';
 import { writable } from '@macfja/svelte-persistent-store';
 
+///////////////////////////////////////////////////////////////////////////////////////////
+// ! WARNING
+// When creating a new bundle and naming the different formats,
+// pleasebe sure to omit any of the following character in the 'name' key :
+// \ / : * ? " < > |
+// This will break the naming convention when exporting zip file, resulting in an inappropriate file name.
+
 // * TYPES
 export type Format = {
     id: number;
-    name: string;
+    name: string; // !
     width: number;
     height: number;
 }
@@ -17,8 +24,8 @@ export type NullableKeys<T> = {
 
 export type Bundle = {
     id?: number;
+    label: string; // !
     value: string;
-    label: string;
     formats: Array<Format>;
 }
 
@@ -70,8 +77,8 @@ class CustomDexie extends Dexie {
     }
 }
 
+// * Init DB
 export const bDB = new CustomDexie('bundleDB');
-
 bDB.populateInitialData();
 
 
@@ -140,7 +147,42 @@ export const deleteBundle = async (id: number | undefined) => {
 };
 
 
+////////////////////////////////////////////////////////////////////////////////////////////////
+////// * RELATED
+////////////////////////////////////////////////////////////////////////////////////////////////
 
+// * Find and return the formats by bundle.value
 export function findBundleByValue(value: string, bundles: Bundle[]): Bundle | undefined {
     return bundles.find((bundle) => bundle.value === value);
+}
+
+// * Return the same aspect ratio together, name them accordingly
+export function getUniqueRatios(formats: Array<Format> | undefined): Array<{
+    ratio: number,
+    formats: Array<Format>
+}> | null {
+
+    if (!formats) return null;
+
+    const ratioMap = new Map<number, Array<Format>>();
+
+    for (let i = 0; i < formats.length; i++) {
+        const { id, width, height, name } = formats[i];
+        if (height !== undefined && width !== undefined) {
+            const ratio = width / height;
+            if (ratioMap.has(ratio)) {
+                const formatsWithSameRatio = ratioMap.get(ratio)!;
+                formatsWithSameRatio.push({ id, name, width, height });
+            } else {
+                ratioMap.set(ratio, [{ id, name, width, height }]);
+            }
+        }
+    }
+
+    const ratioList: Array<{ ratio: number, formats: Array<Format> }> = [];
+    for (const [ratio, formats] of ratioMap.entries()) {
+        ratioList.push({ ratio, formats });
+    }
+
+    return ratioList;
 }

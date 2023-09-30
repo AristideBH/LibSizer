@@ -1,3 +1,8 @@
+import type { Size } from '../../js/bundles';
+import Fraction from 'fraction.js';
+import { saveAs } from 'file-saver';
+import JSZip from 'jszip';
+
 export type PixelCrop = {
     x: number;
     y: number;
@@ -19,20 +24,8 @@ export function getRadianAngle(degreeValue: number): number {
 }
 
 /**
- * Returns the new bounding area of a rotated rectangle.
- */
-export function rotateSize(width: number, height: number, rotation: number): { width: number; height: number } {
-    const rotRad = getRadianAngle(rotation);
-
-    return {
-        width: Math.abs(Math.cos(rotRad) * width) + Math.abs(Math.sin(rotRad) * height),
-        height: Math.abs(Math.sin(rotRad) * width) + Math.abs(Math.cos(rotRad) * height),
-    };
-}
-
-
-/**
  * This function was adapted from the one in the ReadMe of https://github.com/DominicTobias/react-image-crop
+ * Desired size implementaed by @AristideBH
  */
 export default async function getCroppedImg(
     imageSrc: string,
@@ -90,9 +83,12 @@ export default async function getCroppedImg(
 }
 
 
+////////////////////////////////////////////////////////////////////////////////////////////////
+////// * RELATED
+////////////////////////////////////////////////////////////////////////////////////////////////
 
-import Fraction from 'fraction.js';
-
+// * STRING MANIPULATIONS
+// Return a simplified fraction from a ratio
 export function decimalToFraction(decimal: number): string {
     const fraction = new Fraction(decimal);
     if (fraction.equals(1)) {
@@ -101,13 +97,7 @@ export function decimalToFraction(decimal: number): string {
     return fraction.toFraction();
 }
 
-
-import { saveAs } from 'file-saver';
-import type { Size } from './bundles';
-
-/**
- * Returns the file name without the extension
- */
+// Returns the file name without the extension
 export const omitExt = (fileName: string): string => {
     if (/\.(jpe?g|png|webp|gif|ico|tif?f)$/i.test(fileName)) {
         return fileName.replace(/\.(jpe?g|png|webp|gif|ico|tif?f)$/i, '');
@@ -115,19 +105,19 @@ export const omitExt = (fileName: string): string => {
     return fileName;
 };
 
-
-export const downloadFile = (imageData: Blob | string, sizeName: string, imageName: string) => {
-    saveAs(imageData, omitExt(imageName) + ' - ' + sizeName);
-};
-
-import JSZip from 'jszip';
-
+// * DOWNLOAD FUNCTIONS
 // Function to fetch Blob data from a Blob URL
 async function fetchBlobFromUrl(blobUrl: string): Promise<Blob> {
     const response = await fetch(blobUrl);
     return await response.blob();
 }
 
+// Save simple jpg
+export const downloadFile = (imageData: Blob | string, sizeName: string, imageName: string) => {
+    saveAs(imageData, omitExt(imageName) + ' - ' + sizeName);
+};
+
+// Download the whode ratio
 export const handleAspectDownload = async (
     sizes: Size[],
     croppedImage: string | null,

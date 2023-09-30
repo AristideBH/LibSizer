@@ -3,11 +3,11 @@
 	import { slide } from 'svelte/transition';
 	import Cropper from 'svelte-easy-crop';
 	// prettier-ignore
-	import getCroppedImg, { decimalToFraction, downloadFile, handleAspectDownload, type PixelCrop } from '$lib/js/canvasUtils';
-	import { createDataUrl, type Picture } from '$lib/js/imageDB';
+	import getCroppedImg, { decimalToFraction, downloadFile, handleAspectDownload, type PixelCrop } from '$lib/components/images/canvasUtils';
+	import { createDataUrl, type Picture } from '$lib/components/images/imageDB';
 
 	import { FolderDown, AlertTriangle, FileDown } from 'lucide-svelte';
-	import Button from './ui/button/button.svelte';
+	import Button from '../ui/button/button.svelte';
 
 	export let image: Picture;
 	export let sizes: Size[];

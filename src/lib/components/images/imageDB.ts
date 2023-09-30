@@ -16,7 +16,7 @@ export type Picture = {
 // * Stores
 export const imageAddLoading = writable(false);
 export const imageClearLoading = writable(false);
-export const selected = writable<number | undefined>(undefined)
+export const selectedImage = writable<number | undefined>(undefined)
 
 
 //* Init IndexedDB
@@ -119,3 +119,19 @@ const getSrc = (image: Picture) => {
 
 
 export { createDataUrl, deleteImage, getImageById, getSrc };
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+////// * Related 
+////////////////////////////////////////////////////////////////////////////////////////////////
+export const highlightLibrary = writable(false);
+
+export const toggleHighlight = (durationInMilliseconds: number) => {
+    highlightLibrary.set(true);
+
+    setTimeout(() => {
+        highlightLibrary.set(false);
+    }, durationInMilliseconds);
+};
+

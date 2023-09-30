@@ -4,23 +4,20 @@
 	import { page } from '$app/stores';
 	import { liveQuery } from 'dexie';
 
-	import { db, deleteImage, clearDB, imageClearLoading, selected } from '$lib/js/imageDB';
+	// prettier-ignore
+	import { db, deleteImage, clearDB, imageClearLoading, selectedImage, highlightLibrary } from '$lib/components/images/imageDB';
 	import { sheetOpen } from '$lib/utils';
 
 	import { Trash2, Loader2 } from 'lucide-svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import * as Card from '$lib/components/ui/card';
 	import * as Dialog from '$lib/components/ui/dialog';
-	import { highlightLibrary } from '$lib/js/bundles';
-
-	$: highlightClass = $highlightLibrary ? 'border-primary' : '';
 
 	const handleSelect = (index: number | undefined) => {
-		if (index) $selected = index;
+		if (index) $selectedImage = index;
 	};
 
-	const isNotEmpty = (obj: Record<string, any>) => Object.keys(obj).length !== 0;
-
+	$: highlightClass = $highlightLibrary ? 'border-primary' : '';
 	$: images = liveQuery(() => (browser ? db.images.toArray() : []));
 </script>
 

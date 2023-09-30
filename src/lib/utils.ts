@@ -4,9 +4,11 @@ import { cubicOut } from "svelte/easing";
 import type { TransitionConfig } from "svelte/transition";
 import { writable } from "svelte/store";
 
-
+// * SIDEBAR State
 export const sheetOpen = writable(true);
 
+
+// * SHADCN FN
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
 }

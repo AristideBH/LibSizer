@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	// prettier-ignore
-	import { modeCurrent, setModeUserPrefers, setModeCurrent, setInitialClassState, getModeOsPrefers } from '$lib/js/theme';
+	import { modeCurrent, setModeUserPrefers, setModeCurrent, setInitialClassState, getModeOsPrefers } from '$lib/theme';
 	import { Switch } from '$lib/components/ui/switch';
 
 	function onToggleHandler(): void {
