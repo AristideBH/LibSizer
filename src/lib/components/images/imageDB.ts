@@ -1,34 +1,13 @@
-import Dexie from 'dexie';
 import { toast } from 'svelte-sonner';
 import { writable } from 'svelte/store';
+
 import type { Picture } from '$lib/types';
+import { db } from '$lib/db';
 
 // * Stores
 export const imageAddLoading = writable(false);
 export const imageClearLoading = writable(false);
 export const selectedImage = writable<number | undefined>(undefined)
-
-
-//* Init IndexedDB
-export const db = new Dexie('imageDB') as Dexie & {
-    images: Dexie.Table<Picture, number>;
-};
-// Create image store with adequat table columns
-db.version(1).stores({
-    images: '++id, blob, path, name, type, size, width, height',
-});
-
-// Initial populate    
-// db.on('populate', function (transaction) {
-//     transaction.images.bulkAdd({
-//         blob: "testBlob",
-//         name: "test",
-//         size: 0,
-//         type: 'image/test'
-//     });
-// });
-
-db.open();
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -109,7 +88,6 @@ const getSrc = (image: Picture) => {
 
 
 export { createDataUrl, deleteImage, getImageById, getSrc };
-
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////

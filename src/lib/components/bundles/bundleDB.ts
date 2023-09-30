@@ -1,8 +1,9 @@
-import Dexie from 'dexie'
 import slugify from '@sindresorhus/slugify'
 import { toast } from 'svelte-sonner';
 import { writable } from '@macfja/svelte-persistent-store';
-import type { Bundle, Format, NullableKeys, Picture } from '$lib/types';
+
+import type { Bundle, Format, NullableKeys } from '$lib/types';
+import { db } from '$lib/db'
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 // ! WARNING
@@ -29,47 +30,7 @@ const initialBundles: Bundle[] = [
 // * Selected Bundle Store
 export const selectedB = writable<Bundle | undefined>('selectedB', initialBundles[0]);
 
-// * Custom Dexie store 
-class CustomDexie extends Dexie {
-    bundles: Dexie.Table<Bundle, number>;
-    images: Dexie.Table<Picture, number>;
-
-    constructor(databaseName: string) {
-        super(databaseName);
-        // Define the 'bundles' table
-        this.version(1).stores({
-            bundles: '++id, value, label, formats'
-        });
-        this.bundles = this.table('bundles');
-        // Define the 'images' table
-        this.version(1).stores({
-            images: '++id, blob, path, name, type, size, width, height'
-        })
-        this.images = this.table('images')
-    }
-
-    async populateInitialBundles() {
-        try {
-            // Check if data has already been added
-            const dataExists = await this.bundles.toArray();
-            if (dataExists.length === 0) {
-                // Use a transaction to bulkAdd initialBundles to the 'bundles' table
-                await this.transaction('rw', this.bundles, async () => {
-                    await this.bundles.bulkAdd(initialBundles);
-                });
-                console.log('Default bundles added successfully.');
-            } else {
-                console.log('Default bundles exists. Skipping population.');
-            }
-        } catch (error) {
-            console.error('Error adding data: ', error);
-        }
-    }
-}
-
-// * Init DB
-export const bDB = new CustomDexie('bundleDB');
-bDB.populateInitialBundles();
+db.populateBundles(initialBundles);
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -93,7 +54,7 @@ export async function addBundle(bundleName: string, formatList: Format[] | Nulla
         }));
 
         // Check if a bundle with the same value or label already exists
-        const existingBundle = await bDB.bundles
+        const existingBundle = await db.bundles
             .where('value')
             .equals(slugify(bundleName))
             .or('label')
@@ -104,7 +65,7 @@ export async function addBundle(bundleName: string, formatList: Format[] | Nulla
             toast.warning(`A bundle with the value or label "${bundleName}" already exists.`);
         } else {
             // Add the new bundle since it doesn't exist yet
-            const id = await bDB.bundles.add({
+            const id = await db.bundles.add({
                 value: slugify(bundleName),
                 label: bundleName,
                 formats: nonNullableFormats
@@ -128,7 +89,7 @@ export const deleteBundle = async (id: number | undefined) => {
         }
 
         toast.success(`Bundle with id: ${id} successfully deleted`)
-        return await bDB.bundles.delete(id);
+        return await db.bundles.delete(id);
     } catch (error) {
         // Handle the error gracefully
         console.error('Error deleting bundle:', error);

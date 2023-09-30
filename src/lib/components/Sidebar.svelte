@@ -1,11 +1,12 @@
 <script lang="ts">
-	import * as Sheet from '$lib/components/ui/sheet';
 	import { X, Menu } from 'lucide-svelte';
-	import Listing from './images/Listing.svelte';
+	import * as Sheet from '$lib/components/ui/sheet';
 	import Button from './ui/button/button.svelte';
-	import Logo from './Logo.svelte';
-	import BundleSelector from './bundles/BundleSelector.svelte';
+
 	import { sheetOpen } from '$lib/utils';
+	import Logo from './Logo.svelte';
+	import Listing from './images/Library.svelte';
+	import BundleSelector from './bundles/BundleSelector.svelte';
 </script>
 
 <Sheet.Root

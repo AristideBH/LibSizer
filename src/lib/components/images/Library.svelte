@@ -5,7 +5,14 @@
 	import { liveQuery } from 'dexie';
 
 	// prettier-ignore
-	import { db, deleteImage, clearDB, imageClearLoading, selectedImage, highlightLibrary } from '$lib/components/images/imageDB';
+	import { db } from '$lib/db';
+	import {
+		deleteImage,
+		clearDB,
+		imageClearLoading,
+		selectedImage,
+		highlightLibrary
+	} from '$lib/components/images/imageDB';
 	import { sheetOpen } from '$lib/utils';
 
 	import { Trash2, Loader2 } from 'lucide-svelte';

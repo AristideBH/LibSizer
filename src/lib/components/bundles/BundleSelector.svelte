@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { liveQuery } from 'dexie';
 	import { browser } from '$app/environment';
-	import { bDB, selectedB, type Bundle, findBundleByValue } from '$lib/components/bundles/bundleDB';
+	import { db } from '$lib/db';
+	import { selectedB, findBundleByValue } from '$lib/components/bundles/bundleDB';
 
 	import * as Card from '$lib/components/ui/card';
 	import * as Select from '$lib/components/ui/select';
@@ -13,7 +14,7 @@
 	let className = '';
 	export { className as class };
 
-	$: bundles = liveQuery(() => (browser ? bDB.bundles.toArray() : []));
+	$: bundles = liveQuery(() => (browser ? db.bundles.toArray() : []));
 	$: selectedBundleDetail =
 		$bundles && $selectedB ? findBundleByValue($selectedB?.value, $bundles) : undefined;
 </script>

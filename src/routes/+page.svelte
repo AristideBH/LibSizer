@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Welcome from '$lib/components/Welcome.svelte';
 	import FileImport from '$lib/components/images/FileImport.svelte';
-	import Listing from '$lib/components/images/Listing.svelte';
+	import Listing from '$lib/components/images/Library.svelte';
 	import BundleSelector from '$lib/components/bundles/BundleSelector.svelte';
 </script>
 

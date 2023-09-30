@@ -6,11 +6,12 @@
 	import Button from '$lib/components/ui/button/button.svelte';
 	import * as Alert from '$lib/components/ui/alert';
 
+	import type { Picture } from '$lib/types';
+	import { db } from '$lib/db';
 	import { getUniqueRatios, bundleSizes, selectedBundle } from '$lib/js/bundles';
-	import { db, type Picture } from '$lib/components/images/imageDB';
 	import BundleSelector from '$lib/components/bundles/BundleSelector.svelte';
 	import Cropper from '$lib/components/images/Cropper.svelte';
-	import Listing from '$lib/components/images/Listing.svelte';
+	import Listing from '$lib/components/images/Library.svelte';
 
 	export let data: PageData;
 	let isLoading = true;
