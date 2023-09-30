@@ -1,16 +1,16 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import { flyAndScale } from '$lib/utils';
+	import { flyAndScale } from '$lib/logic/utils';
 	import { liveQuery } from 'dexie';
-	import { db } from '$lib/db';
-	import { deleteBundle } from '$lib/components/bundles/bundleDB';
 
+	import { Trash, ImageOff } from 'lucide-svelte';
 	import * as Card from '$lib/components/ui/card';
 	import * as Table from '$lib/components/ui/table';
 	import * as Alert from '$lib/components/ui/alert';
 	import { Button } from '$lib/components/ui/button';
-	import { Trash, ImageOff } from 'lucide-svelte';
 
+	import { db } from '$lib/logic/db';
+	import { deleteBundle } from '$lib/components/bundles';
 	import BundleAdder from '$lib/components/bundles/BundleAdder.svelte';
 	import BundleSelector from '$lib/components/bundles/BundleSelector.svelte';
 	import Loading from '$lib/components/Loading.svelte';
@@ -47,7 +47,6 @@
 				</Alert.Description>
 			</Alert.Root>
 		{:else}
-			<!-- else content here -->
 			{#each $bundles as bundle}
 				<section class="container" transition:flyAndScale>
 					<header class="flex justify-between items-bottom">
@@ -57,7 +56,6 @@
 							Delete
 						</Button>
 					</header>
-					<!-- <pre>{JSON.stringify(bundle.bundle, undefined, 2)}</pre> -->
 
 					<div class="rounded-md border">
 						<Table.Root>
@@ -73,7 +71,6 @@
 							<Table.Body>
 								{#each bundle.formats as row (row.id)}
 									<Table.Row>
-										<!-- <pre>{JSON.stringify(row, undefined, 2)}</pre> -->
 										{#each Object.entries(row) as [key, value]}
 											<Table.Cell>
 												{value}

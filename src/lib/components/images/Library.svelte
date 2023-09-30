@@ -4,21 +4,15 @@
 	import { page } from '$app/stores';
 	import { liveQuery } from 'dexie';
 
-	// prettier-ignore
-	import { db } from '$lib/db';
-	import {
-		deleteImage,
-		clearDB,
-		imageClearLoading,
-		selectedImage,
-		highlightLibrary
-	} from '$lib/components/images/imageDB';
-	import { sheetOpen } from '$lib/utils';
-
 	import { Trash2, Loader2 } from 'lucide-svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import * as Card from '$lib/components/ui/card';
 	import * as Dialog from '$lib/components/ui/dialog';
+
+	import { db } from '$lib/logic/db';
+	// prettier-ignore
+	import { deleteImage, clearDB, imageClearLoading, selectedImage, highlightLibrary } from '$lib/components/images';
+	import { sheetOpen } from '$lib/logic/utils';
 
 	const handleSelect = (index: number | undefined) => {
 		if (index) $selectedImage = index;

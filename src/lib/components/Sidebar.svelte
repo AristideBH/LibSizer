@@ -3,7 +3,7 @@
 	import * as Sheet from '$lib/components/ui/sheet';
 	import Button from './ui/button/button.svelte';
 
-	import { sheetOpen } from '$lib/utils';
+	import { sheetOpen } from '$lib/logic/utils';
 	import Logo from './Logo.svelte';
 	import Listing from './images/Library.svelte';
 	import BundleSelector from './bundles/BundleSelector.svelte';

@@ -5,7 +5,7 @@
 	import type { PixelCrop, Picture, Format } from '$lib/types';
 	// prettier-ignore
 	import getCroppedImg, { decimalToFraction, downloadFile, handleAspectDownload } from '$lib/components/images/canvasUtils';
-	import { createDataUrl } from '$lib/components/images/imageDB';
+	import { createDataUrl } from '$lib/components/images';
 
 	import { FolderDown, AlertTriangle, FileDown } from 'lucide-svelte';
 	import Button from '../ui/button/button.svelte';

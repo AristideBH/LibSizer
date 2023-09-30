@@ -3,16 +3,17 @@
 	import { liveQuery } from 'dexie';
 	import { browser } from '$app/environment';
 
-	import { Loader2, MonitorDown, ImageOff } from 'lucide-svelte';
+	import { MonitorDown, ImageOff } from 'lucide-svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import * as Alert from '$lib/components/ui/alert';
 
 	import type { Picture } from '$lib/types';
-	import { db } from '$lib/db';
-	import { selectedB, findBundleByValue, getUniqueRatios2 } from '$lib/components/bundles/bundleDB';
+	import { db } from '$lib/logic/db';
+	import { selectedB, findBundleByValue, getUniqueRatios2 } from '$lib/components/bundles';
 	import BundleSelector from '$lib/components/bundles/BundleSelector.svelte';
 	import Cropper from '$lib/components/images/Cropper.svelte';
 	import Library from '$lib/components/images/Library.svelte';
+	import Loading from '$lib/components/Loading.svelte';
 
 	export let data: PageData;
 	let isLoading = true;
@@ -48,10 +49,7 @@
 
 <main class="lg:col-span-8 xl:col-span-9 flex flex-col grow sticky top-24 gap-12">
 	{#if isLoading}
-		<Button disabled variant="ghost">
-			<Loader2 class="mr-2 h-4 w-4 animate-spin" />
-			Loading
-		</Button>
+		<Loading />
 	{:else if image}
 		<div class="flex flex-col gap-3 sticky top-0 z-50">
 			<h1>{image.name}</h1>
@@ -65,7 +63,6 @@
 			{#each ratioList2 as { ratio, formats }}
 				<Cropper {image} {ratio} {formats} />
 			{/each}
-			<pre>{JSON.stringify(ratioList2, undefined, 2)}</pre>
 		{/if}
 	{:else}
 		<Alert.Root>

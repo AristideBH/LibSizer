@@ -2,7 +2,7 @@ import { toast } from 'svelte-sonner';
 import { writable } from 'svelte/store';
 
 import type { Picture } from '$lib/types';
-import { db } from '$lib/db';
+import { db } from '$lib/logic/db';
 
 // * Stores
 export const imageAddLoading = writable(false);

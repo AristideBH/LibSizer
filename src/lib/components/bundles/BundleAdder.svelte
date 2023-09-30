@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { writable, type Writable } from 'svelte/store';
-	import { addBundle, type Format, type NullableKeys } from '$lib/components/bundles/bundleDB';
+	import type { Format, NullableKeys } from '$lib/types';
+	import { addBundle } from '$lib/components/bundles';
 	import { toast } from 'svelte-sonner';
 
 	import * as Dialog from '$lib/components/ui/dialog';

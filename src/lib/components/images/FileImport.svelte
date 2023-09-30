@@ -1,9 +1,10 @@
 <script lang="ts">
 	import Dropzone from 'svelte-file-dropzone/Dropzone.svelte';
-	import { ImagePlus, Loader2 } from 'lucide-svelte';
-	import { addImage, imageAddLoading, toggleHighlight } from '$lib/components/images/imageDB';
-	import Button from '../ui/button/button.svelte';
+	import { ImagePlus } from 'lucide-svelte';
 	import { toast } from 'svelte-sonner';
+
+	import { addImage, imageAddLoading, toggleHighlight } from '$lib/components/images';
+	import Loading from '../Loading.svelte';
 
 	let className = '';
 	export { className as class };
@@ -56,10 +57,7 @@
 	<ImagePlus class="mb-5 w-12 h-12 stroke-primary stroke-1" />
 
 	{#if $imageAddLoading}
-		<Button disabled variant="ghost" type="button">
-			<Loader2 class="mr-2 h-4 w-4 animate-spin" />
-			Loading
-		</Button>
+		<Loading />
 	{:else if hover}
 		<p>Drop your files</p>
 	{:else}

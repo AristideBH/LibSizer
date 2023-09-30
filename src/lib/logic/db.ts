@@ -1,5 +1,5 @@
-import Dexie from 'dexie'
 import type { Bundle, Picture } from '$lib/types';
+import Dexie from 'dexie'
 
 // Custom Dexie class
 export class CustomDexie extends Dexie {

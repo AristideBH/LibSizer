@@ -1,8 +1,8 @@
 <script lang="ts">
 	import '../app.postcss';
 	import { page } from '$app/stores';
-	import { autoModeWatcher } from '$lib/theme';
-	import { flyAndScale } from '$lib/utils';
+	import { autoModeWatcher } from '$lib/logic/theme';
+	import { flyAndScale } from '$lib/logic/utils';
 	import { Toaster } from 'svelte-sonner';
 
 	import { Github, Info } from 'lucide-svelte';

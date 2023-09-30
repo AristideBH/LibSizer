@@ -3,7 +3,8 @@ import { toast } from 'svelte-sonner';
 import { writable } from '@macfja/svelte-persistent-store';
 
 import type { Bundle, Format, NullableKeys } from '$lib/types';
-import { db } from '$lib/db'
+import { db } from '$lib/logic/db';
+import { Standard, Test, Visa } from '$lib/components/bundles/defaultBundles';
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 // ! WARNING
@@ -14,22 +15,11 @@ import { db } from '$lib/db'
 
 // * Prepolulate data
 const initialBundles: Bundle[] = [
-    {
-        value: "standard",
-        label: "Standard",
-        formats: [
-            { id: 1, name: "Portrait 3:4", width: 900, height: 1200 },
-            { id: 2, name: "Landscape 4:3", width: 1200, height: 900 },
-            { id: 3, name: "Landscape 16:9", width: 1920, height: 1080 },
-            { id: 4, name: "Portrait 9:16", width: 1080, height: 1920 },
-            { id: 5, name: "Square", width: 1080, height: 1080 },
-        ]
-    }
+    Standard, Test, Visa
 ];
 
 // * Selected Bundle Store
 export const selectedB = writable<Bundle | undefined>('selectedB', initialBundles[0]);
-
 db.populateBundles(initialBundles);
 
 

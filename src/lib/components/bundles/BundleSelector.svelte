@@ -1,15 +1,15 @@
 <script lang="ts">
 	import { liveQuery } from 'dexie';
 	import { browser } from '$app/environment';
-	import { db } from '$lib/db';
-	import { selectedB, findBundleByValue } from '$lib/components/bundles/bundleDB';
+	import { db } from '$lib/logic/db';
+	import { selectedB, findBundleByValue } from '$lib/components/bundles';
 
 	import * as Card from '$lib/components/ui/card';
 	import * as Select from '$lib/components/ui/select';
 	import * as Collapsible from '$lib/components/ui/collapsible';
 	import { Button } from '$lib/components/ui/button';
 	import { Info, Settings2, ChevronsUpDown } from 'lucide-svelte';
-	import { sheetOpen } from '$lib/utils';
+	import { sheetOpen } from '$lib/logic/utils';
 
 	let className = '';
 	export { className as class };
