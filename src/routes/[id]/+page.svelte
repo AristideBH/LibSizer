@@ -10,7 +10,7 @@
 	import * as Alert from '$lib/components/ui/alert';
 	import Cropper from '$lib/components/Cropper.svelte';
 	import Listing from '$lib/components/Listing.svelte';
-	import BundleSelect from '$lib/components/BundleSelect.svelte';
+	import BundleSelector from '$lib/components/bundles/BundleSelector.svelte';
 
 	export let data: PageData;
 	let isLoading = true;
@@ -37,7 +37,7 @@
 </svelte:head>
 
 <aside class="hidden lg:flex">
-	<BundleSelect class="sticky top-0" />
+	<BundleSelector />
 	<Listing />
 </aside>
 

@@ -8,6 +8,7 @@
 	import * as Collapsible from '$lib/components/ui/collapsible';
 	import { Button } from '$lib/components/ui/button';
 	import { Info, Settings2, ChevronsUpDown } from 'lucide-svelte';
+	import { sheetOpen } from '$lib/utils';
 
 	let className = '';
 	export { className as class };
@@ -35,7 +36,8 @@
 						size="icon"
 						title="Edit bundles"
 						class="text-foreground "
-						href="/newBundles"
+						href="/bundles"
+						on:click={() => ($sheetOpen = false)}
 					>
 						<Settings2 class=" h-4 w-4" />
 					</Button>

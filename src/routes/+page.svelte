@@ -2,7 +2,7 @@
 	import Welcome from '$lib/components/Welcome.svelte';
 	import FileImport from '$lib/components/FileImport.svelte';
 	import Listing from '$lib/components/Listing.svelte';
-	import BundleSelect from '$lib/components/BundleSelect.svelte';
+	import BundleSelector from '$lib/components/bundles/BundleSelector.svelte';
 </script>
 
 <svelte:head>
@@ -14,7 +14,7 @@
 </svelte:head>
 
 <aside class="hidden lg:flex">
-	<BundleSelect />
+	<BundleSelector />
 	<Listing />
 </aside>
 

@@ -1,17 +1,21 @@
 <script lang="ts">
-	import { bundles } from '$lib/js/bundles';
+	import { browser } from '$app/environment';
+	import { flyAndScale } from '$lib/utils';
+	import { liveQuery } from 'dexie';
+	import { bDB, deleteBundle } from '$lib/components/bundles/bundleDB';
 
-	import { Button, buttonVariants } from '$lib/components/ui/button';
-	import * as Table from '$lib/components/ui/table';
 	import * as Card from '$lib/components/ui/card';
-	import * as Dialog from '$lib/components/ui/dialog';
-	import { Input } from '$lib/components/ui/input';
-	import { Label } from '$lib/components/ui/label';
-</script>
+	import * as Table from '$lib/components/ui/table';
+	import * as Alert from '$lib/components/ui/alert';
+	import { Button } from '$lib/components/ui/button';
+	import { Trash, ImageOff } from 'lucide-svelte';
 
-<svelte:head>
-	<title>Edit bundles - LibSizer</title>
-</svelte:head>
+	import BundleAdder from '$lib/components/bundles/BundleAdder.svelte';
+	import BundleSelector from '$lib/components/bundles/BundleSelector.svelte';
+	import Loading from '$lib/components/Loading.svelte';
+
+	$: bundles = liveQuery(() => (browser ? bDB.bundles.toArray() : []));
+</script>
 
 <aside>
 	<Card.Root>
@@ -25,57 +29,64 @@
 			</Card.Description>
 		</Card.Header>
 		<Card.Content>
-			<Dialog.Root>
-				<Dialog.Trigger class={buttonVariants({ variant: 'default' })}>
-					Add a new bundle
-				</Dialog.Trigger>
-				<Dialog.Content>
-					<Dialog.Header>
-						<Dialog.Title>Are you sure absolutely sure?</Dialog.Title>
-					</Dialog.Header>
-					<div class="grid gap-4 py-4">
-						<div class="grid grid-cols-4 items-center gap-4">
-							<Label class="text-right">Name</Label>
-							<Input id="name" value="Pedro Duarte" class="col-span-3" />
-						</div>
-					</div>
-					<Dialog.Footer>
-						<Button type="submit">Save changes</Button>
-					</Dialog.Footer>
-				</Dialog.Content>
-			</Dialog.Root>
+			<BundleAdder class="mt-4" />
 		</Card.Content>
 	</Card.Root>
+	<BundleSelector></BundleSelector>
 </aside>
-<main class="flex flex-col gap-1 overflow-auto">
-	{#each $bundles as bundle}
-		<h2 class="mb-3 sticky top-0 bg-background">{bundle.label}</h2>
-		<!-- <pre>{JSON.stringify(bundle.bundle, undefined, 2)}</pre> -->
 
-		<div class="rounded-md border">
-			<Table.Root>
-				<Table.Header>
-					<Table.Row>
-						{#each Object.entries(bundle.bundle[0]) as [key, value]}
-							<Table.Head>
-								<Table.Cell class="capitalize">{key}</Table.Cell>
-							</Table.Head>
-						{/each}
-					</Table.Row>
-				</Table.Header>
-				<Table.Body>
-					{#each bundle.bundle as row (row.id)}
-						<Table.Row>
-							<!-- <pre>{JSON.stringify(row, undefined, 2)}</pre> -->
-							{#each Object.entries(row) as [key, value]}
-								<Table.Cell>
-									{value}
-								</Table.Cell>
-							{/each}
-						</Table.Row>
-					{/each}
-				</Table.Body>
-			</Table.Root>
-		</div>
-	{/each}
+<main class="flex flex-col gap-6 overflow-auto">
+	{#if $bundles}
+		{#if $bundles.length < 1}
+			<Alert.Root>
+				<ImageOff class="h-4 w-4" />
+				<Alert.Title>There are no bundles loaded.</Alert.Title>
+				<Alert.Description>
+					Refresh your page to populate with default bundles or add your own.
+				</Alert.Description>
+			</Alert.Root>
+		{:else}
+			<!-- else content here -->
+			{#each $bundles as bundle}
+				<section class="container" transition:flyAndScale>
+					<header class="flex justify-between items-bottom">
+						<h1 class="mb-3 sticky top-0 bg-background">{bundle.label}</h1>
+						<Button type="button" variant="outline" on:click={() => deleteBundle(bundle.id)}>
+							<Trash class="mr-2 h-4 w-4" />
+							Delete
+						</Button>
+					</header>
+					<!-- <pre>{JSON.stringify(bundle.bundle, undefined, 2)}</pre> -->
+
+					<div class="rounded-md border">
+						<Table.Root>
+							<Table.Header>
+								<Table.Row>
+									{#each Object.entries(bundle.formats[0]) as [key]}
+										<Table.Head>
+											<Table.Cell class="capitalize">{key}</Table.Cell>
+										</Table.Head>
+									{/each}
+								</Table.Row>
+							</Table.Header>
+							<Table.Body>
+								{#each bundle.formats as row (row.id)}
+									<Table.Row>
+										<!-- <pre>{JSON.stringify(row, undefined, 2)}</pre> -->
+										{#each Object.entries(row) as [key, value]}
+											<Table.Cell>
+												{value}
+											</Table.Cell>
+										{/each}
+									</Table.Row>
+								{/each}
+							</Table.Body>
+						</Table.Root>
+					</div>
+				</section>
+			{/each}
+		{/if}
+	{:else}
+		<Loading />
+	{/if}
 </main>

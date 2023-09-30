@@ -4,9 +4,8 @@
 	import { page } from '$app/stores';
 	import { liveQuery } from 'dexie';
 
-	import { Dialog as SheetPrimitive } from 'bits-ui';
-
 	import { db, deleteImage, clearDB, imageClearLoading, selected } from '$lib/js/imageDB';
+	import { sheetOpen } from '$lib/utils';
 
 	import { Trash2, Loader2 } from 'lucide-svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
@@ -41,8 +40,11 @@
 						<Button
 							variant="outline"
 							class="w-full justify-start flex gap-2 no-underline !text-foreground {active} overflow-x-auto overflow-y-hidden group-hover:pr-14"
-							on:click={() => handleSelect(id)}
 							href="/{id}"
+							on:click={() => {
+								handleSelect(id);
+								$sheetOpen = false;
+							}}
 						>
 							{name}
 						</Button>

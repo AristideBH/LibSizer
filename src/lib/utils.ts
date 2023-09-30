@@ -2,6 +2,10 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { cubicOut } from "svelte/easing";
 import type { TransitionConfig } from "svelte/transition";
+import { writable } from "svelte/store";
+
+
+export const sheetOpen = writable(true);
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
