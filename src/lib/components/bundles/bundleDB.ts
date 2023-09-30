@@ -108,7 +108,7 @@ export function findBundleByValue(value: string, bundles: Bundle[]): Bundle | un
 }
 
 // * Return the same aspect ratio together, name them accordingly
-export function getUniqueRatios(formats: Array<Format> | undefined): Array<{
+export function getUniqueRatios2(formats: Array<Format> | undefined): Array<{
     ratio: number,
     formats: Array<Format>
 }> | null {
@@ -137,3 +137,4 @@ export function getUniqueRatios(formats: Array<Format> | undefined): Array<{
 
     return ratioList;
 }
+

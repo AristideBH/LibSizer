@@ -1,5 +1,4 @@
-import type { Size } from '../../js/bundles';
-import type { PixelCrop } from '$lib/types';
+import type { PixelCrop, Format } from '$lib/types';
 import Fraction from 'fraction.js';
 import { saveAs } from 'file-saver';
 import JSZip from 'jszip';
@@ -20,12 +19,12 @@ export function getRadianAngle(degreeValue: number): number {
 
 /**
  * This function was adapted from the one in the ReadMe of https://github.com/DominicTobias/react-image-crop
- * Desired size implementaed by @AristideBH
+ * Format parameter implementaed by @AristideBH
  */
 export default async function getCroppedImg(
     imageSrc: string,
     pixelCrop: { x: number; y: number; width: number; height: number },
-    desiredSize: { width: number; height: number },
+    format: { width: number; height: number },
     rotation: number = 0,
     flip: { horizontal: boolean; vertical: boolean } = { horizontal: false, vertical: false },
 ): Promise<string | null> {
@@ -40,15 +39,15 @@ export default async function getCroppedImg(
     const rotRad = getRadianAngle(rotation);
 
     // Calculate the scale factor for resizing
-    const scaleFactorX = desiredSize.width / pixelCrop.width;
-    const scaleFactorY = desiredSize.height / pixelCrop.height;
+    const scaleFactorX = format.width / pixelCrop.width;
+    const scaleFactorY = format.height / pixelCrop.height;
 
     // Set canvas size to match the desired size
-    canvas.width = desiredSize.width;
-    canvas.height = desiredSize.height;
+    canvas.width = format.width;
+    canvas.height = format.height;
 
     // Translate canvas context to the center to allow rotating and flipping around the center
-    ctx.translate(desiredSize.width / 2, desiredSize.height / 2);
+    ctx.translate(format.width / 2, format.height / 2);
     ctx.rotate(rotRad);
     ctx.scale(flip.horizontal ? -1 : 1, flip.vertical ? -1 : 1);
 
@@ -59,8 +58,8 @@ export default async function getCroppedImg(
         pixelCrop.y,
         pixelCrop.width,
         pixelCrop.height,
-        -desiredSize.width / 2,
-        -desiredSize.height / 2,
+        -format.width / 2,
+        -format.height / 2,
         pixelCrop.width * scaleFactorX,
         pixelCrop.height * scaleFactorY
     );
@@ -108,26 +107,26 @@ async function fetchBlobFromUrl(blobUrl: string): Promise<Blob> {
 }
 
 // Save simple jpg
-export const downloadFile = (imageData: Blob | string, sizeName: string, imageName: string) => {
-    saveAs(imageData, omitExt(imageName) + ' - ' + sizeName);
+export const downloadFile = (imageData: Blob | string, formatName: string, imageName: string) => {
+    saveAs(imageData, omitExt(imageName) + ' - ' + formatName);
 };
 
 // Download the whode ratio
 export const handleAspectDownload = async (
-    sizes: Size[],
+    formats: Format[],
     croppedImage: string | null,
     imageData: string,
     pixelCrop: PixelCrop, imageName: string
 ) => {
     const zip = new JSZip();
 
-    for (const size of sizes) {
-        const width = size.width ? size.width : pixelCrop.width;
-        const height = size.height ? size.height : pixelCrop.height;
+    for (const format of formats) {
+        const width = format.width ? format.width : pixelCrop.width;
+        const height = format.height ? format.height : pixelCrop.height;
         croppedImage = await getCroppedImg(imageData, pixelCrop, { width, height });
         if (croppedImage) {
             const croppedImageBlob = await fetchBlobFromUrl(croppedImage);
-            zip.file(omitExt(imageName) + ' - ' + size.name + '.jpg', croppedImageBlob);
+            zip.file(omitExt(imageName) + ' - ' + format.name + '.jpg', croppedImageBlob);
         }
     }
     const blob = await zip.generateAsync({ type: 'blob' });

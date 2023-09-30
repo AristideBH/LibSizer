@@ -2,7 +2,8 @@
 	import { browser } from '$app/environment';
 	import { flyAndScale } from '$lib/utils';
 	import { liveQuery } from 'dexie';
-	import { bDB, deleteBundle } from '$lib/components/bundles/bundleDB';
+	import { db } from '$lib/db';
+	import { deleteBundle } from '$lib/components/bundles/bundleDB';
 
 	import * as Card from '$lib/components/ui/card';
 	import * as Table from '$lib/components/ui/table';
@@ -14,7 +15,7 @@
 	import BundleSelector from '$lib/components/bundles/BundleSelector.svelte';
 	import Loading from '$lib/components/Loading.svelte';
 
-	$: bundles = liveQuery(() => (browser ? bDB.bundles.toArray() : []));
+	$: bundles = liveQuery(() => (browser ? db.bundles.toArray() : []));
 </script>
 
 <aside>

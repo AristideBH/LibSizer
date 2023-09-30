@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import { liveQuery } from 'dexie';
+	import { browser } from '$app/environment';
 
 	import { Loader2, MonitorDown, ImageOff } from 'lucide-svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
@@ -8,18 +9,16 @@
 
 	import type { Picture } from '$lib/types';
 	import { db } from '$lib/db';
-	import { getUniqueRatios, bundleSizes, selectedBundle } from '$lib/js/bundles';
+	import { selectedB, findBundleByValue, getUniqueRatios2 } from '$lib/components/bundles/bundleDB';
 	import BundleSelector from '$lib/components/bundles/BundleSelector.svelte';
 	import Cropper from '$lib/components/images/Cropper.svelte';
-	import Listing from '$lib/components/images/Library.svelte';
+	import Library from '$lib/components/images/Library.svelte';
 
 	export let data: PageData;
 	let isLoading = true;
 	let image: Picture | null = null;
 
-	$: ratioList = getUniqueRatios(bundleSizes($selectedBundle));
-
-	$: query = liveQuery(async () => {
+	$: imageQuery = liveQuery(async () => {
 		try {
 			const fetchedImage = await db.images.where('id').equals(Number(data.id)).first();
 			isLoading = false;
@@ -30,7 +29,12 @@
 			image = null;
 		}
 	});
-	$query;
+	$imageQuery;
+
+	$: bundles = liveQuery(() => (browser ? db.bundles.toArray() : []));
+	$: selectedBundleDetail =
+		$bundles && $selectedB ? findBundleByValue($selectedB?.value, $bundles) : undefined;
+	$: ratioList2 = getUniqueRatios2(selectedBundleDetail?.formats);
 </script>
 
 <svelte:head>
@@ -39,7 +43,7 @@
 
 <aside class="hidden lg:flex">
 	<BundleSelector />
-	<Listing />
+	<Library />
 </aside>
 
 <main class="lg:col-span-8 xl:col-span-9 flex flex-col grow sticky top-24 gap-12">
@@ -57,10 +61,11 @@
 				Download the whole bundle
 			</Button>
 		</div>
-		{#if ratioList}
-			{#each ratioList as { ratio, sizes }}
-				<Cropper {image} {ratio} {sizes} />
+		{#if ratioList2}
+			{#each ratioList2 as { ratio, formats }}
+				<Cropper {image} {ratio} {formats} />
 			{/each}
+			<pre>{JSON.stringify(ratioList2, undefined, 2)}</pre>
 		{/if}
 	{:else}
 		<Alert.Root>

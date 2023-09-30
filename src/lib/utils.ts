@@ -5,7 +5,7 @@ import type { TransitionConfig } from "svelte/transition";
 import { writable } from "svelte/store";
 
 // * SIDEBAR State
-export const sheetOpen = writable(true);
+export const sheetOpen = writable(false);
 
 
 // * SHADCN FN
