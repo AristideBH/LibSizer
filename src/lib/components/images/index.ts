@@ -1,5 +1,6 @@
 import { toast } from 'svelte-sonner';
 import { writable } from 'svelte/store';
+import { goto } from '$app/navigation';
 
 import type { Picture } from '$lib/types';
 import { db } from '$lib/logic/db';
@@ -49,7 +50,7 @@ export const clearDB = async () => {
         await db.images.clear();
         imageClearLoading.set(false);
         toast.success('Library cleared successfully !');
-        window.location.href = '/';
+        goto('/')
         // throw redirect(301, '/')
     } catch (error) {
         console.error('Error clearing the database:', error);

@@ -5,7 +5,7 @@
 	import { flyAndScale } from '$lib/logic/utils';
 	import { Toaster } from 'svelte-sonner';
 
-	import { Github, Info } from 'lucide-svelte';
+	import { Github, Info, Library } from 'lucide-svelte';
 	import { Button } from '$lib/components/ui/button';
 	import ThemeSwitcher from '$lib/components/ThemeSwitcher.svelte';
 	import Logo from '$lib/components/Logo.svelte';
@@ -44,6 +44,9 @@
 
 				<Button variant="outline" size="icon" href="/about" title="About LibSizer">
 					<Info />
+				</Button>
+				<Button variant="outline" size="icon" href="/library" title="View your library">
+					<Library />
 				</Button>
 			</div>
 		</div>

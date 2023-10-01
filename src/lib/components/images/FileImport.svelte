@@ -2,6 +2,7 @@
 	import Dropzone from 'svelte-file-dropzone/Dropzone.svelte';
 	import { ImagePlus } from 'lucide-svelte';
 	import { toast } from 'svelte-sonner';
+	import { goto } from '$app/navigation';
 
 	import { addImage, imageAddLoading, toggleHighlight } from '$lib/components/images';
 	import Loading from '../Loading.svelte';
@@ -38,6 +39,7 @@
 			hover = false;
 			toast.success('Imported successfully !');
 			toggleHighlight(2000);
+			goto('/library');
 		} catch (error) {
 			console.error('Error importing file(s):', error);
 			toast.error('Something went wrong during the import');
