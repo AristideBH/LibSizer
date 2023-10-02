@@ -22,20 +22,28 @@ const buttonVariants = tv({
 			sm: "h-9 rounded-md px-3",
 			lg: "h-11 rounded-md px-8",
 			icon: "h-10 w-10"
+		},
+		type: {
+			default: " ",
+			submit: ""
+
 		}
 	},
 	defaultVariants: {
 		variant: "default",
-		size: "default"
+		size: "default",
+		type: "default"
 	}
 });
 
 type Variant = VariantProps<typeof buttonVariants>["variant"];
 type Size = VariantProps<typeof buttonVariants>["size"];
+type Type = VariantProps<typeof buttonVariants>["type"];
 
 type Props = ButtonPrimitive.Props & {
 	variant?: Variant;
 	size?: Size;
+	type?: Type
 };
 
 type Events = ButtonPrimitive.Events;

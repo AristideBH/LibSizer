@@ -8,7 +8,13 @@
 
 	let className: $$Props['class'] = undefined;
 	export let value: $$Props['value'] = undefined;
+	export let type: $$Props['type'] = 'text';
 	export { className as class };
+
+	function handleInput(event: Event) {
+		const target = event.target as HTMLInputElement;
+		value = type?.match(/^(number|range)$/) ? +target.value : target.value;
+	}
 </script>
 
 <input
@@ -28,6 +34,6 @@
 	on:mouseenter
 	on:mouseleave
 	on:paste
-	on:input
+	on:input={handleInput}
 	{...$$restProps}
 />

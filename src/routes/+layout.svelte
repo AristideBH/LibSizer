@@ -5,7 +5,7 @@
 	import { flyAndScale } from '$lib/logic/utils';
 	import { Toaster } from 'svelte-sonner';
 
-	import { Github, Info, Library } from 'lucide-svelte';
+	import { FormInput, Github, Info, Library } from 'lucide-svelte';
 	import { Button } from '$lib/components/ui/button';
 	import ThemeSwitcher from '$lib/components/ThemeSwitcher.svelte';
 	import Logo from '$lib/components/Logo.svelte';
@@ -47,6 +47,9 @@
 				</Button>
 				<Button variant="outline" size="icon" href="/library" title="View your library">
 					<Library />
+				</Button>
+				<Button variant="outline" size="icon" href="/form" title="Form demo">
+					<FormInput />
 				</Button>
 			</div>
 		</div>
