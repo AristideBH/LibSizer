@@ -7,19 +7,25 @@
 	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
 
 	export let data: PageData;
-	$: form = data.form;
 
 	const options: FormOptions<typeof schema> = {
 		validators: schema,
-		dataType: 'json'
+		dataType: 'json',
+		defaultValidator: 'clear',
+		taintedMessage: null
 		// validationMethod: 'oninput'
+	};
+
+	const addFormat = () => {
+		data.form.data.formats.push({ name: '', width: 0, height: 0 });
+		console.log(data.form.data.formats);
 	};
 </script>
 
 <main class="col-span-full">
 	<h1>form demo</h1>
 
-	<Form.Root method="POST" {form} {options} {schema} action="?/submit" let:config>
+	<Form.Root method="POST" form={data.form} {options} {schema} action="?/submit" let:config>
 		<Form.Field {config} name="bundleName">
 			<Form.Item>
 				<Form.Label>Bundle name</Form.Label>
@@ -29,10 +35,12 @@
 			</Form.Item>
 		</Form.Field>
 		<h4>Formats :</h4>
-		{#if form.errors?.formats?._errors}
-			<p>{form.errors.formats._errors}</p>
+
+		<!-- <Button on:click|once={addFormat} variant="outline">addformat</Button> -->
+		{#if data.form.errors?.formats?._errors}
+			<p>{data.form.errors.formats._errors}</p>
 		{/if}
-		{#each form.data.formats as _, i}
+		{#each data.form.data.formats as _, i}
 			<div class="flex gap-3">
 				<!-- <Form.Field {config} name={`formats[${i}].id`}>
 					<Form.Item class="">
