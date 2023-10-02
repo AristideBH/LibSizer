@@ -7,6 +7,7 @@
 
 	import { FormInput, Github, Info, Library } from 'lucide-svelte';
 	import { Button } from '$lib/components/ui/button';
+	import { Badge } from '$lib/components/ui/badge';
 	import ThemeSwitcher from '$lib/components/ThemeSwitcher.svelte';
 	import Logo from '$lib/components/Logo.svelte';
 	import Sidebar from '$lib/components/Sidebar.svelte';
@@ -23,7 +24,10 @@
 			<a href="/" class="no-underline">
 				<div class="flex gap-2 text-3xl font-extrabold tracking-tight">
 					<Logo class="!h-10 !w-10 !stroke-[1.35] stroke-foreground " />
-					LibSizer
+					<span class="flex items-start gap-2">
+						LibSizer
+						<Badge variant="outline">beta</Badge>
+					</span>
 				</div>
 			</a>
 		</div>
