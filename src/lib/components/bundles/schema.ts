@@ -1,9 +1,10 @@
 import { z } from 'zod'
 
-export const emptyFormat = { name: '', width: 0, height: 0 }
+export const emptyFormat = { name: 'Vignette', width: 50, height: 50 }
 
 export const schema = z.object({
-    bundleName: z.string().min(2).max(50),
+    bundleName: z.string().min(2).max(50)
+        .default("test"),
     formats:
         z.object({
             name: z.string().min(2).max(50)
@@ -19,7 +20,10 @@ export const schema = z.object({
                     message: "Height must be bigger than 10px",
                 }),
         }).array()
-            .default([emptyFormat, { ...emptyFormat }])
+            .default([
+                emptyFormat,
+                //  { ...emptyFormat }
+            ])
             .refine((formats) => {
                 const names: string[] = [];
                 for (const format of formats) {

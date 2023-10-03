@@ -34,8 +34,8 @@
 
 	$: bundles = liveQuery(() => (browser ? db.bundles.toArray() : []));
 	$: selectedBundleDetail =
-		$bundles && $selectedB ? findBundleByValue($selectedB?.value, $bundles) : undefined;
-	$: ratioList2 = getUniqueRatios2(selectedBundleDetail?.formats);
+		$bundles && $selectedB && browser ? findBundleByValue($selectedB?.value, $bundles) : undefined;
+	$: ratioList = getUniqueRatios2(selectedBundleDetail?.formats);
 </script>
 
 <svelte:head>
@@ -59,8 +59,8 @@
 				Download the whole bundle
 			</Button>
 		</div>
-		{#if ratioList2}
-			{#each ratioList2 as { ratio, formats }}
+		{#if ratioList}
+			{#each ratioList as { ratio, formats }}
 				<Cropper {image} {ratio} {formats} />
 			{/each}
 		{/if}

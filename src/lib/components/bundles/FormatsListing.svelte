@@ -1,11 +1,12 @@
 <script lang="ts">
 	import * as Form from '$lib/components/ui/form';
 	import { getForm } from 'formsnap';
-	const { form, errors } = getForm<Schema>();
+	const { form, errors, options } = getForm<Schema>();
 
 	import { Button } from '$lib/components/ui/button';
 	import { Plus, Minus } from 'lucide-svelte';
 	import { emptyFormat, type Schema } from './schema';
+	import type { ButtonEvents } from 'bits-ui/dist/bits/button';
 
 	const addFormat = () => {
 		$form.formats?.push(emptyFormat);
@@ -31,6 +32,7 @@
 		variant="outline"
 		size="icon"
 		class="h-6 w-6"
+		type="submit"
 		on:click={removeLastFormat}
 		disabled={$form.formats.length < 2 ?? true}
 		title="Remove the last format line"
@@ -41,6 +43,7 @@
 		variant="outline"
 		size="icon"
 		class="h-6 w-6"
+		type="submit"
 		on:click={addFormat}
 		disabled={$form.formats.length > 9 ?? true}
 		title="Add a new format line"

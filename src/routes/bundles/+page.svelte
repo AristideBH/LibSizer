@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { PageData } from './$types';
 	import type { FormOptions } from 'formsnap';
+	import type { PageData, ActionData } from './$types';
 	import * as Card from '$lib/components/ui/card';
 	import * as Dialog from '$lib/components/ui/dialog';
 	import * as Form from '$lib/components/ui/form';
@@ -12,6 +12,7 @@
 	import BundleTable from '$lib/components/bundles/BundleTable.svelte';
 
 	export let data: PageData;
+	export let form: ActionData;
 	let dialogOpen = false;
 	let closeButton: Button;
 
@@ -21,8 +22,20 @@
 		defaultValidator: 'clear',
 		taintedMessage: null,
 		validationMethod: 'submit-only'
+		// SPA: true
 	};
+
+	$: console.log(form);
 </script>
+
+<main class="flex flex-col gap-6 overflow-auto">
+	<!-- <BundleTable /> -->
+	{#if form?.success}
+		<!-- this message is ephemeral; it exists because the page was rendered in
+		   response to a form submission. it will vanish if the user reloads -->
+		<p>Success</p>
+	{/if}
+</main>
 
 <aside>
 	<Card.Root>
@@ -48,7 +61,7 @@
 						<Dialog.Description>Add your new custom bundle here.</Dialog.Description>
 					</Dialog.Header>
 
-					<Form.Root method="POST" form={data.form} {options} {schema} action="?/submit" let:config>
+					<Form.Root method="POST" form={data.form} {options} {schema} let:config>
 						<Form.Field {config} name="bundleName">
 							<Form.Item>
 								<Form.Label>Bundle name</Form.Label>
@@ -77,9 +90,5 @@
 			</Dialog.Root>
 		</Card.Content>
 	</Card.Root>
-	<BundleSelector />
+	<!-- <BundleSelector /> -->
 </aside>
-
-<main class="flex flex-col gap-6 overflow-auto">
-	<BundleTable />
-</main>

@@ -2,11 +2,10 @@ import slugify from '@sindresorhus/slugify'
 import { toast } from 'svelte-sonner';
 import { writable } from '@macfja/svelte-persistent-store';
 
-import type { Bundle, Format, NullableKeys } from '$lib/types';
+import type { Bundle, Format } from '$lib/types';
 import { db } from '$lib/logic/db';
 import { Standard, Test, Visa } from '$lib/components/bundles/defaultBundles';
 import { browser } from '$app/environment';
-import { error } from '@sveltejs/kit';
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 // ! WARNING
@@ -22,7 +21,6 @@ const initialBundles: Bundle[] = [
 
 // * Selected Bundle Store
 export const selectedB = writable<Bundle | undefined>('selectedB', initialBundles[0]);
-
 if (browser) db.populateBundles(initialBundles);
 
 
@@ -34,7 +32,7 @@ if (browser) db.populateBundles(initialBundles);
 export async function addBundle(bundleName: string, formatList: Format[]) {
     try {
         // Check if a bundle with the same value or label already exists
-        if (!browser) throw error(400, 'error')
+
         const existingBundle = await db.bundles
             .where('value')
             .equals(slugify(bundleName))
@@ -54,6 +52,7 @@ export async function addBundle(bundleName: string, formatList: Format[]) {
             toast.success(`Bundle "${bundleName}" successfully added, with id: ${id}`)
 
         }
+
     } catch (error) {
         toast.error(`Failed to add ${bundleName}`)
         console.log(`Failed to add ${bundleName}: ${error}`);
@@ -117,33 +116,4 @@ export function getUniqueRatios2(formats: Array<Format> | undefined): Array<{
     }
 
     return ratioList;
-}
-
-
-
-
-export function areFormatNamesUnique(formats: NullableKeys<Format>[]): boolean {
-    const formatNames = new Set<string>();
-
-    for (const format of formats) {
-        if (format.name !== null && formatNames.has(format.name)) {
-            return false; // Duplicate name found
-        }
-
-        if (format.name !== null) {
-            formatNames.add(format.name);
-        }
-    }
-
-    return true; // All names are unique or null
-}
-
-// Function to check if all values are not null or undefined
-export function areAllValuesNotNull(formats: NullableKeys<Format>[]): boolean {
-    return formats.every(
-        (format) =>
-            (format.name !== null || undefined) &&
-            (format.width !== null || undefined) &&
-            (format.height !== null || undefined)
-    );
 }

@@ -9,7 +9,6 @@ import type { Bundle } from "$lib/types"
 // This will break the naming convention when exporting zip file, resulting in an inappropriate file name.
 ///////////////////////////////////////////////////////////////////////////////
 
-
 const Mousquetaires: Bundle = {
     value: "mousquetaires",
     label: "Mousquetaires",

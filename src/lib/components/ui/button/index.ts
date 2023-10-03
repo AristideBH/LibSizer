@@ -24,15 +24,16 @@ const buttonVariants = tv({
 			icon: "h-10 w-10"
 		},
 		type: {
-			default: " ",
-			submit: ""
+			button: " ",
+			submit: "",
+			reset: ''
 
 		}
 	},
 	defaultVariants: {
 		variant: "default",
 		size: "default",
-		type: "default"
+		type: "button"
 	}
 });
 
