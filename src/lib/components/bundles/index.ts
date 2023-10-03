@@ -5,6 +5,8 @@ import { writable } from '@macfja/svelte-persistent-store';
 import type { Bundle, Format, NullableKeys } from '$lib/types';
 import { db } from '$lib/logic/db';
 import { Standard, Test, Visa } from '$lib/components/bundles/defaultBundles';
+import { browser } from '$app/environment';
+import { error } from '@sveltejs/kit';
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 // ! WARNING
@@ -20,7 +22,8 @@ const initialBundles: Bundle[] = [
 
 // * Selected Bundle Store
 export const selectedB = writable<Bundle | undefined>('selectedB', initialBundles[0]);
-db.populateBundles(initialBundles);
+
+if (browser) db.populateBundles(initialBundles);
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -28,22 +31,10 @@ db.populateBundles(initialBundles);
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 // * Add a new bundle
-export async function addBundle(bundleName: string, formatList: Format[] | NullableKeys<Format>[]) {
+export async function addBundle(bundleName: string, formatList: Format[]) {
     try {
-        if (bundleName == '') {
-            toast.error(`Please enter a bundle name !`)
-            return
-        }
-
-        // Convert formatList to a valid Format[] with non-nullable properties
-        const nonNullableFormats: Format[] = formatList.map((format) => ({
-            id: format.id,
-            name: format.name || `DefaultName-${format.id}`, // Provide a default value if name can be null
-            width: format.width || 150, // Provide a default value if width can be null
-            height: format.height || 150, // Provide a default value if height can be null
-        }));
-
         // Check if a bundle with the same value or label already exists
+        if (!browser) throw error(400, 'error')
         const existingBundle = await db.bundles
             .where('value')
             .equals(slugify(bundleName))
@@ -58,7 +49,7 @@ export async function addBundle(bundleName: string, formatList: Format[] | Nulla
             const id = await db.bundles.add({
                 value: slugify(bundleName),
                 label: bundleName,
-                formats: nonNullableFormats
+                formats: formatList
             });
             toast.success(`Bundle "${bundleName}" successfully added, with id: ${id}`)
 
@@ -128,3 +119,31 @@ export function getUniqueRatios2(formats: Array<Format> | undefined): Array<{
     return ratioList;
 }
 
+
+
+
+export function areFormatNamesUnique(formats: NullableKeys<Format>[]): boolean {
+    const formatNames = new Set<string>();
+
+    for (const format of formats) {
+        if (format.name !== null && formatNames.has(format.name)) {
+            return false; // Duplicate name found
+        }
+
+        if (format.name !== null) {
+            formatNames.add(format.name);
+        }
+    }
+
+    return true; // All names are unique or null
+}
+
+// Function to check if all values are not null or undefined
+export function areAllValuesNotNull(formats: NullableKeys<Format>[]): boolean {
+    return formats.every(
+        (format) =>
+            (format.name !== null || undefined) &&
+            (format.width !== null || undefined) &&
+            (format.height !== null || undefined)
+    );
+}

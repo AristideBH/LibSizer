@@ -33,7 +33,7 @@
 		</div>
 
 		<div class="flex gap-5 items-center">
-			<!-- <ThemeSwitcher /> -->
+			<ThemeSwitcher />
 
 			<div class="flex gap-1">
 				<Button
@@ -51,9 +51,6 @@
 				</Button>
 				<Button variant="outline" size="icon" href="/library" title="View your library">
 					<Library />
-				</Button>
-				<Button variant="outline" size="icon" href="/form" title="Form demo">
-					<FormInput />
 				</Button>
 			</div>
 		</div>

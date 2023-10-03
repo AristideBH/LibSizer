@@ -1,21 +1,27 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
-	import { flyAndScale } from '$lib/logic/utils';
-	import { liveQuery } from 'dexie';
-
-	import { Trash, ImageOff } from 'lucide-svelte';
+	import type { PageData } from './$types';
+	import type { FormOptions } from 'formsnap';
 	import * as Card from '$lib/components/ui/card';
-	import * as Table from '$lib/components/ui/table';
-	import * as Alert from '$lib/components/ui/alert';
-	import { Button } from '$lib/components/ui/button';
+	import * as Dialog from '$lib/components/ui/dialog';
+	import * as Form from '$lib/components/ui/form';
+	import { Button, buttonVariants } from '$lib/components/ui/button';
 
-	import { db } from '$lib/logic/db';
-	import { deleteBundle } from '$lib/components/bundles';
-	import BundleAdder from '$lib/components/bundles/BundleAdder.svelte';
+	import { schema } from '$lib/components/bundles/schema';
+	import FormatsListing from '$lib/components/bundles/FormatsListing.svelte';
 	import BundleSelector from '$lib/components/bundles/BundleSelector.svelte';
-	import Loading from '$lib/components/Loading.svelte';
+	import BundleTable from '$lib/components/bundles/BundleTable.svelte';
 
-	$: bundles = liveQuery(() => (browser ? db.bundles.toArray() : []));
+	export let data: PageData;
+	let dialogOpen = false;
+	let closeButton: Button;
+
+	const options: FormOptions<typeof schema> = {
+		validators: schema,
+		dataType: 'json',
+		defaultValidator: 'clear',
+		taintedMessage: null,
+		validationMethod: 'submit-only'
+	};
 </script>
 
 <aside>
@@ -24,67 +30,56 @@
 			<Card.Title class="mt-0">Bundles</Card.Title>
 			<Card.Description>
 				The default bundles are here to simplify your workflow, but feel free to add more.
-				<br />
-				Any important notice : bundles are store in a local browser database. If you clear it, you'll
-				lose your new informations
 			</Card.Description>
 		</Card.Header>
 		<Card.Content>
-			<BundleAdder class="mt-4" />
+			<Dialog.Root
+				open={dialogOpen}
+				closeOnEscape={false}
+				closeOnOutsideClick={false}
+				onOpenChange={(open) => {
+					dialogOpen = open === true;
+				}}
+			>
+				<Dialog.Trigger class="{buttonVariants()} w-fit ">Add a new bundle</Dialog.Trigger>
+				<Dialog.Content>
+					<Dialog.Header>
+						<Dialog.Title>New bundle</Dialog.Title>
+						<Dialog.Description>Add your new custom bundle here.</Dialog.Description>
+					</Dialog.Header>
+
+					<Form.Root method="POST" form={data.form} {options} {schema} action="?/submit" let:config>
+						<Form.Field {config} name="bundleName">
+							<Form.Item>
+								<Form.Label>Bundle name</Form.Label>
+								<Form.Input />
+								<Form.Validation />
+							</Form.Item>
+						</Form.Field>
+
+						<FormatsListing {config} />
+
+						<Dialog.Footer class="mt-4">
+							<Dialog.Close asChild let:builder>
+								<Button
+									builders={[builder]}
+									variant="outline"
+									class="me-auto"
+									bind:this={closeButton}
+								>
+									Close
+								</Button>
+							</Dialog.Close>
+							<Form.Button type="submit">Add bundle</Form.Button>
+						</Dialog.Footer>
+					</Form.Root>
+				</Dialog.Content>
+			</Dialog.Root>
 		</Card.Content>
 	</Card.Root>
-	<BundleSelector></BundleSelector>
+	<BundleSelector />
 </aside>
 
 <main class="flex flex-col gap-6 overflow-auto">
-	{#if $bundles}
-		{#if $bundles.length < 1}
-			<Alert.Root>
-				<ImageOff class="h-4 w-4" />
-				<Alert.Title>There are no bundles loaded.</Alert.Title>
-				<Alert.Description>
-					Refresh your page to populate with default bundles or add your own.
-				</Alert.Description>
-			</Alert.Root>
-		{:else}
-			{#each $bundles as bundle}
-				<section class="container" transition:flyAndScale>
-					<header class="flex justify-between items-bottom">
-						<h1 class="mb-3 sticky top-0 bg-background">{bundle.label}</h1>
-						<Button type="button" variant="outline" on:click={() => deleteBundle(bundle.id)}>
-							<Trash class="mr-2 h-4 w-4" />
-							Delete
-						</Button>
-					</header>
-
-					<div class="rounded-md border">
-						<Table.Root>
-							<Table.Header>
-								<Table.Row>
-									{#each Object.entries(bundle.formats[0]) as [key]}
-										<Table.Head>
-											<Table.Cell class="capitalize">{key}</Table.Cell>
-										</Table.Head>
-									{/each}
-								</Table.Row>
-							</Table.Header>
-							<Table.Body>
-								{#each bundle.formats as row (row.id)}
-									<Table.Row>
-										{#each Object.entries(row) as [key, value]}
-											<Table.Cell>
-												{value}
-											</Table.Cell>
-										{/each}
-									</Table.Row>
-								{/each}
-							</Table.Body>
-						</Table.Root>
-					</div>
-				</section>
-			{/each}
-		{/if}
-	{:else}
-		<Loading />
-	{/if}
+	<BundleTable />
 </main>
