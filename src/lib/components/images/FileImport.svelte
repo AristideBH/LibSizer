@@ -51,7 +51,7 @@
 	on:dropaccepted={handleAccepted}
 	on:dragover={() => (hover = true)}
 	on:dragleave={() => (hover = false)}
-	accept={['image/jpeg']}
+	accept={['image/jpeg', 'image/jpg', 'image/png', 'image/bmp', 'image/webp']}
 	inputElement=""
 	disableDefaultStyles={true}
 	containerClasses="cn-dropzone {className} {hoverClass}"
@@ -65,6 +65,6 @@
 	{:else}
 		<button type="button" tabindex="-1">Click to upload images</button>
 		<span class="text-center"> or drag & drop them here </span>
-		<small class="mt-1">(Only jpeg are accepted for now)</small>
+		<small class="mt-1">(jpeg, png, bmp and webp are accepted)</small>
 	{/if}
 </Dropzone>

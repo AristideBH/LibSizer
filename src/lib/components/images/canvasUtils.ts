@@ -25,6 +25,7 @@ export default async function getCroppedImg(
     imageSrc: string,
     pixelCrop: { x: number; y: number; width: number; height: number },
     format: { width: number; height: number },
+    imageType: string,
     rotation: number = 0,
     flip: { horizontal: boolean; vertical: boolean } = { horizontal: false, vertical: false },
 ): Promise<string | null> {
@@ -72,7 +73,7 @@ export default async function getCroppedImg(
             } else {
                 reject("Error creating blob.");
             }
-        }, "image/jpeg");
+        }, imageType);
     });
 }
 
@@ -93,8 +94,8 @@ export function decimalToFraction(decimal: number): string {
 
 // Returns the file name without the extension
 export const omitExt = (fileName: string): string => {
-    if (/\.(jpe?g|png|webp|gif|ico|tif?f)$/i.test(fileName)) {
-        return fileName.replace(/\.(jpe?g|png|webp|gif|ico|tif?f)$/i, '');
+    if (/\.(jpe?g|png|bmp|ico)$/i.test(fileName)) {
+        return fileName.replace(/\.(jpe?g|png|bmp|ico)$/i, '');
     }
     return fileName;
 };
@@ -107,8 +108,8 @@ async function fetchBlobFromUrl(blobUrl: string): Promise<Blob> {
 }
 
 // Save simple jpg
-export const downloadFile = (imageData: Blob | string, formatName: string, imageName: string) => {
-    saveAs(imageData, omitExt(imageName) + ' - ' + formatName);
+export const downloadFile = (imageData: Blob | string, formatName: string, imageName: string, imageType: string) => {
+    saveAs(imageData, omitExt(imageName) + ' - ' + formatName + '.' + imageType.replace('image/', ''));
 };
 
 // Download the whode ratio
@@ -117,17 +118,18 @@ export const handleAspectDownload = async (
     croppedImage: string | null,
     imageData: string,
     pixelCrop: PixelCrop,
-    imageName: string
+    imageName: string,
+    imageType: string
 ) => {
     const zip = new JSZip();
 
     for (const format of formats) {
         const width = format.width ? format.width : pixelCrop.width;
         const height = format.height ? format.height : pixelCrop.height;
-        croppedImage = await getCroppedImg(imageData, pixelCrop, { width, height });
+        croppedImage = await getCroppedImg(imageData, pixelCrop, { width, height }, imageType);
         if (croppedImage) {
             const croppedImageBlob = await fetchBlobFromUrl(croppedImage);
-            zip.file(omitExt(imageName) + ' - ' + format.name + '.jpg', croppedImageBlob);
+            zip.file(omitExt(imageName) + ' - ' + format.name + '.' + imageType.replace('image/', ''), croppedImageBlob);
         }
     }
     const blob = await zip.generateAsync({ type: 'blob' });

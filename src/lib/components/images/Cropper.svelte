@@ -44,8 +44,8 @@
 					? 'The loaded image is smaller than this format.\nThis will result in pixelated cropping.'
 					: formatSize}
 				on:click={async () => {
-					croppedImage = await getCroppedImg(imageData, pixelCrop, { width, height });
-					if (croppedImage) downloadFile(croppedImage, size.name, image.name);
+					croppedImage = await getCroppedImg(imageData, pixelCrop, { width, height }, image.type);
+					if (croppedImage) downloadFile(croppedImage, size.name, image.name, image.type);
 				}}
 			>
 				{#if sizeAlert}
@@ -64,7 +64,7 @@
 				variant="secondary"
 				class="w-fit ms-auto sticky right-0"
 				on:click={() =>
-					handleAspectDownload(formats, croppedImage, imageData, pixelCrop, image.name)}
+					handleAspectDownload(formats, croppedImage, imageData, pixelCrop, image.name, image.type)}
 			>
 				<FolderDown class="mr-2 h-4 w-4" />
 				Download all formats
