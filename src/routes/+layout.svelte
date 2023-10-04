@@ -18,7 +18,7 @@
 </svelte:head>
 
 <header class="py-5 sticky top-0 bg-background border-b z-50">
-	<div class="container flex justify-between items-baseline">
+	<div class="container flex justify-between items-center">
 		<div class="flex gap-2">
 			<Sidebar />
 			<a href="/" class="no-underline">
