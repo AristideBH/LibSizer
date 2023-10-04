@@ -13,6 +13,10 @@
 
 	let className = '';
 	export { className as class };
+	export let detailOpen = true;
+	const closeSheet = () => {
+		$sheetOpen = false;
+	};
 
 	$: bundles = liveQuery(() => (browser ? db.bundles.toArray() : []));
 	$: selectedBundleDetail =
@@ -38,7 +42,7 @@
 						title="Edit bundles"
 						class="text-foreground "
 						href="/bundles"
-						on:click={() => ($sheetOpen = false)}
+						on:click={() => closeSheet()}
 					>
 						<Settings2 class=" h-4 w-4" />
 					</Button>
@@ -53,7 +57,7 @@
 			</Select.Root>
 
 			{#if selectedBundleDetail}
-				<Collapsible.Root class="mt-2 bg-background border rounded-md">
+				<Collapsible.Root class="mt-2 bg-background border rounded-md" open={detailOpen}>
 					<Collapsible.Trigger asChild let:builder>
 						<Button
 							builders={[builder]}

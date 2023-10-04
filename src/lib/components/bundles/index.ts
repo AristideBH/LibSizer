@@ -4,7 +4,7 @@ import { writable } from '@macfja/svelte-persistent-store';
 
 import type { Bundle, Format } from '$lib/types';
 import { db } from '$lib/logic/db';
-import { Standard, Test, Visa } from '$lib/components/bundles/defaultBundles';
+import { Instagram, Standard, Visa } from '$lib/components/bundles/defaultBundles';
 import { browser } from '$app/environment';
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -16,7 +16,7 @@ import { browser } from '$app/environment';
 
 // * Prepolulate data
 const initialBundles: Bundle[] = [
-    Standard, Test, Visa
+    Standard, Instagram, Visa
 ];
 
 // * Selected Bundle Store

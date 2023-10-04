@@ -18,22 +18,20 @@
 </svelte:head>
 
 <header class="py-5 sticky top-0 bg-background border-b z-50">
-	<div class="container flex justify-between items-center">
-		<div class="flex gap-3">
+	<div class="container flex justify-between items-baseline">
+		<div class="flex gap-2">
 			<Sidebar />
 			<a href="/" class="no-underline">
 				<div class="flex gap-2 text-3xl font-extrabold tracking-tight">
-					<Logo class="!h-10 !w-10 !stroke-[1.35] stroke-foreground " />
-					<span class="flex items-start gap-2">
-						LibSizer
-						<Badge variant="outline">beta</Badge>
-					</span>
+					<Logo class="!h-10 !w-10 !stroke-[1.35] stroke-foreground hidden lg:block" />
+
+					LibSizer
 				</div>
 			</a>
 		</div>
 
 		<div class="flex gap-5 items-center">
-			<ThemeSwitcher />
+			<!-- <ThemeSwitcher /> -->
 
 			<div class="flex gap-1">
 				<Button
@@ -49,8 +47,14 @@
 				<Button variant="outline" size="icon" href="/about" title="About LibSizer">
 					<Info />
 				</Button>
-				<Button variant="outline" size="icon" href="/library" title="View your library">
-					<Library />
+				<Button
+					href="/library"
+					title="View your library"
+					size="icon"
+					class="no-underline md:ms-2 md:h-10 md:px-4 md:py-2 md:h-unset md:w-fit "
+				>
+					<Library class="md:mr-1" />
+					<span class="hidden md:block">Library</span>
 				</Button>
 			</div>
 		</div>

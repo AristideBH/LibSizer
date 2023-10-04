@@ -116,7 +116,8 @@ export const handleAspectDownload = async (
     formats: Format[],
     croppedImage: string | null,
     imageData: string,
-    pixelCrop: PixelCrop, imageName: string
+    pixelCrop: PixelCrop,
+    imageName: string
 ) => {
     const zip = new JSZip();
 

@@ -17,6 +17,9 @@
 	const handleSelect = (index: number | undefined) => {
 		if (index) $selectedImage = index;
 	};
+	const closeSheet = () => {
+		$sheetOpen = false;
+	};
 
 	$: highlightClass = $highlightLibrary ? 'border-primary' : '';
 	$: images = liveQuery(() => (browser ? db.images.toArray() : []));
@@ -25,7 +28,10 @@
 <Card.Root class="{highlightClass} transition-[border] max-h-[500px] overflow-auto">
 	<Card.Header>
 		<Card.Title class="mt-0 ">Library</Card.Title>
-		<Card.Description>Find your uploaded picture here</Card.Description>
+		<Card.Description>
+			Find your uploaded picture here.
+			<br /> Preview them all in the <a href="/library" on:click={closeSheet}>library page</a>.
+		</Card.Description>
 	</Card.Header>
 
 	<Card.Content>
@@ -41,7 +47,7 @@
 							href="/{id}"
 							on:click={() => {
 								handleSelect(id);
-								$sheetOpen = false;
+								closeSheet();
 							}}
 						>
 							{name}
@@ -69,7 +75,7 @@
 	{#if $images && $images.length > 1}
 		<Card.Footer class="flex gap-2 sticky bottom-0 bg-card pt-4 ">
 			{#if $page.route.id != '/'}
-				<Button href="/" class="no-underline">Add more</Button>
+				<Button href="/library" class="no-underline" on:click={() => closeSheet()}>Add more</Button>
 			{/if}
 			<!-- * Remove all images -->
 			<Dialog.Root>
@@ -87,7 +93,10 @@
 						<Button
 							disabled={$imageClearLoading ? true : false}
 							variant="destructive"
-							on:click={() => clearDB()}
+							on:click={() => {
+								clearDB();
+								closeSheet();
+							}}
 						>
 							{#if $imageClearLoading}
 								<Loader2 class="mr-2 h-4 w-4 animate-spin" />

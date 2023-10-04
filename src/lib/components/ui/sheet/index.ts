@@ -43,8 +43,8 @@ export const sheetVariants = tv({
 		side: {
 			top: "inset-x-0 top-0 border-b",
 			bottom: "inset-x-0 bottom-0 border-t",
-			left: "inset-y-0 left-0 h-full w-[85vw] border-r md:max-w-md sm:max-w-none sm:w-7/8",
-			right: "inset-y-0 right-0 h-full w-[85vw] border-l md:max-w-md sm:max-w-none sm:w-7/8 "
+			left: "inset-y-0 left-0 h-full w-full border-r md:max-w-md sm:max-w-none sm:w-7/8",
+			right: "inset-y-0 right-0 h-full w-full border-l md:max-w-md sm:max-w-none sm:w-7/8 "
 		}
 	},
 	defaultVariants: {

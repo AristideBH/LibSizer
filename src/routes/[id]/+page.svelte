@@ -12,7 +12,7 @@
 	import { selectedB, findBundleByValue, getUniqueRatios2 } from '$lib/components/bundles';
 	import BundleSelector from '$lib/components/bundles/BundleSelector.svelte';
 	import Cropper from '$lib/components/images/Cropper.svelte';
-	import Library from '$lib/components/images/Library.svelte';
+	import LibraryList from '$lib/components/images/LibraryList.svelte';
 	import Loading from '$lib/components/Loading.svelte';
 
 	export let data: PageData;
@@ -43,8 +43,8 @@
 </svelte:head>
 
 <aside class="hidden lg:flex">
-	<BundleSelector />
-	<Library />
+	<BundleSelector detailOpen={false} />
+	<LibraryList />
 </aside>
 
 <main class="lg:col-span-8 xl:col-span-9 flex flex-col grow sticky top-24 gap-12">

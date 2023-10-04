@@ -51,7 +51,7 @@
 	on:dropaccepted={handleAccepted}
 	on:dragover={() => (hover = true)}
 	on:dragleave={() => (hover = false)}
-	accept={['image/*']}
+	accept={['image/jpeg', 'image/png', 'image/gif', 'image/tiff', 'image/ico', 'image/webp']}
 	inputElement=""
 	disableDefaultStyles={true}
 	containerClasses="cn-dropzone {className} {hoverClass}"

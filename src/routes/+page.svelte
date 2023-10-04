@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Welcome from '$lib/components/Welcome.svelte';
 	import FileImport from '$lib/components/images/FileImport.svelte';
-	import Listing from '$lib/components/images/Library.svelte';
+	import LibraryList from '$lib/components/images/LibraryList.svelte';
 	import BundleSelector from '$lib/components/bundles/BundleSelector.svelte';
 </script>
 
@@ -15,7 +15,7 @@
 
 <aside class="hidden lg:flex">
 	<BundleSelector />
-	<Listing />
+	<!-- <LibraryList /> -->
 </aside>
 
 <main
