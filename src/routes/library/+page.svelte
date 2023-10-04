@@ -40,6 +40,7 @@
 			</Alert.Root>
 		{:else}
 			<Masonry items={$images} {minColWidth} {maxColWidth} {gap} let:item class="w-full">
+				<!-- ! Card may cause the problem with width in masonry -->
 				<Card.Root class="flex flex-col h-full group w-full" onClick={() => cardLink(item.id)}>
 					<Card.Content class="px-0 pb-0 grow">
 						<img src={getSrc(item)} alt="" class="rounded-t-md h-full object-cover w-full" />
