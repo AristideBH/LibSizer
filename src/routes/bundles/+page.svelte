@@ -6,6 +6,7 @@
 	import * as Form from '$lib/components/ui/form';
 	import { Button, buttonVariants } from '$lib/components/ui/button';
 
+	import { addBundle } from '$lib/components/bundles';
 	import { schema } from '$lib/components/bundles/schema';
 	import FormatsListing from '$lib/components/bundles/FormatsListing.svelte';
 	import BundleSelector from '$lib/components/bundles/BundleSelector.svelte';
@@ -22,20 +23,13 @@
 		defaultValidator: 'clear',
 		taintedMessage: null,
 		validationMethod: 'submit-only'
-		// SPA: true
 	};
 
-	$: console.log(form);
+	$: if (form?.success) {
+		addBundle(form.submittedBundle.bundleName, form.submittedBundle.formats);
+		dialogOpen = false;
+	}
 </script>
-
-<main class="flex flex-col gap-6 overflow-auto">
-	<!-- <BundleTable /> -->
-	{#if form?.success}
-		<!-- this message is ephemeral; it exists because the page was rendered in
-		   response to a form submission. it will vanish if the user reloads -->
-		<p>Success</p>
-	{/if}
-</main>
 
 <aside>
 	<Card.Root>
@@ -43,6 +37,9 @@
 			<Card.Title class="mt-0">Bundles</Card.Title>
 			<Card.Description>
 				The default bundles are here to simplify your workflow, but feel free to add more.
+				<br />
+				Be aware that bundles are stored in a browser Indexed database (localy), implying they will get
+				removed upon cache clearing and are only available in the current browser.
 			</Card.Description>
 		</Card.Header>
 		<Card.Content>
@@ -83,7 +80,7 @@
 									Close
 								</Button>
 							</Dialog.Close>
-							<Form.Button type="submit">Add bundle</Form.Button>
+							<Form.Button>Add bundle</Form.Button>
 						</Dialog.Footer>
 					</Form.Root>
 				</Dialog.Content>
@@ -92,3 +89,7 @@
 	</Card.Root>
 	<!-- <BundleSelector /> -->
 </aside>
+
+<main class="flex flex-col gap-6 overflow-auto">
+	<BundleTable />
+</main>

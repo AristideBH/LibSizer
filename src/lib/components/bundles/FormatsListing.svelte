@@ -1,30 +1,18 @@
 <script lang="ts">
-	import * as Form from '$lib/components/ui/form';
 	import { getForm } from 'formsnap';
-	const { form, errors, options } = getForm<Schema>();
-
-	import { Button } from '$lib/components/ui/button';
-	import { Plus, Minus } from 'lucide-svelte';
 	import { emptyFormat, type Schema } from './schema';
-	import type { ButtonEvents } from 'bits-ui/dist/bits/button';
+	import { Plus, Minus } from 'lucide-svelte';
+	import * as Form from '$lib/components/ui/form';
+	import { Button } from '$lib/components/ui/button';
 
-	const addFormat = () => {
-		$form.formats?.push(emptyFormat);
-	};
-
-	const removeLastFormat = () => {
-		$form.formats?.pop();
-	};
-
-	// @ts-expect-error
+	//@ts-ignore
 	export let config;
+	const { form, errors } = getForm<Schema>();
 </script>
 
 {#if $errors?.formats?._errors}
 	<p>{$errors?.formats?._errors}</p>
 {/if}
-
-<!-- <pre>{JSON.stringify($form?.formats.length, undefined, 2)}</pre> -->
 
 <div class="flex gap-1 mt-6 items-center">
 	<p>Formats</p>
@@ -33,7 +21,9 @@
 		size="icon"
 		class="h-6 w-6"
 		type="submit"
-		on:click={removeLastFormat}
+		on:click={() => {
+			$form.formats?.pop();
+		}}
 		disabled={$form.formats.length < 2 ?? true}
 		title="Remove the last format line"
 	>
@@ -44,7 +34,10 @@
 		size="icon"
 		class="h-6 w-6"
 		type="submit"
-		on:click={addFormat}
+		on:click={() => {
+			//@ts-expect-error : Defaults bundles are intentionnaly undefined for 'width' and 'height'
+			$form.formats?.push(emptyFormat);
+		}}
 		disabled={$form.formats.length > 9 ?? true}
 		title="Add a new format line"
 	>
@@ -53,29 +46,26 @@
 </div>
 
 {#each $form.formats as _, i}
-	<div class="grid grid-cols-[1fr_minmax(50px,_100px)_minmax(50px,_100px)] gap-4">
+	<div class="grid grid-cols-[1fr_minmax(50px,_75px)_minmax(50px,_75px)] gap-4">
 		<Form.Field {config} name={`formats[${i}].name`}>
 			<Form.Item>
 				<Form.Label>Name</Form.Label>
-				<Form.Input />
-				<!-- <Form.Description>This is your public display name.</Form.Description> -->
+				<Form.Input placeholder="(eg. thumbnail, banner...)" autocomplete="off" />
 				<Form.Validation />
 			</Form.Item>
 		</Form.Field>
 		<Form.Field {config} name={`formats[${i}].width`}>
 			<Form.Item>
 				<Form.Label>Width</Form.Label>
-				<Form.Input type="number" />
-				<!-- <Form.Description>This is your public display name.</Form.Description> -->
+				<Form.Input type="number" placeholder="px" autocomplete="off" />
 				<Form.Validation />
 			</Form.Item>
 		</Form.Field>
 		<Form.Field {config} name={`formats[${i}].height`}>
 			<Form.Item>
 				<Form.Label>Height</Form.Label>
-				<Form.Input type="number" />
-				<!-- <Form.Description>This is your public display name.</Form.Description> -->
-				<Form.Validation />
+				<Form.Input type="number" placeholder="px" autocomplete="off" />
+				<!-- <Form.Validation /> -->
 			</Form.Item>
 		</Form.Field>
 	</div>

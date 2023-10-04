@@ -33,7 +33,7 @@ export const actions: Actions = {
         return {
             success: true,
             form,
-            // submittedBundle,
+            submittedBundle,
         };
     },
 

@@ -1,28 +1,29 @@
 import { z } from 'zod'
 
-export const emptyFormat = { name: 'Vignette', width: 50, height: 50 }
+export const emptyFormat = { name: '', width: undefined, height: undefined }
 
 export const schema = z.object({
-    bundleName: z.string().min(2).max(50)
-        .default("test"),
+    bundleName: z.string().refine(
+        (value) => value.length >= 2 && value.length <= 50,
+        { message: "Bundle name must be between 2 and 50 characters" }
+    ),
     formats:
         z.object({
-            name: z.string().min(2).max(50)
-                .refine((name) => name.length <= 50, {
-                    message: "Name must be between 2 and 50 characters",
-                }),
-            width: z.number().int().min(10)
-                .refine((width) => width <= 1000, {
-                    message: "Width must be bigger than 10px",
-                }),
-            height: z.number().int().min(10)
-                .refine((width) => width <= 1000, {
-                    message: "Height must be bigger than 10px",
-                }),
+            name: z.string().refine(
+                (value) => value.length >= 2 && value.length <= 50,
+                { message: "Name must be between 2 and 50 characters" }
+            ),
+            width: z.number().int().refine(
+                (value) => value >= 10, { message: "Min: 10px" }
+            ),
+            height: z.number().int().refine(
+                (value) => value >= 10, { message: "Min: 10px" }
+            ),
         }).array()
+            //@ts-expect-error : Defaults bundles are intentionnaly undefined for 'width' and 'height'
             .default([
                 emptyFormat,
-                //  { ...emptyFormat }
+                { ...emptyFormat }
             ])
             .refine((formats) => {
                 const names: string[] = [];

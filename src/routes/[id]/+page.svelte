@@ -35,7 +35,7 @@
 	$: bundles = liveQuery(() => (browser ? db.bundles.toArray() : []));
 	$: selectedBundleDetail =
 		$bundles && $selectedB && browser ? findBundleByValue($selectedB?.value, $bundles) : undefined;
-	$: ratioList = getUniqueRatios2(selectedBundleDetail?.formats);
+	$: ratioList = browser ? getUniqueRatios2(selectedBundleDetail?.formats) : undefined;
 </script>
 
 <svelte:head>
