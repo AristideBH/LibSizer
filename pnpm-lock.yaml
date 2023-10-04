@@ -103,6 +103,9 @@ devDependencies:
   svelte:
     specifier: ^4.2.1
     version: 4.2.1
+  svelte-bricks:
+    specifier: ^0.2.1
+    version: 0.2.1
   svelte-check:
     specifier: ^3.5.2
     version: 3.5.2(postcss-load-config@4.0.1)(postcss@8.4.31)(svelte@4.2.1)
@@ -2369,6 +2372,12 @@ packages:
   /supports-preserve-symlinks-flag@1.0.0:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
+
+  /svelte-bricks@0.2.1:
+    resolution: {integrity: sha512-cc3XK3j5ViPyZ3K183+Sr53B2e8mJaiV3POyoJtjmm1dYc/TBMy7jOUMt8MW/snJzodpACfqwFzokBQbrZ297w==}
+    dependencies:
+      svelte: 4.2.1
+    dev: true
 
   /svelte-check@3.5.2(postcss-load-config@4.0.1)(postcss@8.4.31)(svelte@4.2.1):
     resolution: {integrity: sha512-5a/YWbiH4c+AqAUP+0VneiV5bP8YOk9JL3jwvN+k2PEPLgpu85bjQc5eE67+eIZBBwUEJzmO3I92OqKcqbp3fw==}
