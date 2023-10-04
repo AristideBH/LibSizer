@@ -44,7 +44,7 @@
 						<Button
 							variant="outline"
 							class="w-full justify-start flex gap-2 no-underline !text-foreground {active} overflow-x-auto overflow-y-hidden group-hover:pr-14"
-							href="/{id}"
+							href="/library/{id}"
 							on:click={() => {
 								handleSelect(id);
 								closeSheet();

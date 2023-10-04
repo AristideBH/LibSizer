@@ -16,7 +16,7 @@
 
 	const cardLink = (id: number | undefined) => {
 		if (!id) return;
-		goto(`/${id}`);
+		goto(`/library/${id}`);
 	};
 	$: images = liveQuery(() => (browser ? db.images.toArray() : []));
 </script>

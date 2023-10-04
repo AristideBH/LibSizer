@@ -1,12 +1,6 @@
 import type { Bundle } from "$lib/types"
 ///////////////////////////////////////////////////////////////////////////////
-// * CLIENTS SIZE BUNDLES SET
-///////////////////////////////////////////////////////////////////////////////
-// ! WARNING
-// When creating a new bundle and naming the different formats,
-// pleasebe sure to omit any of the following character in the 'name' key :
-// \ / : * ? " < > |
-// This will break the naming convention when exporting zip file, resulting in an inappropriate file name.
+// * DEFAULT BUNDLES SET
 ///////////////////////////////////////////////////////////////////////////////
 
 const Mousquetaires: Bundle = {
@@ -41,10 +35,10 @@ const Standard: Bundle = {
     value: "standard",
     label: "Standard",
     formats: [
-        { id: 1, name: "Portrait 3:4", width: 900, height: 1200 },
-        { id: 2, name: "Landscape 4:3", width: 1200, height: 900 },
-        { id: 3, name: "Landscape 16:9", width: 1920, height: 1080 },
-        { id: 4, name: "Portrait 9:16", width: 1080, height: 1920 },
+        { id: 1, name: "Portrait 3/4", width: 900, height: 1200 },
+        { id: 2, name: "Landscape 4/3", width: 1200, height: 900 },
+        { id: 3, name: "Landscape 16/9", width: 1920, height: 1080 },
+        { id: 4, name: "Portrait 9/16", width: 1080, height: 1920 },
         { id: 5, name: "Square", width: 1080, height: 1080 },
     ]
 }
@@ -54,8 +48,8 @@ const Instagram: Bundle = {
     label: "Instagram",
     formats: [
         { id: 1, name: "Square", width: 1080, height: 1080 },
-        { id: 2, name: "Portrait 4:5", width: 1080, height: 1350 },
-        { id: 3, name: "Landscape 16:9", width: 1080, height: 608 },
+        { id: 2, name: "Portrait 4/5", width: 1080, height: 1350 },
+        { id: 3, name: "Landscape 16/9", width: 1080, height: 608 },
     ]
 }
 
