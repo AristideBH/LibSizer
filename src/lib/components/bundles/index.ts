@@ -4,7 +4,7 @@ import { writable } from '@macfja/svelte-persistent-store';
 
 import type { Bundle, Format } from '$lib/types';
 import { db } from '$lib/logic/db';
-import { Instagram, Standard, Visa } from '$lib/components/bundles/defaultBundles';
+import { Instagram, Standard, Test, Visa } from '$lib/components/bundles/defaultBundles';
 import { browser } from '$app/environment';
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -16,7 +16,7 @@ import { browser } from '$app/environment';
 
 // * Prepolulate data
 const initialBundles: Bundle[] = [
-    Standard, Instagram, Visa
+    Standard, Instagram, Visa, Test
 ];
 
 // * Selected Bundle Store
@@ -32,7 +32,6 @@ if (browser) db.populateBundles(initialBundles);
 export async function addBundle(bundleName: string, formatList: Format[]) {
     try {
         // Check if a bundle with the same value or label already exists
-
         const existingBundle = await db.bundles
             .where('value')
             .equals(slugify(bundleName))

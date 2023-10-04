@@ -9,7 +9,8 @@
 	import * as Collapsible from '$lib/components/ui/collapsible';
 	import { Button } from '$lib/components/ui/button';
 	import { Info, Settings2, ChevronsUpDown } from 'lucide-svelte';
-	import { sheetOpen } from '$lib/logic/utils';
+	import { flyAndScale, sheetOpen } from '$lib/logic/utils';
+	import { slide } from 'svelte/transition';
 
 	let className = '';
 	export { className as class };
@@ -80,7 +81,8 @@
 						>
 							{#each selectedBundleDetail.formats as format}
 								{@const { name, width, height } = format}
-								<li class="text-sm">
+
+								<li class="text-sm" transition:slide>
 									<span class="capitalize font-semibold">{name}</span>
 									<br />
 									<span>{width}px × {height}px</span>

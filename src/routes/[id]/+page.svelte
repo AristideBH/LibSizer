@@ -6,10 +6,12 @@
 	import { MonitorDown, ImageOff } from 'lucide-svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import * as Alert from '$lib/components/ui/alert';
+	import { Badge } from '$lib/components/ui/badge';
 
 	import type { Picture } from '$lib/types';
 	import { db } from '$lib/logic/db';
 	import { selectedB, findBundleByValue, getUniqueRatios2 } from '$lib/components/bundles';
+	import { simpleImageType } from '$lib/components/images/canvasUtils';
 	import BundleSelector from '$lib/components/bundles/BundleSelector.svelte';
 	import Cropper from '$lib/components/images/Cropper.svelte';
 	import LibraryList from '$lib/components/images/LibraryList.svelte';
@@ -53,7 +55,10 @@
 	{:else if image}
 		<div class="flex flex-col gap-3 sticky top-0 z-50">
 			<h1>{image.name}</h1>
-			<code class="w-fit">Original size: {image.width}px × {image.height}px</code>
+			<div class="flex gap-2">
+				<Badge variant="outline">{image.width}px × {image.height}px</Badge>
+				<Badge variant="outline">{simpleImageType(image.type)}</Badge>
+			</div>
 			<Button size="lg">
 				<MonitorDown class="mr-2 h-4 w-4" />
 				Download the whole bundle

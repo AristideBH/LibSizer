@@ -19,7 +19,7 @@ export function getRadianAngle(degreeValue: number): number {
 
 /**
  * This function was adapted from the one in the ReadMe of https://github.com/DominicTobias/react-image-crop
- * Format parameter implementaed by @AristideBH
+ * Format and imageType parameters implementaed by @AristideBH
  */
 export default async function getCroppedImg(
     imageSrc: string,
@@ -94,11 +94,15 @@ export function decimalToFraction(decimal: number): string {
 
 // Returns the file name without the extension
 export const omitExt = (fileName: string): string => {
-    if (/\.(jpe?g|png|bmp|ico)$/i.test(fileName)) {
-        return fileName.replace(/\.(jpe?g|png|bmp|ico)$/i, '');
+    if (/\.(jpe?g|png|bmp|ico|webp)$/i.test(fileName)) {
+        return fileName.replace(/\.(jpe?g|png|bmp|ico|webp)$/i, '');
     }
     return fileName;
 };
+// Returns a cleaner version of the imageType
+export const simpleImageType = (imageType: string): string => {
+    return imageType.replace('image/', '')
+}
 
 // * DOWNLOAD FUNCTIONS
 // Function to fetch Blob data from a Blob URL
@@ -109,7 +113,7 @@ async function fetchBlobFromUrl(blobUrl: string): Promise<Blob> {
 
 // Save simple jpg
 export const downloadFile = (imageData: Blob | string, formatName: string, imageName: string, imageType: string) => {
-    saveAs(imageData, omitExt(imageName) + ' - ' + formatName + '.' + imageType.replace('image/', ''));
+    saveAs(imageData, omitExt(imageName) + ' - ' + formatName + '.' + simpleImageType(imageType));
 };
 
 // Download the whode ratio
@@ -129,7 +133,7 @@ export const handleAspectDownload = async (
         croppedImage = await getCroppedImg(imageData, pixelCrop, { width, height }, imageType);
         if (croppedImage) {
             const croppedImageBlob = await fetchBlobFromUrl(croppedImage);
-            zip.file(omitExt(imageName) + ' - ' + format.name + '.' + imageType.replace('image/', ''), croppedImageBlob);
+            zip.file(omitExt(imageName) + ' - ' + format.name + '.' + simpleImageType(imageType), croppedImageBlob);
         }
     }
     const blob = await zip.generateAsync({ type: 'blob' });

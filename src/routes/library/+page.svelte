@@ -11,6 +11,8 @@
 	import * as Card from '$lib/components/ui/card';
 	import FileImport from '$lib/components/images/FileImport.svelte';
 	import Loading from '$lib/components/Loading.svelte';
+	import { flyAndScale } from '$lib/logic/utils';
+	import { fly, slide } from 'svelte/transition';
 
 	const cardLink = (id: number | undefined) => {
 		if (!id) return;
@@ -32,31 +34,33 @@
 		{:else}
 			<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
 				{#each $images as image}
-					<Card.Root class="flex flex-col h-full group" onClick={() => cardLink(image.id)}>
-						<Card.Content class="px-0 pb-0 grow">
-							<img
-								src={getSrc(image)}
-								alt=""
-								class="rounded-t-md h-full object-cover w-full max-h-64"
-							/>
-						</Card.Content>
-						<Card.Footer class="flex gap-4 items-center overflow-x-auto overflow-y-hidden pt-6 ">
-							<span class="font-semibold whitespace-nowrap">
-								{image.name}
-							</span>
-							<Button
-								variant="outline"
-								size="icon"
-								class="ml-auto sticky right-0 px-3 hidden group-hover:flex z-1 -my-2"
-								on:click={(e) => {
-									e.stopPropagation();
-									deleteImage(image.id);
-								}}
-							>
-								<Trash class="h-4 w-4" />
-							</Button>
-						</Card.Footer>
-					</Card.Root>
+					<div transition:slide>
+						<Card.Root class="flex flex-col h-full group" onClick={() => cardLink(image.id)}>
+							<Card.Content class="px-0 pb-0 grow">
+								<img
+									src={getSrc(image)}
+									alt=""
+									class="rounded-t-md h-full object-cover w-full max-h-64"
+								/>
+							</Card.Content>
+							<Card.Footer class="flex gap-4 items-center overflow-x-auto overflow-y-hidden pt-6 ">
+								<span class="font-semibold whitespace-nowrap">
+									{image.name}
+								</span>
+								<Button
+									variant="outline"
+									size="icon"
+									class="ml-auto sticky right-0 px-3 hidden group-hover:flex z-1 -my-2"
+									on:click={(e) => {
+										e.stopPropagation();
+										deleteImage(image.id);
+									}}
+								>
+									<Trash class="h-4 w-4" />
+								</Button>
+							</Card.Footer>
+						</Card.Root>
+					</div>
 				{/each}
 			</section>
 		{/if}

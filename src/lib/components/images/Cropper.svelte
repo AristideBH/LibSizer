@@ -41,7 +41,7 @@
 				class="w-fit"
 				variant={sizeAlert ? 'warn' : 'outline'}
 				title={sizeAlert
-					? 'The loaded image is smaller than this format.\nThis will result in pixelated cropping.'
+					? 'At default scale, the image is smaller than this format.\nThis will result in pixelated cropping.'
 					: formatSize}
 				on:click={async () => {
 					croppedImage = await getCroppedImg(imageData, pixelCrop, { width, height }, image.type);
