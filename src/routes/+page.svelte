@@ -15,7 +15,7 @@
 
 <aside class="hidden lg:flex">
 	<BundleSelector />
-	<!-- <LibraryList /> -->
+	<LibraryList />
 </aside>
 
 <main

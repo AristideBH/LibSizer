@@ -2,10 +2,10 @@
 	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
 	import { liveQuery } from 'dexie';
-	import Masonry from 'svelte-bricks';
 
 	import { db } from '$lib/logic/db';
 	import { getSrc, deleteImage } from '$lib/components/images';
+	import Masonry from '$lib/components/Masonry.svelte';
 
 	import { Trash, ImageOff } from 'lucide-svelte';
 	import * as Alert from '$lib/components/ui/alert';
@@ -13,15 +13,13 @@
 	import * as Card from '$lib/components/ui/card';
 	import FileImport from '$lib/components/images/FileImport.svelte';
 	import Loading from '$lib/components/Loading.svelte';
-	import { slide } from 'svelte/transition';
 
+	let refreshLayout: any;
 	const cardLink = (id: number | undefined) => {
 		if (!id) return;
 		goto(`/library/${id}`);
 	};
 	$: images = liveQuery(() => (browser ? db.images.toArray() : []));
-
-	let [minColWidth, maxColWidth, gap] = [100, 350, 10];
 </script>
 
 <svelte:head>
@@ -39,61 +37,36 @@
 				<Alert.Description>Please import some with the dropzone.</Alert.Description>
 			</Alert.Root>
 		{:else}
-			<Masonry items={$images} {minColWidth} {maxColWidth} {gap} let:item class="w-full">
-				<!-- ! Card may cause the problem with width in masonry -->
-				<Card.Root class="flex flex-col h-full group w-full" onClick={() => cardLink(item.id)}>
-					<Card.Content class="px-0 pb-0 grow">
-						<img src={getSrc(item)} alt="" class="rounded-t-md h-full object-cover w-full" />
-					</Card.Content>
-					<Card.Footer class="flex gap-4 items-center overflow-x-auto overflow-y-hidden pt-6 ">
-						<span class="font-semibold whitespace-nowrap">
-							{item.name}
-						</span>
-						<!-- <Button
+			<Masonry bind:refreshLayout gridGap="16px">
+				{#each $images as image}
+					<Card.Root class="group" onClick={() => cardLink(image.id)}>
+						<Card.Content class="px-0 pb-0 relative">
+							<img
+								on:load={refreshLayout}
+								src={getSrc(image)}
+								alt=""
+								class="rounded-t-md max-h-[960px] object-cover w-full"
+							/>
+							<Button
 								variant="outline"
 								size="icon"
-								class="ml-auto sticky right-0 px-3 hidden group-hover:flex z-1 -my-2"
+								class=" hidden group-hover:flex absolute top-2 right-2 z-10"
 								on:click={(e) => {
 									e.stopPropagation();
-									deleteImage(item.id);
+									deleteImage(image.id);
 								}}
 							>
 								<Trash class="h-4 w-4" />
-							</Button> -->
-					</Card.Footer>
-				</Card.Root>
-			</Masonry>
-			<!-- <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-				{#each $images as image}
-					<div transition:slide>
-						<Card.Root class="flex flex-col h-full group" onClick={() => cardLink(image.id)}>
-							<Card.Content class="px-0 pb-0 grow">
-								<img
-									src={getSrc(image)}
-									alt=""
-									class="rounded-t-md h-full object-cover w-full max-h-64"
-								/>
-							</Card.Content>
-							<Card.Footer class="flex gap-4 items-center overflow-x-auto overflow-y-hidden pt-6 ">
-								<span class="font-semibold whitespace-nowrap">
-									{image.name}
-								</span>
-								<Button
-									variant="outline"
-									size="icon"
-									class="ml-auto sticky right-0 px-3 hidden group-hover:flex z-1 -my-2"
-									on:click={(e) => {
-										e.stopPropagation();
-										deleteImage(image.id);
-									}}
-								>
-									<Trash class="h-4 w-4" />
-								</Button>
-							</Card.Footer>
-						</Card.Root>
-					</div>
+							</Button>
+						</Card.Content>
+						<Card.Footer class="flex gap-4 items-center overflow-x-auto overflow-y-hidden pt-6 ">
+							<span class="font-semibold whitespace-nowrap">
+								{image.name}
+							</span>
+						</Card.Footer>
+					</Card.Root>
 				{/each}
-			</section> -->
+			</Masonry>
 		{/if}
 	{:else}
 		<Loading />
