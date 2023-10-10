@@ -3,7 +3,7 @@
 	import { liveQuery } from 'dexie';
 	import { browser } from '$app/environment';
 
-	import { MonitorDown, ImageOff } from 'lucide-svelte';
+	import { FolderArchive, ImageOff } from 'lucide-svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import * as Alert from '$lib/components/ui/alert';
 	import { Badge } from '$lib/components/ui/badge';
@@ -16,12 +16,12 @@
 	import Cropper from '$lib/components/images/Cropper.svelte';
 	import LibraryList from '$lib/components/images/LibraryList.svelte';
 	import Loading from '$lib/components/Loading.svelte';
-	import { onMount } from 'svelte';
 
 	export let data: PageData;
 	let isLoading = true;
 	let image: Picture | null = null;
 	let testElement: HTMLElement;
+	let childsData: childData[] = [];
 
 	$: imageQuery = liveQuery(async () => {
 		try {
@@ -41,19 +41,14 @@
 		$bundles && $selectedB && browser ? findBundleByValue($selectedB?.value, $bundles) : undefined;
 	$: ratioList = browser ? getUniqueRatios2(selectedBundleDetail?.formats) : undefined;
 
-	let childsData: childData[] = [];
-
-	function handleDataFromChild(event: CustomEvent<any>) {
+	function handleUpstream(event: CustomEvent<any>) {
 		const dataFromChild = event.detail.detail;
-		// Check if an object with the same 'imageData' exists in childsData
 		const existingIndex = childsData.findIndex(
 			(item) => item.imageData === dataFromChild.imageData
 		);
 		if (existingIndex !== -1) {
-			// If it exists, update the pixelCrop
 			childsData[existingIndex].pixelCrop = dataFromChild.pixelCrop;
 		} else {
-			// If not, add the new data to the array
 			childsData.push(dataFromChild);
 		}
 	}
@@ -76,18 +71,18 @@
 			<h1>{image.name}</h1>
 			<div class="flex gap-2">
 				<Badge variant="outline">{image.width}px × {image.height}px</Badge>
-				<Badge variant="outline">{simpleImageType(image.type)}</Badge>
+				<Badge variant="outline">.{simpleImageType(image.type)}</Badge>
 			</div>
 			{#if childsData && image}
 				<Button size="lg" on:click={() => handleBundleDownload(childsData, image)}>
-					<MonitorDown class="mr-2 h-4 w-4" />
+					<FolderArchive class="mr-2 h-4 w-4" />
 					Download the whole bundle
 				</Button>
 			{/if}
 		</div>
 		{#if ratioList}
 			{#each ratioList as { ratio, formats }}
-				<Cropper {image} {ratio} {formats} on:send-data-to-parent={handleDataFromChild} />
+				<Cropper {image} {ratio} {formats} on:upstream-crop={handleUpstream} />
 			{/each}
 		{/if}
 	{:else}

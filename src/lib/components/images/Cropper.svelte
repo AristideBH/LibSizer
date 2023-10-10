@@ -7,7 +7,7 @@
 	import getCroppedImg, { decimalToFraction, downloadFile, handleAspectDownload } from '$lib/components/images/canvasUtils';
 	import { createDataUrl } from '$lib/components/images';
 
-	import { FolderDown, AlertTriangle, FileDown } from 'lucide-svelte';
+	import { FileArchive, AlertTriangle, FileDown } from 'lucide-svelte';
 	import Button from '../ui/button/button.svelte';
 	import { createEventDispatcher } from 'svelte';
 
@@ -25,15 +25,14 @@
 	const dispatch = createEventDispatcher();
 	const previewCrop = (e: CustomEvent) => {
 		pixelCrop = e.detail.pixels;
-
-		const customEvent = new CustomEvent('send-data-to-parent', {
+		const upstream = new CustomEvent('upstream-crop', {
 			detail: {
 				pixelCrop,
 				formats,
 				imageData
-			} // Pass the data you want to send in the event detail
+			}
 		});
-		dispatch('send-data-to-parent', customEvent);
+		dispatch('upstream-crop', upstream);
 	};
 </script>
 
@@ -79,7 +78,7 @@
 				on:click={() =>
 					handleAspectDownload(formats, croppedImage, imageData, pixelCrop, image.name, image.type)}
 			>
-				<FolderDown class="mr-2 h-4 w-4" />
+				<FileArchive class="mr-2 h-4 w-4" />
 				Download all formats
 			</Button>
 		{/if}

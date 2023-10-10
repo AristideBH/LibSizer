@@ -45,9 +45,16 @@
 			toast.error('Something went wrong during the import');
 		}
 	};
+
+	const handleRejected = async (event: CustomEvent<any>) => {
+		// console.log('rejected');
+		hover = false;
+		toast.error('Non-valid file(s) , make sure your are only importing jpeg, png, bmp or webp.');
+	};
 </script>
 
 <Dropzone
+	on:droprejected={handleRejected}
 	on:dropaccepted={handleAccepted}
 	on:dragover={() => (hover = true)}
 	on:dragleave={() => (hover = false)}

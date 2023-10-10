@@ -124,7 +124,7 @@ async function fetchBlobFromUrl(blobUrl: string): Promise<Blob> {
     return await response.blob();
 }
 
-// Save simple jpg
+// Save one format
 export const downloadFile = (imageData: Blob | string, formatName: string, imageName: string, imageType: string) => {
     saveAs(imageData, omitExt(imageName) + ' - ' + cleanFormatName(formatName) + '.' + simpleImageType(imageType));
 };
