@@ -9,6 +9,7 @@
 
 	import { FolderDown, AlertTriangle, FileDown } from 'lucide-svelte';
 	import Button from '../ui/button/button.svelte';
+	import { createEventDispatcher } from 'svelte';
 
 	export let image: Picture;
 	export let formats: Format[];
@@ -21,7 +22,19 @@
 
 	$: imageData = createDataUrl(image.blob, image.type);
 
-	const previewCrop = (e: CustomEvent) => (pixelCrop = e.detail.pixels);
+	const dispatch = createEventDispatcher();
+	const previewCrop = (e: CustomEvent) => {
+		pixelCrop = e.detail.pixels;
+
+		const customEvent = new CustomEvent('send-data-to-parent', {
+			detail: {
+				pixelCrop,
+				formats,
+				imageData
+			} // Pass the data you want to send in the event detail
+		});
+		dispatch('send-data-to-parent', customEvent);
+	};
 </script>
 
 <section class="flex flex-col gap-2">
@@ -29,9 +42,9 @@
 
 	<div class="flex gap-2 overflow-x-auto overflow-y-hidden pb-2 pt-1 items-baseline">
 		<!-- * Download each formats -->
-		{#each formats as size}
-			{@const width = size.width ? size.width : pixelCrop.width}
-			{@const height = size.height ? size.height : pixelCrop.height}
+		{#each formats as format}
+			{@const width = format.width ? format.width : pixelCrop.width}
+			{@const height = format.height ? format.height : pixelCrop.height}
 			{@const formatSize = width + 'px × ' + height + 'px'}
 			{@const sizeAlert =
 				(image.width && width > image.width) || (image.height && height > image.height)}
@@ -45,7 +58,7 @@
 					: formatSize}
 				on:click={async () => {
 					croppedImage = await getCroppedImg(imageData, pixelCrop, { width, height }, image.type);
-					if (croppedImage) downloadFile(croppedImage, size.name, image.name, image.type);
+					if (croppedImage) downloadFile(croppedImage, format.name, image.name, image.type);
 				}}
 			>
 				{#if sizeAlert}
@@ -53,7 +66,7 @@
 				{:else}
 					<FileDown class="mr-2 h-4 w-4" />
 				{/if}
-				{size.name}
+				{format.name}
 			</Button>
 		{/each}
 
@@ -73,17 +86,16 @@
 	</div>
 
 	<!-- * Cropper interface -->
-	{#key ratio}
-		<div class="relative w-full h-full cropper min-h-[500px]" transition:slide>
-			<Cropper
-				image={imageData}
-				aspect={ratio}
-				bind:crop
-				bind:zoom
-				maxZoom={2.5}
-				zoomSpeed={0.3}
-				on:cropcomplete={previewCrop}
-			/>
-		</div>
-	{/key}
+
+	<div class="relative w-full h-full cropper min-h-[500px]" transition:slide>
+		<Cropper
+			image={imageData}
+			aspect={ratio}
+			bind:crop
+			bind:zoom
+			maxZoom={2.5}
+			zoomSpeed={0.3}
+			on:cropcomplete={previewCrop}
+		/>
+	</div>
 </section>

@@ -34,3 +34,10 @@ export type PixelCrop = {
     width: number;
     height: number;
 };
+
+
+export type childData = {
+    pixelCrop: PixelCrop,
+    formats: Array<Format>,
+    imageData: string
+}

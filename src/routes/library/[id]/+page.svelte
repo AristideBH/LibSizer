@@ -8,18 +8,20 @@
 	import * as Alert from '$lib/components/ui/alert';
 	import { Badge } from '$lib/components/ui/badge';
 
-	import type { Picture } from '$lib/types';
+	import type { Picture, childData } from '$lib/types';
 	import { db } from '$lib/logic/db';
 	import { selectedB, findBundleByValue, getUniqueRatios2 } from '$lib/components/bundles';
-	import { simpleImageType } from '$lib/components/images/canvasUtils';
+	import { handleBundleDownload, simpleImageType } from '$lib/components/images/canvasUtils';
 	import BundleSelector from '$lib/components/bundles/BundleSelector.svelte';
 	import Cropper from '$lib/components/images/Cropper.svelte';
 	import LibraryList from '$lib/components/images/LibraryList.svelte';
 	import Loading from '$lib/components/Loading.svelte';
+	import { onMount } from 'svelte';
 
 	export let data: PageData;
 	let isLoading = true;
 	let image: Picture | null = null;
+	let testElement: HTMLElement;
 
 	$: imageQuery = liveQuery(async () => {
 		try {
@@ -38,6 +40,23 @@
 	$: selectedBundleDetail =
 		$bundles && $selectedB && browser ? findBundleByValue($selectedB?.value, $bundles) : undefined;
 	$: ratioList = browser ? getUniqueRatios2(selectedBundleDetail?.formats) : undefined;
+
+	let childsData: childData[] = [];
+
+	function handleDataFromChild(event: CustomEvent<any>) {
+		const dataFromChild = event.detail.detail;
+		// Check if an object with the same 'imageData' exists in childsData
+		const existingIndex = childsData.findIndex(
+			(item) => item.imageData === dataFromChild.imageData
+		);
+		if (existingIndex !== -1) {
+			// If it exists, update the pixelCrop
+			childsData[existingIndex].pixelCrop = dataFromChild.pixelCrop;
+		} else {
+			// If not, add the new data to the array
+			childsData.push(dataFromChild);
+		}
+	}
 </script>
 
 <svelte:head>
@@ -53,20 +72,22 @@
 	{#if isLoading}
 		<Loading />
 	{:else if image}
-		<div class="flex flex-col gap-3 sticky top-0 z-50">
+		<div class="flex flex-col gap-3 sticky top-0 z-50" bind:this={testElement}>
 			<h1>{image.name}</h1>
 			<div class="flex gap-2">
 				<Badge variant="outline">{image.width}px × {image.height}px</Badge>
 				<Badge variant="outline">{simpleImageType(image.type)}</Badge>
 			</div>
-			<Button size="lg">
-				<MonitorDown class="mr-2 h-4 w-4" />
-				Download the whole bundle
-			</Button>
+			{#if childsData && image}
+				<Button size="lg" on:click={() => handleBundleDownload(childsData, image)}>
+					<MonitorDown class="mr-2 h-4 w-4" />
+					Download the whole bundle
+				</Button>
+			{/if}
 		</div>
 		{#if ratioList}
 			{#each ratioList as { ratio, formats }}
-				<Cropper {image} {ratio} {formats} />
+				<Cropper {image} {ratio} {formats} on:send-data-to-parent={handleDataFromChild} />
 			{/each}
 		{/if}
 	{:else}

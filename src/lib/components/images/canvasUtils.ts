@@ -1,4 +1,4 @@
-import type { PixelCrop, Format } from '$lib/types';
+import type { PixelCrop, Format, Picture, childData } from '$lib/types';
 import Fraction from 'fraction.js';
 import { saveAs } from 'file-saver';
 import JSZip from 'jszip';
@@ -141,8 +141,8 @@ export const handleAspectDownload = async (
     const zip = new JSZip();
 
     for (const format of formats) {
-        const width = format.width ? format.width : pixelCrop.width;
-        const height = format.height ? format.height : pixelCrop.height;
+        const width = format.width ?? pixelCrop.width;
+        const height = format.height ?? pixelCrop.height;
         croppedImage = await getCroppedImg(imageData, pixelCrop, { width, height }, imageType);
         if (croppedImage) {
             const croppedImageBlob = await fetchBlobFromUrl(croppedImage);
@@ -152,3 +152,31 @@ export const handleAspectDownload = async (
     const blob = await zip.generateAsync({ type: 'blob' });
     saveAs(blob, omitExt(imageName));
 };
+
+// Download the whole bundle
+export const handleBundleDownload = async (
+    data: childData[],
+    image: Picture | null
+) => {
+    const imageType = image?.type ?? '';
+    const imageName = image?.name ?? '';
+    const zip = new JSZip();
+
+    for (const aspect of data) {
+        const { pixelCrop, imageData, } = aspect
+
+        for (const format of aspect.formats) {
+            const width = format.width ?? pixelCrop.width;
+            const height = format.height ?? pixelCrop.height;
+            const croppedImage = await getCroppedImg(imageData, pixelCrop, { width, height }, imageType);
+            if (croppedImage) {
+                const croppedImageBlob = await fetchBlobFromUrl(croppedImage);
+                zip.file(omitExt(imageName) + ' - ' + cleanFormatName(format.name) + '.' + simpleImageType(imageType), croppedImageBlob);
+            }
+
+        }
+    }
+
+    const blob = await zip.generateAsync({ type: 'blob' });
+    saveAs(blob, omitExt(imageName) + ' - Resizes');
+}

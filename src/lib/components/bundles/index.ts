@@ -4,19 +4,12 @@ import { writable } from '@macfja/svelte-persistent-store';
 
 import type { Bundle, Format } from '$lib/types';
 import { db } from '$lib/logic/db';
-import { Instagram, Mousquetaires, Standard, Visa } from '$lib/components/bundles/defaultBundles';
+import { Instagram, Mousquetaires, Standard, Visa, Test } from '$lib/components/bundles/defaultBundles';
 import { browser } from '$app/environment';
-
-///////////////////////////////////////////////////////////////////////////////////////////
-// ! WARNING
-// When creating a new bundle and naming the different formats,
-// pleasebe sure to omit any of the following character in the 'name' key :
-// \ / : * ? " < > |
-// This will break the naming convention when exporting zip file, resulting in an inappropriate file name.
 
 // * Prepolulate data
 const initialBundles: Bundle[] = [
-    Standard, Instagram, Visa, Mousquetaires
+    Standard, Instagram, Visa, Mousquetaires, Test
 ];
 
 // * Selected Bundle Store

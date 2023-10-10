@@ -4,9 +4,10 @@
 	import { Plus, Minus } from 'lucide-svelte';
 	import * as Form from '$lib/components/ui/form';
 	import { Button } from '$lib/components/ui/button';
+	import { type Form as Formsnap } from 'formsnap';
 
 	//@ts-ignore
-	export let config;
+	export let config: Formsnap<Schema>;
 	const { form, errors } = getForm<Schema>();
 </script>
 
@@ -65,7 +66,7 @@
 			<Form.Item>
 				<Form.Label>Height</Form.Label>
 				<Form.Input type="number" placeholder="px" autocomplete="off" />
-				<!-- <Form.Validation /> -->
+				<Form.Validation />
 			</Form.Item>
 		</Form.Field>
 	</div>
