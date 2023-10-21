@@ -63,11 +63,11 @@
 	<LibraryList />
 </aside>
 
-<main class="lg:col-span-8 xl:col-span-9 flex flex-col grow sticky top-24 gap-12">
+<main class="sticky flex flex-col gap-12 lg:col-span-8 xl:col-span-9 grow top-24">
 	{#if isLoading}
 		<Loading />
 	{:else if image}
-		<div class="flex flex-col gap-3 sticky top-0 z-50" bind:this={testElement}>
+		<div class="sticky top-0 z-50 flex flex-col gap-3" bind:this={testElement}>
 			<h1>{image.name}</h1>
 			<div class="flex gap-2">
 				<Badge variant="outline">{image.width}px × {image.height}px</Badge>
@@ -75,7 +75,7 @@
 			</div>
 			{#if childsData && image}
 				<Button size="lg" on:click={() => handleBundleDownload(childsData, image)}>
-					<FolderArchive class="mr-2 h-4 w-4" />
+					<FolderArchive class="w-4 h-4 mr-2" />
 					Download the whole bundle
 				</Button>
 			{/if}
@@ -87,7 +87,7 @@
 		{/if}
 	{:else}
 		<Alert.Root>
-			<ImageOff class="h-4 w-4" />
+			<ImageOff class="w-4 h-4" />
 			<Alert.Title>Image is missing</Alert.Title>
 			<Alert.Description>
 				Please go back to the <a href="/">homescreen</a> and load up your images.

@@ -2,10 +2,10 @@
 	import Logo from './Logo.svelte';
 </script>
 
-<section class="flex flex-col text-center max-w-lg mx-auto gap-2">
+<section class="flex flex-col max-w-lg gap-2 mx-auto text-center">
 	<Logo class="mx-auto" />
 	<h1>Welcome to Libsizer</h1>
-	<p class="lead mt-4">
+	<p class="mt-4 lead">
 		Libsizer is a tool allowing you to quickly crop and resize your picture library to multiple
 		formats.
 	</p>

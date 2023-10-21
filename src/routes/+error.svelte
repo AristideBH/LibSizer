@@ -6,7 +6,7 @@
 
 <div class="container col-span-full">
 	<Alert.Root>
-		<AlertCircle class="h-4 w-4" />
+		<AlertCircle class="w-4 h-4" />
 		<Alert.Title>{$page.status}</Alert.Title>
 		<Alert.Description>{$page.error?.message}</Alert.Description>
 	</Alert.Root>

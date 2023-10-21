@@ -17,8 +17,8 @@
 	{@html `<script>${autoModeWatcher.toString()} autoModeWatcher();</script>`}
 </svelte:head>
 
-<header class="py-5 sticky top-0 bg-background border-b z-50">
-	<div class="container flex justify-between items-center">
+<header class="sticky top-0 z-50 py-5 border-b bg-background">
+	<div class="container flex items-center justify-between">
 		<div class="flex gap-2">
 			<Sidebar />
 			<a href="/" class="no-underline">
@@ -30,7 +30,7 @@
 			</a>
 		</div>
 
-		<div class="flex gap-5 items-center">
+		<div class="flex items-center gap-5">
 			<!-- <ThemeSwitcher /> -->
 
 			<div class="flex gap-1">
@@ -63,7 +63,7 @@
 
 {#key $page.route.id}
 	<div
-		class="container main my-5 flex flex-col lg:grid lg:grid-cols-12 gap-x-8 gap-y-5 grow"
+		class="container flex flex-col items-start my-5 main lg:grid lg:grid-cols-12 gap-x-8 gap-y-5 grow"
 		in:flyAndScale={{ start: 0.99 }}
 	>
 		<slot />

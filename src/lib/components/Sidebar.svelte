@@ -23,14 +23,14 @@
 	</Sheet.Trigger>
 
 	<Sheet.Content side="left" class="p-4">
-		<Sheet.Header class="flex flex-row gap-2 justify-between items-center">
-			<div class="flex gap-2 items-center">
+		<Sheet.Header class="flex flex-row items-center justify-between gap-2">
+			<div class="flex items-center gap-2">
 				<Logo class="h-9 w-9 stroke-[1.5px]" />
 				<div class="font-bold text-2xl !mt-0">LibSizer</div>
 			</div>
 			<Sheet.Close asChild let:builder>
 				<Button builders={[builder]} type="button" size="icon" variant="outline" class="!mt-0">
-					<X class="h-4 w-4" />
+					<X class="w-4 h-4" />
 				</Button>
 			</Sheet.Close>
 		</Sheet.Header>

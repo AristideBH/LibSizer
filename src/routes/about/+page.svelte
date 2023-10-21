@@ -6,10 +6,10 @@
 	<title>About LibSizer</title>
 </svelte:head>
 
-<main class="lg:col-span-8 xl:col-span-9 flex flex-col grow gap-16 my-10 overflow-auto">
-	<section class="lg:max-w-2xl flex flex-col gap-4">
+<main class="flex flex-col gap-16 my-10 overflow-auto lg:col-span-8 xl:col-span-9 grow">
+	<section class="flex flex-col gap-4 lg:max-w-2xl">
 		<h1>About</h1>
-		<p class="lead mt-6 text-balance">
+		<p class="mt-6 lead text-balance">
 			Do you need to crop multiple images to specific formats or dimensions?
 			<br />LibSizer is the tool for you!
 		</p>
@@ -19,9 +19,9 @@
 			library!
 		</p>
 	</section>
-	<section class=" flex flex-col gap-6">
+	<section class="flex flex-col gap-6">
 		<h2>Usage</h2>
-		<ol class="list-decimal pl-6 space-y-2">
+		<ol class="pl-6 space-y-2 list-decimal">
 			<li>Choose your dimensions set in the setting modal.</li>
 			<li>Load your photos in the <code>Library</code> sidebar with the dedicated filezone.</li>
 			<li>Select one of your photo from your loaded photos.</li>
@@ -38,7 +38,7 @@
 			<li>You can use the dedicated button to donwload specific dimensions or ratio bundle.</li>
 		</ol>
 	</section>
-	<section class=" flex flex-col gap-6">
+	<section class="flex flex-col gap-6">
 		<h2>Roadmap</h2>
 		<p class="text-balance">
 			I'm currently building the tool as I go, and have a lot of work still needed. Adding new
@@ -49,7 +49,7 @@
 			keep this updated.
 		</p>
 	</section>
-	<section class=" flex flex-col gap-6">
+	<section class="flex flex-col gap-6">
 		<h2>Issue reporting</h2>
 		<p class="text-balance">
 			LibSizer is my first big public project. I maintain it on my free time as a hobby and
@@ -68,7 +68,7 @@
 
 <aside class="my-12">
 	<h2>About the author</h2>
-	<p class="lead mt-2 flex gap-3 items-center">
+	<p class="flex items-center gap-3 mt-2 lead">
 		<Avatar.Root>
 			<Avatar.Image src="https://avatars.githubusercontent.com/u/11951633?v=4" alt="@AristideBH" />
 			<Avatar.Fallback>A</Avatar.Fallback>

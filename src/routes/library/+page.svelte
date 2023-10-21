@@ -32,7 +32,7 @@
 	{#if $images}
 		{#if $images.length < 1}
 			<Alert.Root class="max-w-2xl mx-auto">
-				<ImageOff class="h-4 w-4" />
+				<ImageOff class="w-4 h-4" />
 				<Alert.Title>No images are loaded</Alert.Title>
 				<Alert.Description>Please import some with the dropzone.</Alert.Description>
 			</Alert.Root>
@@ -40,7 +40,7 @@
 			<Masonry bind:refreshLayout gridGap="16px">
 				{#each $images as image}
 					<Card.Root class="group" onClick={() => cardLink(image.id)}>
-						<Card.Content class="px-0 pb-0 relative">
+						<Card.Content class="relative px-0 pb-0">
 							<img
 								on:load={refreshLayout}
 								src={getSrc(image)}
@@ -50,16 +50,16 @@
 							<Button
 								variant="outline"
 								size="icon"
-								class=" hidden group-hover:flex absolute top-2 right-2 z-10"
+								class="absolute z-10 hidden  group-hover:flex top-2 right-2"
 								on:click={(e) => {
 									e.stopPropagation();
 									deleteImage(image.id);
 								}}
 							>
-								<Trash class="h-4 w-4" />
+								<Trash class="w-4 h-4" />
 							</Button>
 						</Card.Content>
-						<Card.Footer class="flex gap-4 items-center overflow-x-auto overflow-y-hidden pt-6 ">
+						<Card.Footer class="flex items-center gap-4 pt-6 overflow-x-auto overflow-y-hidden ">
 							<span class="font-semibold whitespace-nowrap">
 								{image.name}
 							</span>

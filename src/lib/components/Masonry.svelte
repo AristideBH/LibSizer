@@ -37,23 +37,21 @@
 				);
 				/* if we have more than one column */
 				if (grid.ncol > 1) {
-					grid.items
-						.slice(ncol)
-						.forEach(
-							(
-								c: {
-									getBoundingClientRect: () => { (): any; new (): any; top: any };
-									style: { marginTop: string };
-								},
-								i: string | number
-							) => {
-								let prev_fin =
-										grid.items[i].getBoundingClientRect().bottom /* bottom edge of item above */,
-									curr_ini = c.getBoundingClientRect().top; /* top edge of current item */
+					grid.items.slice(ncol).forEach(
+						(
+							c: {
+								getBoundingClientRect: () => { (): any; new (): any; top: any };
+								style: { marginTop: string };
+							},
+							i: string | number
+						) => {
+							let prev_fin =
+									grid.items[i].getBoundingClientRect().bottom /* bottom edge of item above */,
+								curr_ini = c.getBoundingClientRect().top; /* top edge of current item */
 
-								c.style.marginTop = `${prev_fin + grid.gap - curr_ini}px`;
-							}
-						);
+							c.style.marginTop = `${prev_fin + grid.gap - curr_ini}px`;
+						}
+					);
 				}
 
 				grid.mod = 0;
