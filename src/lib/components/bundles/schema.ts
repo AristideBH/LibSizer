@@ -1,8 +1,8 @@
 import { z } from 'zod'
 
-export const emptyFormat = { name: '', width: undefined, height: undefined }
+export const emptyFormat = { name: 'default', width: 10, height: 10 }
 
-export const schema = z.object({
+export const formSchema = z.object({
     bundleName: z.string().refine(
         (value) => value.length >= 2 && value.length <= 50,
         { message: "Bundle name must be between 2 and 50 characters" }
@@ -19,12 +19,11 @@ export const schema = z.object({
             height: z.number().int().refine(
                 (value) => value >= 10, { message: "Min: 10px" }
             ),
-        }).array()
-            //@ts-expect-error : Defaults bundles are intentionnaly undefined for 'width' and 'height'
-            .default([
-                emptyFormat,
-                { ...emptyFormat }
-            ])
+        })
+            .array()
+            // .default([
+            //     emptyFormat
+            // ])
             .refine((formats) => {
                 const names: string[] = [];
                 for (const format of formats) {
@@ -35,4 +34,4 @@ export const schema = z.object({
             }, { message: "Each format name must be unique" })
 })
 
-export type Schema = typeof schema;
+export type FormSchema = typeof formSchema;
