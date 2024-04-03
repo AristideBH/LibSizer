@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Dropzone from 'svelte-file-dropzone/Dropzone.svelte';
+	import Dropzone from 'svelte-file-dropzone';
 	import { ImagePlus } from 'lucide-svelte';
 	import { toast } from 'svelte-sonner';
 	import { goto } from '$app/navigation';
@@ -63,7 +63,7 @@
 	disableDefaultStyles={true}
 	containerClasses="cn-dropzone {className} {hoverClass}"
 >
-	<ImagePlus class="mb-5 w-12 h-12 stroke-primary stroke-1" />
+	<ImagePlus class="w-12 h-12 mb-5 stroke-1 stroke-primary" />
 
 	{#if $imageAddLoading}
 		<Loading />
