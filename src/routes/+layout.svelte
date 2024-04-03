@@ -1,67 +1,73 @@
 <script lang="ts">
-	// STYLE SETUP
-	import '$lib/css/theme.css';
-	import '@skeletonlabs/skeleton/styles/all.css';
 	import '../app.postcss';
+	import { page } from '$app/stores';
+	import { autoModeWatcher } from '$lib/logic/theme';
+	import { flyAndScale } from '$lib/logic/utils';
+	import { Toaster } from 'svelte-sonner';
 
-	// LIBS IMPORT
-	import type { PageData } from './$types';
-	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
-	import { drawerOpen, modalSettingsOpen, modalComponentRegistry } from '$lib/utils';
-	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
-
-	// COMPONENTS IMPORT
-	// prettier-ignore
-	import { AppShell, Drawer, Toast, Modal, ProgressBar, autoModeWatcher, storePopup } from '@skeletonlabs/skeleton';
-	import ListPhotos from '$lib/components/ListPhotos.svelte';
-	import Header from '$lib/components/Header.svelte';
-	import Footer from '$lib/components/Footer.svelte';
-	import PageTransition from '$lib/components/PageTransition.svelte';
-
-	export let data: PageData;
+	import { FormInput, Github, Info, Library } from 'lucide-svelte';
+	import { Button } from '$lib/components/ui/button';
+	import { Badge } from '$lib/components/ui/badge';
+	import ThemeSwitcher from '$lib/components/ThemeSwitcher.svelte';
+	import Logo from '$lib/components/Logo.svelte';
+	import Sidebar from '$lib/components/Sidebar.svelte';
 </script>
 
 <svelte:head>
-	<title>Crop your library easily</title>
 	{@html `<script>${autoModeWatcher.toString()} autoModeWatcher();</script>`}
-	<meta name="theme-color" content="#e3e3e3" media="(prefers-color-scheme: light)" />
-	<meta name="theme-color" content="#202020" media="(prefers-color-scheme: dark)" />
-
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
 </svelte:head>
 
-<svelte:window on:load={() => drawerOpen()} />
+<header class="sticky top-0 z-50 py-5 border-b bg-background">
+	<div class="container flex items-center justify-between">
+		<div class="flex gap-2">
+			<Sidebar />
+			<a href="/" class="no-underline">
+				<div class="flex gap-2 text-3xl font-extrabold tracking-tight">
+					<Logo class="!h-10 !w-10 !stroke-[1.35] stroke-foreground hidden lg:block" />
 
-<Toast position="t" max={Number(2)} />
+					LibSizer
+				</div>
+			</a>
+		</div>
 
-<Modal
-	shadow="shadow-xl"
-	components={modalComponentRegistry}
-	regionBackdrop="bg-surface-50-900-token "
-/>
+		<div class="flex items-center gap-5">
+			<!-- <ThemeSwitcher /> -->
 
-<Drawer rounded="rounded-none" bgBackdrop="bg-surface-50-900-token ">
-	<ListPhotos />
-</Drawer>
+			<div class="flex gap-1">
+				<Button
+					variant="outline"
+					size="icon"
+					href="https://github.com/AristideBH/LibSizer"
+					target="_blank"
+					title="Github project page"
+				>
+					<Github />
+				</Button>
 
-<AppShell
-	regionPage="relative "
-	slotPageHeader="border-b border-surface-200-700-token bg-surface-50-900-token z-30"
-	slotSidebarRight="bg-surface-50-900-token w-0 border-l border-surface-200-700-token lg:max-w-xl lg:min-w-[380px]"
->
-	<svelte:fragment slot="pageHeader">
-		<Header handleLibClick={drawerOpen} handleCogClick={modalSettingsOpen} />
-	</svelte:fragment>
+				<Button variant="outline" size="icon" href="/about" title="About LibSizer">
+					<Info />
+				</Button>
+				<Button
+					href="/library"
+					title="View your library"
+					size="icon"
+					class="no-underline md:ms-2 md:h-10 md:px-4 md:py-2 md:h-unset md:w-fit "
+				>
+					<Library class="md:mr-1" />
+					<span class="hidden md:block">Library</span>
+				</Button>
+			</div>
+		</div>
+	</div>
+</header>
 
-	<svelte:fragment slot="sidebarRight">
-		<ListPhotos />
-	</svelte:fragment>
-
-	<PageTransition pathname={data.pathName}>
+{#key $page.route.id}
+	<div
+		class="container flex flex-col items-start my-5 main lg:grid lg:grid-cols-12 gap-x-8 gap-y-5 grow"
+		in:flyAndScale={{ start: 0.99 }}
+	>
 		<slot />
-	</PageTransition>
+	</div>
+{/key}
 
-	<svelte:fragment slot="pageFooter"><Footer /></svelte:fragment>
-</AppShell>
-
-<ProgressBar />
+<Toaster position="bottom-center" theme="system" richColors />

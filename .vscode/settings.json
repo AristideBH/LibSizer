@@ -1,4 +1,5 @@
 {
+	"hide-files.files": [".svelte-kit"],
 	"files.exclude": {
 		"**/.git": true,
 		"**/.svn": true,
@@ -6,10 +7,6 @@
 		"**/CVS": true,
 		"**/.DS_Store": true,
 		"**/Thumbs.db": true,
-		".svelte-kit": true,
-		".vscode": true,
-		"node_modules": true
-	},
-	"hide-files.files": [".svelte-kit", ".vscode", "node_modules"],
-	"svg.preview.background": "dark-transparent"
+		".svelte-kit": true
+	}
 }
