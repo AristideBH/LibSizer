@@ -24,6 +24,6 @@
 	</Card.Root>
 </aside>
 
-<main class="flex flex-col gap-6 overflow-auto">
+<main class="flex flex-col w-full gap-6 overflow-auto">
 	<BundleTable />
 </main>

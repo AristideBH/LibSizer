@@ -4,12 +4,12 @@ import { writable } from '@macfja/svelte-persistent-store';
 
 import type { Bundle, Format } from '$lib/types';
 import { db } from '$lib/logic/db';
-import { Instagram, Mousquetaires, Standard, Visa, Test } from '$lib/components/bundles/defaultBundles';
+import { Instagram, Standard, Test } from '$lib/components/bundles/defaultBundles';
 import { browser } from '$app/environment';
 
 // * Prepolulate data
 const initialBundles: Bundle[] = [
-    Standard, Instagram, Visa, Mousquetaires, Test
+    Standard, Instagram, Test
 ];
 
 // * Selected Bundle Store
@@ -68,6 +68,33 @@ export const deleteBundle = async (id: number | undefined) => {
         throw error; // Re-throw the error to propagate it to the caller if needed
     }
 };
+
+
+// * Edit the bundle by its ID
+export const editBundle = async (
+    id: number | undefined,
+    // bundleName: string,
+    // formatList: Format[]
+) => {
+    try {
+        if (id === undefined) {
+            // Handle the case where 'id' is undefined (e.g., if it's not provided or invalid)
+            throw new Error('Invalid bundle ID');
+        }
+        // const currentBundle = db.bundles.update(id, {
+        //     value: slugify(bundleName)
+        // })
+        // get current bundle
+        const currentBundle = await db.bundles.get(id);
+        console.log("Edited bundle: ", currentBundle);
+
+
+    } catch (error) {
+        // Handle the error gracefully
+        console.error('Error editing bundle:', error);
+        throw error; // Re-throw the error to propagate it to the caller if needed
+    }
+}
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////

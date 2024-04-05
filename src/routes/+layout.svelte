@@ -25,13 +25,13 @@
 				<div class="flex gap-2 text-3xl font-extrabold tracking-tight">
 					<Logo class="!h-10 !w-10 !stroke-[1.35] stroke-foreground hidden lg:block" />
 
-					LibSizer
+					LibSizer <sup class="top-0 text-sm font-bold tracking-wide text-foreground">WIP</sup>
 				</div>
 			</a>
 		</div>
 
-		<div class="flex items-center gap-5">
-			<!-- <ThemeSwitcher /> -->
+		<div class="top-0 flex items-center gap-5">
+			<ThemeSwitcher />
 
 			<div class="flex gap-1">
 				<Button
